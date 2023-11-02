@@ -1,17 +1,28 @@
 <template>
   <div id="app">
-    <About />
+    <loading-screen :is-loading="isLoading" @loadingComplete="isLoading = false" />
+    <main v-if="!isLoading">
+      <About />
+    </main>
   </div>
 </template>
 
 <script>
+import Loading from './components/Loading.vue';
 import About from './components/About.vue';
 
 export default {
   components: {
     About,
+    'loading-screen':Loading, 
+  },
+  data() {
+    return {
+      isLoading: true,
+    };
   },
 };
+
 </script>
 
 
