@@ -3,6 +3,7 @@
     <loading-screen :is-loading="isLoading" @loadingComplete="isLoading = false" />
     <main v-if="!isLoading">
       <About />
+      <Sidebar />
     </main>
   </div>
 </template>
@@ -10,11 +11,13 @@
 <script>
 import Loading from './components/Loading.vue';
 import About from './components/About.vue';
+import Sidebar from './components/Sidebar.vue';
 
 export default {
   components: {
     About,
-    'loading-screen':Loading, 
+    'loading-screen':Loading,
+    Sidebar, 
   },
   data() {
     return {
