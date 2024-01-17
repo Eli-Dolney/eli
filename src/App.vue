@@ -2,8 +2,13 @@
   <div id="app">
     <loading-screen :is-loading="isLoading" @loadingComplete="isLoading = false" />
     <main v-if="!isLoading">
+      <Header />
+      
       <About />
       <Sidebar />
+      <Projects />
+      <Contact />
+      
     </main>
   </div>
 </template>
@@ -12,12 +17,21 @@
 import Loading from './components/Loading.vue';
 import About from './components/About.vue';
 import Sidebar from './components/Sidebar.vue';
+import Contact from './components/Contact.vue';
+import Centerpiece from './components/Centerpiece.vue';
+import Header from './components/Header.vue';
+import Projects from './components/Projects.vue';
 
 export default {
   components: {
+    Centerpiece,
+    Header,
     About,
     'loading-screen':Loading,
-    Sidebar, 
+    Sidebar,
+    Projects, 
+    Contact,
+    
   },
   data() {
     return {
@@ -30,6 +44,7 @@ export default {
 
 
 <style scoped>
+
 .logo {
   height: 6em;
   padding: 1.5em;

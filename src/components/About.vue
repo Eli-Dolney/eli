@@ -45,7 +45,7 @@
   </template>
   
   <script>
-import imageSrcImport from '../assets/images/juice.jpg';
+import imageSrcImport from '../assets/images/about.jpg';
 
 
 export default {
@@ -66,7 +66,8 @@ export default {
   }
   
   .section-wrapper {
-    width: 85%;
+    max-width: 1200px;
+    width: 100%;
     margin: 0 auto;
     
   }
@@ -82,11 +83,12 @@ export default {
     background-color: #0D0D0D;
     background-color: #1A1E26;
     
+    
   }
   
   h2 {
     text-align: center;
-    font-size: 3rem;
+    font-size: 3vw;
     margin-bottom: 20px;
     color: aliceblue;
   }
@@ -99,6 +101,7 @@ export default {
   
   .about-image {
     flex: 1; /* Set the proportion of the about-image to be 1/3 */
+    height: auto;
     text-align: center;
   }
   
