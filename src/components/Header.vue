@@ -14,7 +14,7 @@
     </div>
     <Teleport to="body">
       <div v-if="open" class="modal">
-        <p>Website is work in progress some elements and styles might be not work properly</p>
+        <p>Website is work in progress some elements and styles might be not work properly !</p>
         <button @click="open = false" class="close-modal-button">Close</button>
       </div>
     </Teleport>
