@@ -44,7 +44,7 @@
         rgba(90, 81, 81, 0.7),
         rgba(0, 0, 0, 0.7)
       ),
-      url(..\assets\images\IMG_0455.jpg);
+      url(../assets/images/IMG_0455.jpg);
     
     background-size: cover;
     background-position: center;
