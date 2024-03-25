@@ -43,14 +43,15 @@
   display: flex;
   justify-content: flex-start;
   right: 0;
+  z-index: 2000;
+  position: relative;
 }
 
 ul {
   position: fixed;
   transform: rotate(-70) skew(20deg, 15deg);
   list-style-type: none;
-  float: right;
-
+  float: left;
   top: 50%;
   transform: translateY(-50%);
 }

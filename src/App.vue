@@ -1,11 +1,13 @@
 <template>
+  
   <div id="app">
+    <Sidebar />
     <loading-screen :is-loading="isLoading" @loadingComplete="isLoading = false" />
     <main v-if="!isLoading">
       <Header />
       
       <About />
-      <Sidebar />
+      
       <Projects />
       <Contact />
       
@@ -43,7 +45,29 @@ export default {
 </script>
 
 
-<style scoped>
+<style>
+
+
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  
+  background-color: purple;
+  
+  
+  
+}
+
+
+main {
+  background-color: #283040; /* Change this to your desired background color */
+  position: relative;
+  z-index: 1;
+  
+}
+
 
 .logo {
   height: 6em;

@@ -327,7 +327,7 @@
   
   .screen-content > .name-wrapper > .name {
     font-family: "Source Code Pro", monospace;
-    color: white;
+    color: black;
     text-align: center;
     text-transform: uppercase;
     font-size: 2.2rem;

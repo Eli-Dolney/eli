@@ -58,81 +58,118 @@ export default {
 };
 </script>
   
-  <style scoped>
+<style scoped>
+  :root {
+    --text-color: aliceblue;
+    --background-dark: #1A1E26;
+    --background-light: #0D0D0D;
+    --accent-color: #DB2EF2;
+    --base-spacing: 40px;
+    --font-size-base: 1rem;
+    --font-size-title: 2.5rem;
+  }
+
   #about {
-    padding: 50px 0;
-    
-    background-color: #0D0D0D;
+    padding: var(--base-spacing) 0;
+    background-color: var(--background-dark);
   }
   
   .section-wrapper {
     max-width: 1200px;
     width: 100%;
     margin: 0 auto;
-    
+    padding: var(--base-spacing);
+    box-sizing: border-box;
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.2), 0 4px 25px 0 rgba(0, 0, 0, 0.1);
   }
   
   .about-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: stretch;
-    padding: 40px;
-    width: 100%;
-    box-sizing: border-box;
-    box-shadow: inset 0 0 10px #DB2EF2;
-    background-color: #0D0D0D;
-    background-color: #1A1E26;
-    
-    
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    gap: var(--base-spacing);
+    justify-content: center;
+    align-items: start;
+    background-color: var(--background-light);
   }
   
   h2 {
+    font-size: var(--font-size-title);
+    color: var(--text-color);
+    margin-bottom: var(--base-spacing);
     text-align: center;
-    font-size: 3vw;
-    margin-bottom: 20px;
-    color: aliceblue;
   }
   
   .about-text {
-    flex: 2; /* Set the proportion of the about-text to be 2/3 */
-    padding-right: 50px;
-    color: aliceblue;
+    color: var(--text-color);
+    text-align: left;
   }
   
   .about-image {
-    flex: 1; /* Set the proportion of the about-image to be 1/3 */
-    height: auto;
-    text-align: center;
+    justify-self: center;
+    overflow: hidden;
+    border-radius: 10px;
   }
   
   .about-image img {
+    width: auto;
     max-width: 100%;
-    border-radius: 5px;
+    max-height: 500px;
+    border-radius: 10px;
+    transition: transform 0.3s ease-in-out;
   }
-  
-  .profile-image {
-    width: 100%;
-    height: 350px;
-    object-fit: cover;
+
+  .about-image img:hover {
+    transform: scale(1.03);
   }
   
   p {
-    font-size: 1.1rem;
+    font-size: clamp(0.9rem, 1vw, 1.1rem); /* Responsive font size */
     line-height: 1.6;
   }
   
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .about-container {
+    animation: fadeInUp 1.8s ease-out forwards;
+  }
+  
+  @media (max-width: 1024px) {
+    .about-container {
+      grid-template-columns: 1fr;
+    }
+  
+    .about-text, .about-image {
+      width: 100%;
+    }
+
+    .about-image img {
+      max-height: 400px; /* Adjust image height for medium devices */
+    }
+  }
+
   @media (max-width: 768px) {
     .about-container {
-      flex-direction: column;
+      grid-template-columns: 1fr; /* Stack on smaller screens */
     }
   
     .about-text {
-      padding-right: 0;
-      margin-bottom: 30px;
+      order: 2; /* Ensure text comes after the image */
     }
-  
+
     .about-image {
-      width: 100%;
+      order: 1; /* Image first */
+      max-width: 80%; /* Smaller image on mobile */
+      margin: 0 auto; /* Center image */
     }
   }
-  </style>
+</style>
+

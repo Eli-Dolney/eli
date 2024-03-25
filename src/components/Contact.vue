@@ -84,8 +84,9 @@
   h1 {
     text-align: center;
     font-size: 3rem;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     color: aliceblue;
+    
   }
 
   /* Container styling */
@@ -98,6 +99,7 @@
     padding: 2rem;
     box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
     background-color: #0D0D0D;
+    
   }
 
   /* Accordion styling */
@@ -106,7 +108,7 @@
     gap: 0.5rem;
     padding: 0.5rem;
     margin-top: 2rem;
-    background-color: #0D0D0D;
+    background-color: #1A403C;
     width: 100%;
     justify-content: center;
     align-items: center;
@@ -119,7 +121,7 @@
     isolation: isolate;
     flex: 1;
     overflow: hidden;
-    padding: 0.5rem;
+    padding: 1rem;
     border-radius: 0.25rem;
     background-color: #1A1E26;
     box-shadow: inset 0 0 10px #DB2EF2;
