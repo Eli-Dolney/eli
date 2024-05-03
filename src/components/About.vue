@@ -62,7 +62,7 @@ export default {
   :root {
     --text-color: aliceblue;
     --background-dark: #1A1E26;
-    --background-light: #0D0D0D;
+    --background-light: #D6D9C1;
     --accent-color: #DB2EF2;
     --base-spacing: 40px;
     --font-size-base: 1rem;
@@ -70,17 +70,22 @@ export default {
   }
 
   #about {
-    padding: var(--base-spacing) 0;
-    background-color: var(--background-dark);
+    
+    background-color: #5C6A73; 
+    box-shadow: #D90452;
+    margin: 20px auto;
+    padding: 20px;
+    
   }
   
   .section-wrapper {
     max-width: 1200px;
     width: 100%;
-    margin: 0 auto;
+    padding: 20px;
+    margin: 20px auto;
     padding: var(--base-spacing);
     box-sizing: border-box;
-    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.2), 0 4px 25px 0 rgba(0, 0, 0, 0.1);
+    box-shadow: inset 0 0 10px #AED8F2;
   }
   
   .about-container {
@@ -90,6 +95,10 @@ export default {
     justify-content: center;
     align-items: start;
     background-color: var(--background-light);
+    box-shadow: inset 0 0 10px #9959D9;
+    margin: 20px auto;
+    padding: 20px;
+    width: 90%;
   }
   
   h2 {

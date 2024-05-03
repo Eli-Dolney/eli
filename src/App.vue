@@ -48,27 +48,38 @@ export default {
 <style>
 
 
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  
-  background-color: purple;
-  
-  
-  
+  display: flex; /* Use flex display */
+  flex-direction: row; /* Align children (sidebar and main) in a row */
+  height: 100vh; /* Make the app full height of the viewport */
+  background-color: #5C6A73;
+  color: #DCEAF2;
+  /* box-shadow: inset 0 0 10px #BFCFD9;*/
 }
 
 
-main {
-  background-color: #283040; /* Change this to your desired background color */
-  position: relative;
-  z-index: 1;
-  
+
+main > * {
+  margin: 20px;
+  padding: 20px;
+  flex: 1;
+  background-color: #5C6A73; /* Uniform color */
+
 }
 
 
+
+body{
+  background-color: #5C6A73;
+  margin: 50px;
+  padding: 50px;
+  
+}
 .logo {
   height: 6em;
   padding: 1.5em;

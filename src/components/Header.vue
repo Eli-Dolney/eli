@@ -53,12 +53,15 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    box-shadow: inset 0 0 10px #AED8F2;
     
     
   }
   
   .centerpiece-wrapper {
     transform: translateY(-20%);
+    
+    color: #DCEAF2;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -67,8 +70,8 @@
   }
   
   .open-modal-button {
-    background-color: white;
-    color: black;
+    background-color: #D95032;
+    color: #DCEAF2;
     border: none;
     border-radius: 5px;
     padding: 10px 20px;
@@ -78,7 +81,7 @@
   }
   
   .open-modal-button:hover {
-    background-color: #4a5364;
+    background-color: #BFCFD9;
   }
   
   .modal {
@@ -88,17 +91,17 @@
     left: 50%;
     width: 300px;
     margin-left: -150px;
-    background-color: #283040;
+    background-color: #5C6A73;
     border-radius: 10px;
     padding: 20px;
     font-size: 2rem;
-    color: white;
+    color: #DCEAF2;
     text-align: center;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
   
   .close-modal-button {
-    background-color: white;
+    background-color: #BFCFD9;
     color: black;
     border: none;
     border-radius: 5px;

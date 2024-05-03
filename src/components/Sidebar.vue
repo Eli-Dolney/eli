@@ -39,12 +39,18 @@
   </script>
   
   <style scoped>
-  nav.nav-two {
-  display: flex;
-  justify-content: flex-start;
-  right: 0;
-  z-index: 2000;
-  position: relative;
+nav.nav-two {
+    position: fixed;  /* Fix position to the left of the screen */
+    top: 0;           /* Align to the top */
+    bottom: 0;        /* Stretch to the bottom */
+    left: 0;          /* Align to the left */
+    width: 80px;      /* Set a specific width */
+    background-color: #BFCFD9;  /* Dark background for the sidebar */
+    z-index: 1000;    /* High z-index to keep it above other content */
+    display: flex;
+    flex-direction: column;  /* Stack items vertically */
+    align-items: center;     /* Center items horizontally */
+    overflow-y: auto;        /* Enable scrolling for overflow */
 }
 
 ul {

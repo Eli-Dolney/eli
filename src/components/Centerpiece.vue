@@ -64,7 +64,9 @@
       display: flex;
       flex-wrap: wrap; /* This will make the screens wrap to the next row on smaller screens */
       justify-content: center; /* Centers the screens horizontally */
-      gap: 20px; /* Add space between screens */
+      gap: 20px;
+       /* Add space between screens */
+      
   }
   
   .screen {
@@ -73,10 +75,12 @@
       border: 3px solid rgb(var(--primary-rgb) / 80%);
       aspect-ratio: 10 / 16;
       border-radius: 1rem;
+      border-color: #BFCFD9;
       background-color: rgb(var(--primary-rgb) / 15%);
       overflow: hidden;
       position: relative;
       z-index: 10;
+      
   }
   
   .screen:after,
@@ -214,6 +218,8 @@
       padding-bottom: 6rem;
       border: 1px solid rgb(var(--primary-rgb) / 50%);
       border-radius: 0.6rem;
+      
+      
     }
     
     .screen > .screen-content > .screen-icon {

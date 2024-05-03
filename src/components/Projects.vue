@@ -29,6 +29,8 @@
   <script>
 // Import the image just like you did in the "About" section
 import juiceImage from '../assets/images/juice.jpg';
+import Evj from '../assets/images/evj.jpg';
+import svelte from '../assets/images/svelte.jpg';
 
 export default {
   name: "Projects",
@@ -39,16 +41,16 @@ export default {
       // Make sure 'projects' is an array
       projects: [
         {
-          title: 'Eli’s First Project',
-          description: 'This is a detailed description of the first project...',
+          title: 'Svelte Link Tree Clone (In Progress)',
+          description: 'My first look into Svelte with fireship.io. Languages/Tools: Svelte, TypeScript, Firebase ',
           link: 'https://github.com/Eli-Dolney/eli',
-          imageSrc: juiceImage // Use the imported image
+          imageSrc: svelte // Use the imported image
         },
         {
           title: 'Job Tracker App',
           description: 'This is a detailed description of the job tracking application...',
           link: 'https://github.com/Eli-Dolney/jobtracker',
-          imageSrc: juiceImage // Use the imported image
+          imageSrc: Evj // Use the imported image
         },
         
         //{
@@ -78,8 +80,12 @@ export default {
   max-width: 1200px;
   margin: auto;
   padding: 2rem;
-  color: #EAEAEA; /* Adjusted text color for readability */
-  background-color: #1A1E26; /* Dark theme background */
+  color: #40181C; /* Adjusted text color for readability */
+  background-color: #737373; /* Dark theme background */
+}
+
+h2 {
+  color: #8C164D;
 }
 
 .projects-container {
@@ -87,24 +93,21 @@ export default {
   flex-wrap: wrap; /* Wrap for better responsiveness */
   gap: 2rem; /* Space between project cards */
   justify-content: center; /* Center cards */
+  padding: 20px;
 }
 
-.project-description {
-  flex: 1;
-  background-color: #252934; /* Card background */
+.project-description, .project-image {
+  flex: 1 1 300px; /* Flex basis set to 300px with grow and shrink */
+  max-width: 50%; /* Ensure each takes up no more than half the container width */
+  background-color: #403E3F; /* Card background for description */
   padding: 2rem;
   border-radius: 5px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease; /* Smooth transform on hover */
-  box-shadow: inset 0 0 10px #DB2EF2;
 }
 
-.project-description h3 {
-  color: #DB2EF2; /* Highlight project titles */
-}
-
-.project-description a {
-  color: #4E9F3D; /* CTA link color */
+.project-description h3, .project-description a {
+  color: #52B3D9; /* Highlight project titles and links */
   text-decoration: none;
   font-weight: bold;
 }
@@ -114,9 +117,9 @@ export default {
 }
 
 .project-image img {
-  max-width: 50%;
-  height: auto;
-  cursor: pointer;
+  width: 100%; /* Ensure image takes full width of its container */
+  height: auto; /* Maintain aspect ratio */
+  object-fit: cover; /* Cover the area without distorting the aspect ratio */
   border-radius: 5px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -137,7 +140,7 @@ export default {
 
 .modal button {
   padding: 0.5rem 1rem;
-  background-color: #DB2EF2; /* Example close button color */
+  background-color: #DB2EF2; /* Close button color */
   color: white;
   border: none;
   border-radius: 4px;
@@ -151,17 +154,18 @@ export default {
     flex-direction: column;
   }
 
-  .project-description {
+  .project-description, .project-image {
     width: 100%; /* Full width on smaller screens */
-    margin-bottom: 1rem;
+    max-width: 100%; /* Override previous max-width */
   }
 }
 
 @media (max-width: 992px) and (min-width: 769px) {
-  .project-description {
+  .project-description, .project-image {
     width: calc(50% - 1rem); /* Two items per row on medium screens */
   }
 }
 </style>
+
   
   
