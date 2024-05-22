@@ -1,39 +1,24 @@
 <template>
-  
   <div id="app">
+    <TopNavbar />
     <Sidebar />
     <loading-screen :is-loading="isLoading" @loadingComplete="isLoading = false" />
     <main v-if="!isLoading">
-      <Header />
-      
-      <About />
-      
-      <Projects />
-      <Contact />
-      
+      <router-view /> <!-- This will render the correct component based on the route -->
     </main>
   </div>
 </template>
 
 <script>
 import Loading from './components/Loading.vue';
-import About from './components/About.vue';
 import Sidebar from './components/Sidebar.vue';
-import Contact from './components/Contact.vue';
-import Centerpiece from './components/Centerpiece.vue';
-import Header from './components/Header.vue';
-import Projects from './components/Projects.vue';
+import TopNavbar from './components/TopNavbar.vue';
 
 export default {
   components: {
-    Centerpiece,
-    Header,
-    About,
-    'loading-screen':Loading,
+    TopNavbar,
+    'loading-screen': Loading,
     Sidebar,
-    Projects, 
-    Contact,
-    
   },
   data() {
     return {
@@ -41,54 +26,58 @@ export default {
     };
   },
 };
-
 </script>
 
-
 <style>
-
-
-
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  display: flex; /* Use flex display */
-  flex-direction: row; /* Align children (sidebar and main) in a row */
-  height: 100vh; /* Make the app full height of the viewport */
-  background-color: #5C6A73;
+  display: flex;
+  flex-direction: column; /* Change to column to stack TopNavbar, Sidebar, and main */
+  min-height: 100vh; /* Ensure the height is at least the viewport height */
+  background-color: #BFB2A3;
   color: #DCEAF2;
-  /* box-shadow: inset 0 0 10px #BFCFD9;*/
+  width: 100%;
 }
 
-
-
-main > * {
-  margin: 20px;
-  padding: 20px;
+main {
   flex: 1;
-  background-color: #5C6A73; /* Uniform color */
-
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center children horizontally */
+  justify-content: flex-start; /* Align children at the top */
+  width: 100%;
+  padding: 20px;
+  overflow-y: auto; /* Enable vertical scrolling */
 }
 
-
-
-body{
-  background-color: #5C6A73;
-  margin: 50px;
-  padding: 50px;
-  
+router-view {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start; /* Align content at the top */
 }
+
+body {
+  background-color: #BFB2A3;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;
-  will-change: filter;
   transition: filter 300ms;
 }
+
 .logo:hover {
   filter: drop-shadow(0 0 2em #646cffaa);
 }
+
 .logo.vue:hover {
   filter: drop-shadow(0 0 2em #42b883aa);
 }

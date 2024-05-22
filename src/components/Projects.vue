@@ -1,36 +1,82 @@
 <template>
-    <section id="projects">
-      <div class="section-wrapper">
-        <h2>My Projects</h2>
-        <p>Check out my portfolio website</p>
-        <div class="projects-container" v-for="(project, index) in projects" :key="index">
-          <div class="project-description">
-            <h3>{{ project.title }}</h3>
-            <p>{{ project.description }}</p>
-            <a :href="project.link" target="_blank">View Project</a>
-          </div>
-          <div class="project-image">
-            <img @click="openModal(project)" :src="project.imageSrc" alt="Project image" />
+  <section id="projects">
+    <div class="section-wrapper">
+      <h2>My Projects</h2>
+      <p>Check out some of the things I have been working on since I started coding!</p>
+      
+      <!-- Python Scripts Section -->
+      <div>
+        <h3>Python Scripts</h3>
+        <div class="projects-container">
+          <div v-for="(project, index) in projects.filter(p => p.category === 'Python Scripts')" :key="index" class="project-item">
+            <div class="project-description">
+              <h3>{{ project.title }}</h3>
+              <p>{{ project.description }}</p>
+              <a :href="project.link" target="_blank">View Project</a>
+            </div>
+            <div class="project-image">
+              <img @click="openModal(project)" :src="project.imageSrc" alt="Project image" />
+            </div>
           </div>
         </div>
       </div>
-      <!-- Modal component -->
-      <div v-if="openProjectModal" class="modal">
-        <div class="modal-content">
-          <h3>{{ selectedProject.title }}</h3>
-          <p>{{ selectedProject.description }}</p>
-          <a :href="selectedProject.link" target="_blank">View Project</a>
-          <button @click="closeModal">Close</button>
+
+     
+      <div>
+        <h3>Projects</h3>
+        <div class="projects-container">
+          <div v-for="(project, index) in projects.filter(p => p.category === 'Projects')" :key="index" class="project-item">
+            <div class="project-description">
+              <h3>{{ project.title }}</h3>
+              <p>{{ project.description }}</p>
+              <a :href="project.link" target="_blank">View Project</a>
+            </div>
+            <div class="project-image">
+              <img @click="openModal(project)" :src="project.imageSrc" alt="Project image" />
+            </div>
+          </div>
+        </div>
+      </div> 
+
+      <div>
+        <h3></h3>
+        <div class="projects-container">
+          <div v-for="(project, index) in projects.filter(p => p.category === 'Websites')" :key="index" class="project-item">
+            <div class="project-description">
+              <h3>{{ project.title }}</h3>
+              <p>{{ project.description }}</p>
+              <a :href="project.link" target="_blank">View Project</a>
+            </div>
+            <div class="project-image">
+              <img @click="openModal(project)" :src="project.imageSrc" alt="Project image" />
+            </div>
+          </div>
         </div>
       </div>
-    </section>
-  </template>
-  
-  <script>
-// Import the image just like you did in the "About" section
+    </div>
+    
+    
+
+    <!-- Modal component -->
+    <div v-if="openProjectModal" class="modal">
+      <div class="modal-content">
+        <h3>{{ selectedProject.title }}</h3>
+        <p>{{ selectedProject.description }}</p>
+        <a :href="selectedProject.link" target="_blank">View Project</a>
+        <button @click="closeModal">Close</button>
+      </div>
+    </div>
+  </section>
+</template>
+
+<script>
 import juiceImage from '../assets/images/juice.jpg';
-import Evj from '../assets/images/evj.jpg';
-import svelte from '../assets/images/svelte.jpg';
+import evjImage from '../assets/images/evj.jpg';
+import svelteImage from '../assets/images/svelte.jpg';
+import note from '../assets/images/notes.jpg';
+import stock from '../assets/images/stock.jpg';
+import expense from '../assets/images/expense.jpg';
+
 
 export default {
   name: "Projects",
@@ -38,27 +84,36 @@ export default {
     return {
       openProjectModal: false,
       selectedProject: null,
-      // Make sure 'projects' is an array
       projects: [
         {
           title: 'Svelte Link Tree Clone (In Progress)',
-          description: 'My first look into Svelte with fireship.io. Languages/Tools: Svelte, TypeScript, Firebase ',
+          description: 'My first look into Svelte with fireship.io. Languages/Tools: Svelte, TypeScript, Firebase',
           link: 'https://github.com/Eli-Dolney/eli',
-          imageSrc: svelte // Use the imported image
+          imageSrc: svelteImage,
+          category: 'Projects'
         },
         {
-          title: 'Job Tracker App',
+          title: 'Note + mindmap',
           description: 'This is a detailed description of the job tracking application...',
           link: 'https://github.com/Eli-Dolney/jobtracker',
-          imageSrc: Evj // Use the imported image
+          imageSrc: note,
+          category: 'Python Scripts'
+        },
+        {
+          title: 'Stock Price Predictor',
+          description: 'A project to predict stock prices using Python and scikit-learn...',
+          link: 'https://github.com/Eli-Dolney/stock-price-predictor',
+          imageSrc: stock,
+          category: 'Python Scripts'
+        },
+        {
+          title: 'Expense Tracker',
+          description: 'An expense tracking application built with Python and Tkinter...',
+          link: 'https://github.com/Eli-Dolney/expense-tracker',
+          imageSrc: expense,
+          category: 'Python Scripts'
         },
         
-        //{
-         // title: 'Workspace Organizer',
-        //  description: 'This is a detailed description of the workspace organizer project...',
-        //  link: 'https://github.com/Eli-Dolney/Workspaces',
-        //  imageSrc: juiceImage // Use the imported image
-        //}
       ]
     };
   },
@@ -74,52 +129,56 @@ export default {
 };
 </script>
 
-  
 <style scoped>
 .section-wrapper {
   max-width: 1200px;
   margin: auto;
   padding: 2rem;
-  color: #40181C; /* Adjusted text color for readability */
-  background-color: #737373; /* Dark theme background */
+  color: #40181C;
+  background-color: #BFB2A3;
 }
 
 h2 {
-  color: #8C164D;
+  color: #022873;
+}
+
+h3 {
+  color: #022873;
+  margin-top: 2rem; /* Add space above section titles */
 }
 
 .projects-container {
   display: flex;
-  flex-wrap: wrap; /* Wrap for better responsiveness */
-  gap: 2rem; /* Space between project cards */
-  justify-content: center; /* Center cards */
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
   padding: 20px;
 }
 
-.project-description, .project-image {
-  flex: 1 1 300px; /* Flex basis set to 300px with grow and shrink */
-  max-width: 50%; /* Ensure each takes up no more than half the container width */
-  background-color: #403E3F; /* Card background for description */
+.project-item {
+  flex: 1 1 300px;
+  max-width: 50%;
+  background-color: #59534C;
   padding: 2rem;
   border-radius: 5px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease; /* Smooth transform on hover */
+  transition: transform 0.3s ease;
 }
 
 .project-description h3, .project-description a {
-  color: #52B3D9; /* Highlight project titles and links */
+  color: #022873;
   text-decoration: none;
   font-weight: bold;
 }
 
-.project-description:hover {
-  transform: translateY(-5px); /* Lift card on hover */
+.project-item:hover {
+  transform: translateY(-5px);
 }
 
 .project-image img {
-  width: 100%; /* Ensure image takes full width of its container */
-  height: auto; /* Maintain aspect ratio */
-  object-fit: cover; /* Cover the area without distorting the aspect ratio */
+  width: 100%;
+  height: auto;
+  object-fit: cover;
   border-radius: 5px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -129,18 +188,18 @@ h2 {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: #252934; /* Modal background */
+  background-color: #252934;
   padding: 2rem;
   border-radius: 8px;
   z-index: 1000;
-  max-width: 600px; /* Fixed modal width */
+  max-width: 600px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-  color: #EAEAEA; /* Modal text color */
+  color: #EAEAEA;
 }
 
 .modal button {
   padding: 0.5rem 1rem;
-  background-color: #DB2EF2; /* Close button color */
+  background-color: #DB2EF2;
   color: white;
   border: none;
   border-radius: 4px;
@@ -148,24 +207,20 @@ h2 {
   margin-top: 1rem;
 }
 
-/* Responsive adjustments */
 @media (max-width: 768px) {
   .projects-container {
     flex-direction: column;
   }
 
-  .project-description, .project-image {
-    width: 100%; /* Full width on smaller screens */
-    max-width: 100%; /* Override previous max-width */
+  .project-item {
+    width: 100%;
+    max-width: 100%;
   }
 }
 
 @media (max-width: 992px) and (min-width: 769px) {
-  .project-description, .project-image {
-    width: calc(50% - 1rem); /* Two items per row on medium screens */
+  .project-item {
+    width: calc(50% - 1rem);
   }
 }
 </style>
-
-  
-  

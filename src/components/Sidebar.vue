@@ -45,7 +45,7 @@ nav.nav-two {
     bottom: 0;        /* Stretch to the bottom */
     left: 0;          /* Align to the left */
     width: 80px;      /* Set a specific width */
-    background-color: #BFCFD9;  /* Dark background for the sidebar */
+    background-color: #BFB2A3;  /* Dark background for the sidebar */
     z-index: 1000;    /* High z-index to keep it above other content */
     display: flex;
     flex-direction: column;  /* Stack items vertically */
@@ -90,24 +90,24 @@ ul {
   transition: all 0.5s linear;
 }
 .list-item:hover {
-  background: #DB2EF2;
+  background: #022873;
   color: #000;
   transform: translate(0.9em, -0.9em);
   transition: all 0.25s linear;
-  box-shadow: 0 0 1.5em #DB2EF2;
+  box-shadow: 0 0 1.5em #022873;
 }
 .list-item:hover:before,
 .list-item:hover:after {
   transition: all 0.25s linear;
 }
 .list-item:hover:before {
-  background: #DB2EF2;
+  background: #022873;
   width: 1em;
   top: 0.5em;
   left: -1em;
 }
 .list-item:hover:after {
-  background: #DB2EF2;
+  background: #022873;
   width: 1em;
   bottom: -2.5em;
   left: 1em;

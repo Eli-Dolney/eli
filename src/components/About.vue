@@ -71,7 +71,7 @@ export default {
 
   #about {
     
-    background-color: #5C6A73; 
+    background-color: #59534C; 
     box-shadow: #D90452;
     margin: 20px auto;
     padding: 20px;

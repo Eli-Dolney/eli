@@ -36,10 +36,10 @@
           clearInterval(interval);
           setTimeout(() => {
             this.$emit('loading-complete');  // Emit an event instead of mutating the prop
-          }, 2000);
+          }, 400);
         }
   
-        iteration += 1 / 3;
+        iteration += 1 / 2;
       }, 100);
     },
   };

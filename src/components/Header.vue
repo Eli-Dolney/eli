@@ -1,7 +1,7 @@
 <template>
   <header>
     <div class="centerpiece-wrapper">
-      <Centerpiece />
+      <Centerpiece /> <!-- This is the correct place to include it if needed in header -->
       <button @click="open = true" class="open-modal-button">Click Me 1</button>
       <div class="icon-wrapper">
           <a class="link" href="https://bit.ly/Linkedin-Eli" target="_blank">
@@ -21,97 +21,93 @@
   </header>
 </template>
   
-  <script>
-  import Centerpiece from './Centerpiece.vue';
+<script>
+import Centerpiece from './Centerpiece.vue';
+
+export default {
+  name: 'Header',
+  components: {
+    Centerpiece,
+  },
+  data() {
+    return {
+      open: false,
+    };
+  },
+};
+</script>
+
+<style scoped>
+header {
+  background-image: linear-gradient(
+      rgba(82, 92, 101, 0.7),
+      rgba(90, 81, 81, 0.7),
+      rgba(0, 0, 0, 0.7)
+    ),
+    url(../assets/images/IMG_0455.jpg);
   
-  export default {
-    name: 'Header',
-    components: {
-      Centerpiece,
-    },
-    data() {
-      return {
-        open: false,
-      };
-    },
-  };
-  </script>
-  
-  <style scoped>
-  header {
-    background-image: linear-gradient(
-        rgba(82, 92, 101, 0.7),
-        rgba(90, 81, 81, 0.7),
-        rgba(0, 0, 0, 0.7)
-      ),
-      url(../assets/images/IMG_0455.jpg);
-    
-    background-size: cover;
-    background-position: center;
-    background-color: #1A1E26;
-    background-attachment: fixed;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: inset 0 0 10px #AED8F2;
-    
-    
-  }
-  
-  .centerpiece-wrapper {
-    transform: translateY(-20%);
-    
-    color: #DCEAF2;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-  
-  }
-  
-  .open-modal-button {
-    background-color: #D95032;
-    color: #DCEAF2;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
-    font-size: 2rem;
-    cursor: pointer;
-    transition: background-color 0.2s;
-  }
-  
-  .open-modal-button:hover {
-    background-color: #BFCFD9;
-  }
-  
-  .modal {
-    position: fixed;
-    z-index: 999;
-    top: 20%;
-    left: 50%;
-    width: 300px;
-    margin-left: -150px;
-    background-color: #5C6A73;
-    border-radius: 10px;
-    padding: 20px;
-    font-size: 2rem;
-    color: #DCEAF2;
-    text-align: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
-  
-  .close-modal-button {
-    background-color: #BFCFD9;
-    color: black;
-    border: none;
-    border-radius: 5px;
-    padding: 5px 10px;
-    font-size: 0.9rem;
-    cursor: pointer;
-    transition: background-color 0.2s;
-  }
-  
-  .close-modal-button:hover {
-    background-color: #4a5364;
-  }
-  </style>
+  background-size: cover;
+  background-position: center;
+  background-color: #1A1E26;
+  background-attachment: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: inset 0 0 10px #AED8F2;
+}
+
+.centerpiece-wrapper {
+  transform: translateY(-20%);
+  color: #DCEAF2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.open-modal-button {
+  background-color: #D95032;
+  color: #DCEAF2;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 2rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.open-modal-button:hover {
+  background-color: #BFCFD9;
+}
+
+.modal {
+  position: fixed;
+  z-index: 999;
+  top: 20%;
+  left: 50%;
+  width: 300px;
+  margin-left: -150px;
+  background-color: #5C6A73;
+  border-radius: 10px;
+  padding: 20px;
+  font-size: 2rem;
+  color: #DCEAF2;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.close-modal-button {
+  background-color: #BFCFD9;
+  color: black;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.close-modal-button:hover {
+  background-color: #4a5364;
+}
+</style>
