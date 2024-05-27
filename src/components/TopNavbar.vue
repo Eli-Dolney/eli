@@ -42,7 +42,7 @@ export default {
 
 <style scoped>
 header {
-  background: #59534C;
+  background: #949BA6;
   color: #fff;
   padding: 1.5rem;
   position: relative;
@@ -79,7 +79,7 @@ header {
 }
 
 .nav-links a:hover {
-  color: #1e90ff;
+  color: #022873;
 }
 
 .nav-links a::after {
@@ -87,7 +87,7 @@ header {
   display: block;
   width: 0;
   height: 2px;
-  background: #1e90ff;
+  background: #022873;
   transition: width 0.3s;
   position: absolute;
   left: 0;

@@ -46,7 +46,7 @@ export default {
 }
 
 #contact {
-  background-color: #59534C;
+  background-color: #949BA6;
   padding: 20px;
   margin: 20px auto;
 }
@@ -85,9 +85,11 @@ p {
   max-width: 300px;
   background-color: var(--background-dark);
   padding: 2rem;
-  border-radius: 5px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
+  border-radius: 0.25rem;
+  background-color: #1A1E26;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
   text-align: center;
 }
 

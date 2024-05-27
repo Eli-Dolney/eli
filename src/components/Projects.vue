@@ -88,21 +88,21 @@ export default {
         {
           title: 'Svelte Link Tree Clone (In Progress)',
           description: 'My first look into Svelte with fireship.io. Languages/Tools: Svelte, TypeScript, Firebase',
-          link: 'https://github.com/Eli-Dolney/eli',
+          link: 'https://github.com/Eli-Dolney/Svelte',
           imageSrc: svelteImage,
           category: 'Projects'
         },
         {
           title: 'Note + mindmap',
           description: 'This is a detailed description of the job tracking application...',
-          link: 'https://github.com/Eli-Dolney/jobtracker',
+          link: 'https://github.com/Eli-Dolney/notes',
           imageSrc: note,
           category: 'Python Scripts'
         },
         {
           title: 'Stock Price Predictor',
           description: 'A project to predict stock prices using Python and scikit-learn...',
-          link: 'https://github.com/Eli-Dolney/stock-price-predictor',
+          link: 'https://github.com/Eli-Dolney/stock/tree/main',
           imageSrc: stock,
           category: 'Python Scripts'
         },
@@ -158,7 +158,7 @@ h3 {
 .project-item {
   flex: 1 1 300px;
   max-width: 50%;
-  background-color: #59534C;
+  background-color: #949BA6;
   padding: 2rem;
   border-radius: 5px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
