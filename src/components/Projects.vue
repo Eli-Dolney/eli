@@ -21,7 +21,7 @@
         </div>
       </div>
 
-     
+      <!-- Projects Section -->
       <div>
         <h3>Projects</h3>
         <div class="projects-container">
@@ -36,10 +36,11 @@
             </div>
           </div>
         </div>
-      </div> 
+      </div>
 
+      <!-- Websites Section -->
       <div>
-        <h3></h3>
+        <h3>Websites</h3>
         <div class="projects-container">
           <div v-for="(project, index) in projects.filter(p => p.category === 'Websites')" :key="index" class="project-item">
             <div class="project-description">
@@ -54,8 +55,6 @@
         </div>
       </div>
     </div>
-    
-    
 
     <!-- Modal component -->
     <div v-if="openProjectModal" class="modal">
@@ -70,13 +69,10 @@
 </template>
 
 <script>
-import juiceImage from '../assets/images/juice.jpg';
-import evjImage from '../assets/images/evj.jpg';
 import svelteImage from '../assets/images/svelte.jpg';
 import note from '../assets/images/notes.jpg';
 import stock from '../assets/images/stock.jpg';
 import expense from '../assets/images/expense.jpg';
-
 
 export default {
   name: "Projects",
@@ -113,7 +109,6 @@ export default {
           imageSrc: expense,
           category: 'Python Scripts'
         },
-        
       ]
     };
   },
@@ -136,15 +131,25 @@ export default {
   padding: 2rem;
   color: #40181C;
   background-color: #BFB2A3;
+  box-sizing: border-box;
 }
 
 h2 {
   color: #022873;
+  font-size: 4rem;
+  text-align: center;
 }
 
 h3 {
   color: #022873;
-  margin-top: 2rem; /* Add space above section titles */
+  margin-top: 2rem; 
+  font-size: 3rem;
+  text-align: center;
+}
+
+p {
+  font-size: 2rem;
+  text-align: center;
 }
 
 .projects-container {
@@ -152,17 +157,17 @@ h3 {
   flex-wrap: wrap;
   gap: 2rem;
   justify-content: center;
-  padding: 20px;
 }
 
 .project-item {
   flex: 1 1 300px;
-  max-width: 50%;
+  max-width: 45%;
   background-color: #949BA6;
   padding: 2rem;
   border-radius: 5px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease;
+  box-sizing: border-box;
 }
 
 .project-description h3, .project-description a {
@@ -215,12 +220,37 @@ h3 {
   .project-item {
     width: 100%;
     max-width: 100%;
+    padding: 1rem;
   }
 }
 
 @media (max-width: 992px) and (min-width: 769px) {
   .project-item {
     width: calc(50% - 1rem);
+  }
+}
+
+@media (max-width: 480px) {
+  .project-item {
+    flex: 1 1 100%;
+    max-width: 100%;
+    padding: 1rem;
+  }
+
+  h2 {
+    font-size: 2.5rem;
+  }
+
+  h3 {
+    font-size: 1.5rem;
+  }
+
+  p {
+    font-size: 1.5rem;
+  }
+
+  .section-wrapper {
+    padding: 1rem;
   }
 }
 </style>

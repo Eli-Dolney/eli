@@ -61,7 +61,7 @@ export default {
 }
 
 h2 {
-  font-size: var(--font-size-title);
+  font-size: 4rem;
   color: var(--text-color);
   margin-bottom: var(--base-spacing);
   text-align: center;
@@ -69,6 +69,7 @@ h2 {
 
 p {
   text-align: center;
+  font-size: 1.5rem;
   color: var(--text-color);
 }
 
