@@ -86,7 +86,7 @@ p {
   background-color: var(--background-dark);
   padding: 2rem;
   border-radius: 0.25rem;
-  background-color: #1A1E26;
+  background: linear-gradient(45deg, #db2ef2, #022873);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
   transition: all 0.3s ease-in-out;
   cursor: pointer;
@@ -99,13 +99,14 @@ p {
 }
 
 .project-description a {
-  color: var(--accent-color);
+  color: var(--text-color);
   text-decoration: none;
   font-weight: bold;
 }
 
 .project-item:hover {
   transform: translateY(-5px);
+  background: linear-gradient(45deg, #022873, #db2ef2);
 }
 
 @media (max-width: 768px) {
@@ -115,13 +116,30 @@ p {
 
   .project-item {
     width: 100%;
-    max-width: 100%;
+    max-width: 90%;
+    padding: 1rem; /* Adjust padding for smaller screens */
   }
 }
 
 @media (max-width: 992px) and (min-width: 769px) {
   .project-item {
     width: calc(50% - 1rem);
+  }
+}
+
+@media (max-width: 480px) {
+  .project-item {
+    flex: 1 1 200px;
+    max-width: 200px;
+    padding: 1rem; /* Adjust padding for smaller screens */
+  }
+
+  .project-description h3 {
+    font-size: 1rem; /* Adjust font size for smaller screens */
+  }
+
+  .project-description a {
+    font-size: 2rem; /* Adjust icon size for smaller screens */
   }
 }
 </style>

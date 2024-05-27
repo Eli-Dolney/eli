@@ -42,7 +42,7 @@ nav.nav-two {
   top: 0;           /* Align to the top */
   bottom: 0;        /* Stretch to the bottom */
   left: 0;          /* Align to the left */
-  width: 100px;      /* Set a specific width */
+  width: 100px;     /* Set a specific width */
   background-color: #BFB2A3;  /* Dark background for the sidebar */
   z-index: 1000;    /* High z-index to keep it above other content */
   display: flex;
@@ -71,37 +71,14 @@ ul {
   display: block;
   text-decoration: none;
   font-size: 2em;  /* Increase font size for bigger icons */
-
   transition: all 0.5s linear;
 }
 
 .list-item:hover {
-  background: #022873;
-  color: #949BA6;
+  background: linear-gradient(45deg, #db2ef2, #022873);
+  color: #fff;
   transform: translate(0.9em, -0.9em);
-  transition: all 0.25s linear;
   box-shadow: 0 0 1.5em #022873;
-}
-
-.list-item:hover:before,
-.list-item:hover:after {
-  transition: all 0.25s linear;
-}
-
-/* left square */
-.list-item:hover:before {
-  background: #022873;
-  width: 1em;
-  top: 0.5em;
-  left: -1em;
-}
-
-.list-item:hover:after {
-  background: #022873;
-  width: 1em;
-  bottom: -2.5em;
-  left: 1em;
-  height: 4em;
 }
 
 .list-item:before,
@@ -112,6 +89,14 @@ ul {
   width: 0.5em;
 }
 
+.list-item:before {
+  height: 2.5em;
+  background: #949BA6;
+  top: 0.25em;
+  left: -0.5em;
+  transform: skewY(-45deg);
+}
+
 .list-item:after {
   height: 4em;
   background: #949BA6;
@@ -120,12 +105,9 @@ ul {
   transform: rotate(90deg) skew(0, 45deg);
 }
 
-.list-item:before {
-  height: 2.5em;
-  background: #949BA6;
-  top: 0.25em;
-  left: -0.5em;
-  transform: skewY(-45deg);
+.list-item:hover:before,
+.list-item:hover:after {
+  background: linear-gradient(45deg, #db2ef2, #022873);
 }
 
 @media (max-width: 768px) {

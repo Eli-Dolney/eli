@@ -44,7 +44,7 @@ export default {
 header {
   background: #949BA6;
   color: #fff;
-  padding: 1.5rem;
+  padding: 1.5rem 2rem;
   position: relative;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
@@ -58,6 +58,11 @@ header {
   padding: 0 1rem;
 }
 
+.brand {
+  flex: 1;
+  text-align: left;
+}
+
 .brand a {
   color: #fff;
   text-decoration: none;
@@ -67,7 +72,9 @@ header {
 
 .nav-links {
   display: flex;
-  gap: 2rem;
+  flex: 2;
+  justify-content: space-evenly;
+  position: relative;
 }
 
 .nav-links a {
@@ -75,27 +82,35 @@ header {
   text-decoration: none;
   font-size: 1.2rem;
   position: relative;
-  transition: color 0.3s;
+  padding: 0.5rem 1rem;
+  transition: color 0.3s, transform 0.3s;
+  border: 2px solid transparent;
+  border-radius: 5px;
+  background-clip: padding-box;
+  margin: 0 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Added box shadow */
+}
+
+.nav-links a::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  bottom: -2px;
+  right: -2px;
+  background: linear-gradient(45deg, #db2ef2, #022873);
+  z-index: -1;
+  transition: transform 0.3s;
+  border-radius: 7px;
 }
 
 .nav-links a:hover {
-  color: #022873;
+  color: #db2ef2;
+  transform: scale(1.05);
 }
 
-.nav-links a::after {
-  content: '';
-  display: block;
-  width: 0;
-  height: 2px;
-  background: #022873;
-  transition: width 0.3s;
-  position: absolute;
-  left: 0;
-  bottom: -5px;
-}
-
-.nav-links a:hover::after {
-  width: 100%;
+.nav-links a:hover::before {
+  transform: scale(1.1);
 }
 
 .hamburger {
