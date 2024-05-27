@@ -117,18 +117,20 @@ header {
   display: none;
   flex-direction: column;
   cursor: pointer;
-  gap: 6px;
+  gap: 8px;
+  position: absolute;
+  right: 1rem;
 }
 
 .hamburger span {
-  height: 4px;
-  width: 30px;
+  height: 5px;
+  width: 35px;
   background: #fff;
   transition: all 0.3s;
 }
 
 .hamburger.open span:nth-child(1) {
-  transform: translateY(10px) rotate(45deg);
+  transform: translateY(12px) rotate(45deg);
 }
 
 .hamburger.open span:nth-child(2) {
@@ -136,10 +138,15 @@ header {
 }
 
 .hamburger.open span:nth-child(3) {
-  transform: translateY(-10px) rotate(-45deg);
+  transform: translateY(-12px) rotate(-45deg);
 }
 
 @media (max-width: 768px) {
+  .nav-container {
+    margin-left: 20%;
+    justify-content: space-between;
+  }
+
   .nav-links {
     display: none;
     flex-direction: column;
@@ -154,6 +161,7 @@ header {
     z-index: 1000;
     transition: transform 0.3s;
     transform: translateY(-100%);
+    padding-top: 4rem; /* Add some padding from the top */
   }
 
   .nav-links.open {
@@ -165,6 +173,7 @@ header {
     font-size: 2rem;
     margin-bottom: 2rem;
     color: #fff;
+    padding: 1rem 2rem; /* Add padding for better touch targets */
   }
 
   .hamburger {
