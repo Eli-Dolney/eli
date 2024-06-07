@@ -5,10 +5,10 @@
       <div class="about-container">
         <div class="about-text">
           <p>
-            Hi, I'm Eli, a 23-year-old student currently studying Network and Technology Security. My passion for technology started at a young age, and it's been an exciting journey ever since. In my sophomore year of high school, I built my first PC, which ignited my love for building and creating with technology. Since then, I've been deeply immersed in the tech world, constantly exploring new advancements and expanding my skills.
+            Hi, I'm Eli, a 23-year-old student currently studying Network and Technology Security. My love for technology started at a young age, and it's been an exciting journey ever since. In my sophomore year of high school, I built my first PC, which sparked my love for building and creating with technology. Since then, I've spend a lot in the tech world, constantly exploring new advancements and expanding my skills.
           </p>
           <p>
-            I'm currently working towards obtaining my CCNA certification, a crucial step in my career path that will solidify my knowledge and expertise in networking. This certification is not just a milestone; it's a testament to my dedication to mastering the intricacies of network security and management.
+            I'm currently working towards obtaining my CCNA certification, a crucial step in my career path that will build on my knowledge and pratice in networking. This certification is a great milestone and will help create a solid foundation working with computers, routers and many different network topologies. 
           </p>
           <p>
             Alongside my studies, I work as a Personal Care Assistant (PCA). This role allows me to make a positive impact on people's lives, providing care and support to those in need. Balancing my work and studies has taught me valuable lessons in time management, empathy, and resilience.
@@ -17,7 +17,7 @@
             Being a dad is another significant part of my life. Fatherhood has been an incredible journey, filled with challenges and rewards. It has taught me patience, responsibility, and the importance of being a positive role model. My daughter inspires me every day to be the best version of myself.
           </p>
           <p>
-            In addition to my studies and work, I've developed a strong interest in coding. Learning to code has opened up a new world of possibilities for me. I love creating cool projects that combine my technical skills with my creativity. Whether it's building websites, developing applications, or exploring new technologies, coding allows me to bring my ideas to life.
+            In addition to my studies and work, I've developed a strong interest in coding. Coding really reminds me of playing with legos, Learning to code has opened up a new world of possibilities for me. I love creating cool projects that combine my technical skills with my creativity. Whether it's building websites, developing applications, or exploring new technologies, coding allows me to bring my ideas to life.
           </p>
           <p>
             Overall, I'm passionate about technology, committed to my personal and professional growth, and dedicated to making a difference in the lives of others. I'm excited about the future and the opportunities it holds, and I'm continuously striving to learn, grow, and achieve my goals.
