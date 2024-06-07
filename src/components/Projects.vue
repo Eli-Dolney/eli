@@ -12,7 +12,7 @@
             <div class="project-description">
               <h3>{{ project.title }}</h3>
               <p>{{ project.description }}</p>
-              <a :href="project.link" target="_blank">View Project</a>
+              <a :href="project.link" target="_blank" class="view-project-button">View Project</a>
             </div>
             <div class="project-image">
               <img @click="openModal(project)" :src="project.imageSrc" alt="Project image" />
@@ -29,7 +29,7 @@
             <div class="project-description">
               <h3>{{ project.title }}</h3>
               <p>{{ project.description }}</p>
-              <a :href="project.link" target="_blank">View Project</a>
+              <a :href="project.link" target="_blank" class="view-project-button">View Project</a>
             </div>
             <div class="project-image">
               <img @click="openModal(project)" :src="project.imageSrc" alt="Project image" />
@@ -46,7 +46,7 @@
             <div class="project-description">
               <h3>{{ project.title }}</h3>
               <p>{{ project.description }}</p>
-              <a :href="project.link" target="_blank">View Project</a>
+              <a :href="project.link" target="_blank" class="view-project-button">View Project</a>
             </div>
             <div class="project-image">
               <img @click="openModal(project)" :src="project.imageSrc" alt="Project image" />
@@ -61,7 +61,7 @@
       <div class="modal-content">
         <h3>{{ selectedProject.title }}</h3>
         <p>{{ selectedProject.description }}</p>
-        <a :href="selectedProject.link" target="_blank">View Project</a>
+        <a :href="selectedProject.link" target="_blank" class="view-project-button">View Project</a>
         <button @click="closeModal">Close</button>
       </div>
     </div>
@@ -129,19 +129,20 @@ export default {
   max-width: 1200px;
   margin: auto;
   padding: 2rem;
-  color: #40181C;
-  background-color: #BFB2A3;
+  color: #4D208C;
+  box-shadow: inset 0 0 10px #AED8F2;
+  background-color: #0D0D0D;
   box-sizing: border-box;
 }
 
 h2 {
-  color: #022873;
+  color: #806FBF;
   font-size: 4rem;
   text-align: center;
 }
 
 h3 {
-  color: #022873;
+  color: #806FBF;
   margin-top: 2rem; 
   font-size: 3rem;
   text-align: center;
@@ -157,12 +158,13 @@ p {
   flex-wrap: wrap;
   gap: 2rem;
   justify-content: center;
+  box-shadow: inset 0 0 10px #AED8F2;
 }
 
 .project-item {
   flex: 1 1 300px;
   max-width: 45%;
-  background-color: #949BA6;
+  background-color: #0D0D0D;
   padding: 2rem;
   border-radius: 5px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -171,9 +173,27 @@ p {
 }
 
 .project-description h3, .project-description a {
-  color: #022873;
+  color: #806FBF;
   text-decoration: none;
   font-weight: bold;
+}
+
+.view-project-button {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.75rem 1.5rem;
+  background-color: #4C5359; /* Initial background color */
+  color: #fff; /* White text color */
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border-radius: 5px;
+  transition: transform 0.3s, background 0.3s;
+}
+
+.view-project-button:hover {
+  transform: scale(1.05);
+  background-color:#71D9B3; /* Gradient background on hover */
 }
 
 .project-item:hover {

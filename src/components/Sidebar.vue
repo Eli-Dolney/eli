@@ -43,7 +43,7 @@ nav.nav-two {
   bottom: 0;        /* Stretch to the bottom */
   left: 0;          /* Align to the left */
   width: 100px;     /* Set a specific width */
-  background-color: #BFB2A3;  /* Dark background for the sidebar */
+  background-color: #0D0D0D;  /* Dark background for the sidebar */
   z-index: 1000;    /* High z-index to keep it above other content */
   display: flex;
   flex-direction: column;  /* Stack items vertically */
@@ -60,7 +60,7 @@ ul {
 }
 
 .list-item {
-  background: #949BA6;
+  background: #3E403F;
   color: #fff;
   text-align: center;
   height: 2.5em;  /* Increase the height for bigger icons */
@@ -75,10 +75,10 @@ ul {
 }
 
 .list-item:hover {
-  background: linear-gradient(45deg, #db2ef2, #022873);
+  background-color: #71D9B3;/* Adjusted gradient colors */
   color: #fff;
   transform: translate(0.9em, -0.9em);
-  box-shadow: 0 0 1.5em #022873;
+  box-shadow: 0 0 1.5em #4D208C;
 }
 
 .list-item:before,
@@ -91,7 +91,7 @@ ul {
 
 .list-item:before {
   height: 2.5em;
-  background: #949BA6;
+  background: #3E403F;
   top: 0.25em;
   left: -0.5em;
   transform: skewY(-45deg);
@@ -99,7 +99,7 @@ ul {
 
 .list-item:after {
   height: 4em;
-  background: #949BA6;
+  background: #3E403F;
   bottom: -2.25em;
   left: 1.5em;
   transform: rotate(90deg) skew(0, 45deg);
@@ -107,7 +107,7 @@ ul {
 
 .list-item:hover:before,
 .list-item:hover:after {
-  background: linear-gradient(45deg, #db2ef2, #022873);
+  background-color: #71D9B3;/* Adjusted gradient colors */
 }
 
 @media (max-width: 768px) {

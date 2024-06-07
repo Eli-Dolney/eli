@@ -37,7 +37,7 @@ export default {
   display: flex;
   flex-direction: column; /* Change to column to stack TopNavbar, Sidebar, and main */
   min-height: 100vh; /* Ensure the height is at least the viewport height */
-  background-color: #BFB2A3;
+  background-color: #0D0D0D;
   color: #DCEAF2;
   width: 100%;
 }
@@ -62,7 +62,7 @@ router-view {
 }
 
 body {
-  background-color: #BFB2A3;
+  background-color: #0D0D0D;
   margin: 0;
   padding: 0;
   overflow-x: hidden; /* Prevent horizontal scroll */

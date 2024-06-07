@@ -1,31 +1,26 @@
 <template>
   <section id="about">
-    <div class="section-wrapper">
+    <div class="section-wrapper" ref="sectionWrapper">
       <h2>About Me</h2>
       <div class="about-container">
         <div class="about-text">
           <p>
-            Cool things are all around us, from breathtaking natural wonders to
-            cutting-edge technology. Exploring new and cool things can be a fun
-            and rewarding experience that broadens our horizons. Some of the
-            coolest things in the world can be found in unexpected places, so
-            it's always worth keeping an open mind. Whether it's trying new
-            foods, traveling to exotic locations, or discovering new hobbies,
-            there's no shortage of cool things to explore in life.
+            Hi, I'm Eli, a 23-year-old student currently studying Network and Technology Security. My passion for technology started at a young age, and it's been an exciting journey ever since. In my sophomore year of high school, I built my first PC, which ignited my love for building and creating with technology. Since then, I've been deeply immersed in the tech world, constantly exploring new advancements and expanding my skills.
           </p>
           <p>
-            Cool! things are all around us, from breathtaking natural wonders to
-            cutting-edge technology. Exploring new and cool things can be a fun
-            and rewarding experience that broadens our horizons. Some of the
-            coolest things in the world can be found in unexpected places, so
-            it's always worth keeping an open mind. 
+            I'm currently working towards obtaining my CCNA certification, a crucial step in my career path that will solidify my knowledge and expertise in networking. This certification is not just a milestone; it's a testament to my dedication to mastering the intricacies of network security and management.
           </p>
           <p>
-            Cool things are all around us, from breathtaking natural wonders to
-            cutting-edge technology. Exploring new and cool things can be a fun
-            and rewarding experience that broadens our horizons. Some of the
-            coolest things in the world can be found in unexpected places, so
-            it's always worth keeping an open mind. 
+            Alongside my studies, I work as a Personal Care Assistant (PCA). This role allows me to make a positive impact on people's lives, providing care and support to those in need. Balancing my work and studies has taught me valuable lessons in time management, empathy, and resilience.
+          </p>
+          <p>
+            Being a dad is another significant part of my life. Fatherhood has been an incredible journey, filled with challenges and rewards. It has taught me patience, responsibility, and the importance of being a positive role model. My daughter inspires me every day to be the best version of myself.
+          </p>
+          <p>
+            In addition to my studies and work, I've developed a strong interest in coding. Learning to code has opened up a new world of possibilities for me. I love creating cool projects that combine my technical skills with my creativity. Whether it's building websites, developing applications, or exploring new technologies, coding allows me to bring my ideas to life.
+          </p>
+          <p>
+            Overall, I'm passionate about technology, committed to my personal and professional growth, and dedicated to making a difference in the lives of others. I'm excited about the future and the opportunities it holds, and I'm continuously striving to learn, grow, and achieve my goals.
           </p>
         </div>
         <div class="about-image">
@@ -54,6 +49,24 @@ export default {
       imageSrc: imageSrcImport,
     };
   },
+  mounted() {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("in-view");
+          } else {
+            entry.target.classList.remove("in-view");
+          }
+        });
+      },
+      {
+        threshold: 0.1,
+      }
+    );
+
+    observer.observe(this.$refs.sectionWrapper);
+  },
 };
 </script>
 
@@ -68,19 +81,34 @@ export default {
   --font-size-title: 2.5rem;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 #about {
-  background-color: #949BA6; 
-  margin: 20px auto;
-  padding: 20px;
+  background-color: #0D0D0D; 
+  margin: 0; /* Remove margin to take full space */
+  padding: 0; /* Remove padding to take full space */
+  min-height: 100vh; /* Ensure it takes up the full viewport height */
+  display: flex; /* Use flexbox to center content */
+  align-items: center; /* Vertically center content */
 }
 
 .section-wrapper {
   max-width: 1200px;
   width: 100%;
   padding: var(--base-spacing);
-  margin: 20px auto;
+  margin: 0 auto;
   box-sizing: border-box;
   box-shadow: inset 0 0 10px #AED8F2;
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.section-wrapper.in-view {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .about-container {
@@ -94,6 +122,7 @@ export default {
   margin: 20px auto;
   padding: 20px;
   width: 90%;
+  animation: fadeInUp 1.8s ease-out forwards;
 }
 
 h2 {
@@ -106,12 +135,21 @@ h2 {
 .about-text {
   color: var(--text-color);
   text-align: left;
+  background-color: #806FBF;
+  font-size: 1.5rem;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  opacity: 0;
+  animation: fadeIn 2s forwards;
+  animation-delay: 0.5s;
 }
 
 .about-image {
   justify-self: center;
   overflow: hidden;
   border-radius: 10px;
+  perspective: 1000px;
 }
 
 .about-image img {
@@ -119,11 +157,13 @@ h2 {
   max-width: 100%;
   max-height: 500px;
   border-radius: 10px;
-  transition: transform 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  transform: translateZ(-50px) scale(1.1);
 }
 
 .about-image img:hover {
-  transform: scale(1.03);
+  transform: translateZ(0) scale(1.05) rotate(2deg);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
 }
 
 p {
@@ -142,8 +182,13 @@ p {
   }
 }
 
-.about-container {
-  animation: fadeInUp 1.8s ease-out forwards;
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @media (max-width: 1024px) {

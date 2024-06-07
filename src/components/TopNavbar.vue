@@ -42,7 +42,7 @@ export default {
 
 <style scoped>
 header {
-  background: #949BA6;
+  background: #3E403F;
   color: #fff;
   padding: 1.5rem 2rem;
   position: relative;
@@ -88,7 +88,7 @@ header {
   border-radius: 5px;
   background-clip: padding-box;
   margin: 0 0.5rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Added box shadow */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .nav-links a::before {
@@ -98,14 +98,14 @@ header {
   left: -2px;
   bottom: -2px;
   right: -2px;
-  background: linear-gradient(45deg, #db2ef2, #022873);
+  background-color: #71D9B3; /* Updated gradient colors Now removed lol*/
   z-index: -1;
   transition: transform 0.3s;
   border-radius: 7px;
 }
 
 .nav-links a:hover {
-  color: #db2ef2;
+  color: #4D208C;
   transform: scale(1.05);
 }
 
@@ -161,7 +161,7 @@ header {
     z-index: 1000;
     transition: transform 0.3s;
     transform: translateY(-100%);
-    padding-top: 4rem; /* Add some padding from the top */
+    padding-top: 4rem;
   }
 
   .nav-links.open {
@@ -173,7 +173,7 @@ header {
     font-size: 2rem;
     margin-bottom: 2rem;
     color: #fff;
-    padding: 1rem 2rem; /* Add padding for better touch targets */
+    padding: 1rem 2rem;
   }
 
   .hamburger {
