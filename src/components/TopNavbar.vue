@@ -10,6 +10,7 @@
           <router-link to="/about" @click="closeMenu">About</router-link>
           <router-link to="/projects" @click="closeMenu">Projects</router-link>
           <router-link to="/contact" @click="closeMenu">Contact</router-link>
+          <router-link to="/charts" @click="closeMenu">Charts</router-link> <!-- New link added here -->
         </div>
         <div class="hamburger" @click="toggleMenu">
           <span></span>

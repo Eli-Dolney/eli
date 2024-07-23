@@ -8,7 +8,7 @@
             Hi, I'm Eli, a 23-year-old student currently studying Network and Technology Security. My love for technology started at a young age, and it's been an exciting journey ever since. In my sophomore year of high school, I built my first PC, which sparked my love for building and creating with technology. Since then, I've spend a lot in the tech world, constantly exploring new advancements and expanding my skills.
           </p>
           <p>
-            I'm currently working towards obtaining my CCNA certification, a crucial step in my career path that will build on my knowledge and pratice in networking. This certification is a great milestone and will help create a solid foundation working with computers, routers and many different network topologies. 
+            I'm currently working towards obtaining my CCNA certification, a crucial step in my career path that will build on my knowledge and practice in networking. This certification is a great milestone and will help create a solid foundation working with computers, routers and many different network topologies. 
           </p>
           <p>
             Alongside my studies, I work as a Personal Care Assistant (PCA). This role allows me to make a positive impact on people's lives, providing care and support to those in need. Balancing my work and studies has taught me valuable lessons in time management, empathy, and resilience.
