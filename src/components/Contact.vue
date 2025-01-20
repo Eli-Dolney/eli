@@ -1,22 +1,30 @@
 <template>
   <section id="contact">
-    <div class="section-wrapper" ref="sectionWrapper">
-      <h2>Contact Me</h2>
-      <p>Feel free to reach out to me through any of the following platforms!</p>
-      <div class="projects-container">
-        <!-- Contact items with hover effects -->
-        <div v-for="(contact, index) in contacts" :key="index" class="project-item">
-          <div class="project-description">
-            <h3>{{ contact.name }}</h3>
-            <a :href="contact.link" target="_blank" class="view-project-button">
-              <font-awesome-icon :icon="contact.icon" size="3x" />
-            </a>
-          </div>
-        </div>
+  <div class="contact-section-wrapper" ref="sectionWrapper">
+    <h2>Get in Touch</h2>
+    <p>Feel free to reach out via any of the platforms below!</p>
+
+    <div class="contact-grid">
+      <div 
+        v-for="(contact, index) in contacts" 
+        :key="index" 
+        class="contact-card"
+      >
+        <h3>{{ contact.name }}</h3>
+        <a 
+          :href="contact.link" 
+          target="_blank" 
+          class="contact-link"
+        >
+          <font-awesome-icon :icon="contact.icon" size="3x" />
+        </a>
       </div>
     </div>
-  </section>
+  </div>
+</section>
+
 </template>
+
 
 <script>
 export default {
@@ -32,158 +40,170 @@ export default {
     };
   },
   mounted() {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("in-view");
-          } else {
-            entry.target.classList.remove("in-view");
-          }
-        });
-      },
-      {
-        threshold: 0.1,
-      }
-    );
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+        } else {
+          entry.target.classList.remove('in-view');
+        }
+      });
+    },
+    { threshold: 0.1 }
+  );
+  observer.observe(this.$refs.sectionWrapper); // Now .contact-section-wrapper
+},
 
-    observer.observe(this.$refs.sectionWrapper);
-  },
 };
 </script>
 
+
 <style scoped>
-:root {
-  --text-color: aliceblue;
-  --background-dark: #1A1E26;
-  --background-light: #D6D9C1;
-  --accent-color: #DB2EF2;
-  --base-spacing: 40px;
-  --font-size-base: 1rem;
-  --font-size-title: 2.5rem;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
+/* 1) #contact: fill full width, but on screens >=768px, 
+     shift right to accommodate the fixed 100px sidebar */
 #contact {
   background-color: #0D0D0D;
-  padding: 20px;
-  margin: 20px auto;
+  min-height: 100vh; /* Ensure full screen height */
+  width: 100%;
+  margin-left: 0;
+  padding: 2rem;
+  box-sizing: border-box;
 }
 
-.section-wrapper {
-  max-width: 1200px;
+/* On wider screens, shift to the right */
+@media (min-width: 768px) {
+  #contact {
+    margin-left: 100px;
+    width: calc(100% - 100px);
+  }
+}
+
+/* 2) Renamed the wrapper class for clarity */
+.contact-section-wrapper {
   width: 90%;
-  padding: var(--base-spacing);
-  margin: 20px auto;
+  margin: 0 auto;
   box-sizing: border-box;
   box-shadow: inset 0 0 10px #AED8F2;
+
+  /* Intersection Observer fade-in */
   opacity: 0;
   transform: translateY(50px);
   transition: opacity 0.6s ease-out, transform 0.6s ease-out;
 }
-
-.section-wrapper.in-view {
+.contact-section-wrapper.in-view {
   opacity: 1;
   transform: translateY(0);
 }
 
+/* Headings and paragraph styles */
 h2 {
-  font-size: 4rem;
-  color: var(--text-color);
-  margin-bottom: var(--base-spacing);
+  font-size: 3rem;
+  color: aliceblue;
   text-align: center;
+  margin-bottom: 1rem;
 }
-
 p {
   text-align: center;
-  font-size: 1.5rem;
-  color: var(--text-color);
+  font-size: 1.4rem;
+  color: aliceblue;
+  margin-bottom: 2rem;
 }
 
-.projects-container {
+/* 3) The contact grid for your contact icons/links */
+.contact-grid {
   display: flex;
   flex-wrap: wrap;
   gap: 2rem;
   justify-content: center;
-  padding: 20px;
+  padding-bottom: 2rem;
 }
 
-.project-item {
-  flex: 1 1 300px;
-  max-width: 300px;
-  background-color: var(--background-dark);
-  padding: 2rem;
-  border-radius: 0.25rem;
-  background-color: #0D0D0D; /* Updated gradient colors */
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-  transition: all 0.3s ease-in-out;
-  cursor: pointer;
+/* 4) Individual contact cards with a fade-up animation */
+.contact-card {
+  flex: 1 1 200px;
+  max-width: 220px;
+  background-color: #1A1E26;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
   text-align: center;
-  transform: translateY(0);
+  cursor: pointer;
+  /* Fade-up start state */
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp 0.8s ease forwards;
+  /* We’ll define fadeUp below. 
+     If you want each card to appear in sequence, 
+     you can do an inline style with a delay. 
+     e.g. style="animation-delay: 0.2s" on the second item, etc. */
+  transition: transform 0.3s ease;
 }
-
-.project-item:hover {
+.contact-card:hover {
   transform: translateY(-5px);
-  background-color: #71D9B3; /* Reverse gradient on hover */
+  background-color: #71D9B3;
 }
 
-.project-description h3 {
-  color: var(--text-color);
-  margin-bottom: 1rem;
-}
-
-.project-description a {
-  display: inline-block;
-  margin-top: 1rem;
-  padding: 0.75rem 1.5rem;
-  background-color: #4C5359; /* Initial background color */
-  color: #fff; /* White text color */
-  text-decoration: none;
+/* Title inside each contact card */
+.contact-card h3 {
+  color: aliceblue;
+  margin-bottom: 0.5rem;
   font-size: 1.2rem;
+}
+
+/* The clickable icon/button */
+.contact-link {
+  display: inline-block;
+  margin-top: 0.5rem;
+  padding: 0.5rem 1rem;
+  background-color: #4C5359;
+  color: #fff;
+  text-decoration: none;
+  font-size: 1rem;
   font-weight: bold;
   border-radius: 5px;
   transition: transform 0.3s, background 0.3s;
 }
-
-.project-description a:hover {
+.contact-link:hover {
   transform: scale(1.05);
-  background-color: #4D208C;; /* Gradient background on hover */
+  background-color: #4D208C;
 }
 
+/* 5) FadeUp animation for cards */
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive adjustments */
 @media (max-width: 768px) {
-  .projects-container {
+  .contact-grid {
     flex-direction: column;
+    align-items: center;
   }
-
-  .project-item {
+  .contact-card {
     width: 100%;
-    max-width: 90%;
-    padding: 1rem; /* Adjust padding for smaller screens */
+    max-width: 300px;
   }
-}
-
-@media (max-width: 992px) and (min-width: 769px) {
-  .project-item {
-    width: calc(50% - 1rem);
+  h2 {
+    font-size: 2rem;
+  }
+  p {
+    font-size: 1.2rem;
   }
 }
 
 @media (max-width: 480px) {
-  .project-item {
-    flex: 1 1 200px;
-    max-width: 200px;
-    padding: 1rem; /* Adjust padding for smaller screens */
+  .contact-card {
+    max-width: 100%;
   }
-
-  .project-description h3 {
-    font-size: 1rem; /* Adjust font size for smaller screens */
+  h2 {
+    font-size: 1.8rem;
   }
-
-  .project-description a {
-    font-size: 2rem; /* Adjust icon size for smaller screens */
+  p {
+    font-size: 1rem;
   }
 }
 </style>

@@ -43,7 +43,7 @@ export default {
 
 <style scoped>
 header {
-  background: #3E403F;
+  background: #0D0D0D;
   color: #fff;
   padding: 1.5rem 2rem;
   position: relative;

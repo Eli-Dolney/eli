@@ -125,42 +125,88 @@ export default {
 </script>
 
 <style scoped>
-.section-wrapper {
-  max-width: 1200px;
-  margin: auto;
-  padding: 2rem;
-  color: #4D208C;
-  box-shadow: inset 0 0 10px #AED8F2;
+/* 
+  1) #projects: make it fill the screen (minus sidebar).
+  Note: Uses the same logic you already have to shift right on larger screens. 
+*/
+#projects {
   background-color: #0D0D0D;
+  color: #EAEAEA;
+  width: 100%;
+  min-height: 100vh; 
+  padding: 2rem;
+  box-sizing: border-box;
+  margin-left: 0;
+}
+
+@media (min-width: 768px) {
+  #projects {
+    margin-left: 100px;
+    width: calc(100% - 100px);
+  }
+}
+
+/* 2) Outer wrapper that holds all content (headings, categories, etc.) */
+.section-wrapper {
+  width: 100%;
+  padding: 2rem;
+  background-color: #0D0D0D;
+  box-shadow: inset 0 0 10px #AED8F2; 
   box-sizing: border-box;
 }
 
+/* Main title and intro paragraph */
 h2 {
   color: #806FBF;
-  font-size: 4rem;
+  font-size: 3.5rem;
   text-align: center;
+  margin-bottom: 1rem;
 }
-
-h3 {
-  color: #806FBF;
-  margin-top: 2rem; 
-  font-size: 3rem;
-  text-align: center;
-}
-
 p {
-  font-size: 2rem;
+  font-size: 1.6rem;
   text-align: center;
+  color: #AAA;
+  margin-bottom: 3rem;
 }
 
+/* 3) Each category section (Python Scripts, Projects, Websites, etc.) */
+.category-section {
+  margin-bottom: 3rem;          /* Space between sections */
+  border: 2px solid #806FBF;    /* Purple border for definition */
+  padding: 2rem;
+  border-radius: 8px;
+  background-color: #161B22;    /* Slightly different shade for contrast */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  /* Optional subtle hover effect */
+  transition: transform 0.3s ease;
+}
+.category-section:hover {
+  transform: scale(1.01);
+}
+
+/* Category headings (e.g., "Python Scripts", "Projects", "Websites") */
+.category-section h3 {
+  color: #806FBF;
+  font-size: 2.4rem;
+  text-align: center;
+  margin-top: 0; /* remove default heading margin in this context */
+  margin-bottom: 2rem;
+}
+
+/* 4) The container for your project items within each category */
 .projects-container {
   display: flex;
   flex-wrap: wrap;
   gap: 2rem;
   justify-content: center;
-  box-shadow: inset 0 0 10px #AED8F2;
+  /* Remove or customize if you don’t want an extra inset shadow: */
+  box-shadow: inset 0 0 10px #AED8F2; 
+  padding: 1rem;  /* some padding so the items aren’t flush to the edges */
+  border-radius: 6px; /* minor rounding */
+  background-color: #0D0D0D; /* match or differ from .category-section */
 }
 
+/* 5) Individual project items */
 .project-item {
   flex: 1 1 300px;
   max-width: 45%;
@@ -168,38 +214,46 @@ p {
   padding: 2rem;
   border-radius: 5px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
   box-sizing: border-box;
+  /* fadeUp animation start state */
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp 0.8s ease forwards;
+  transition: transform 0.3s ease;
 }
 
-.project-description h3, .project-description a {
+/* Lift on hover */
+.project-item:hover {
+  transform: translateY(-5px);
+}
+
+/* Project headings and links */
+.project-description h3, 
+.project-description a {
   color: #806FBF;
   text-decoration: none;
   font-weight: bold;
 }
 
+/* View Project button styles */
 .view-project-button {
   display: inline-block;
   margin-top: 1rem;
   padding: 0.75rem 1.5rem;
-  background-color: #4C5359; /* Initial background color */
-  color: #fff; /* White text color */
+  background-color: #4C5359;
+  color: #fff;
   text-decoration: none;
   font-size: 1.2rem;
   font-weight: bold;
   border-radius: 5px;
   transition: transform 0.3s, background 0.3s;
 }
-
 .view-project-button:hover {
   transform: scale(1.05);
-  background-color:#71D9B3; /* Gradient background on hover */
+  background-color: #71D9B3;
 }
 
-.project-item:hover {
-  transform: translateY(-5px);
-}
-
+/* Project image */
 .project-image img {
   width: 100%;
   height: auto;
@@ -208,6 +262,7 @@ p {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+/* 6) Modal styling (unchanged) */
 .modal {
   position: fixed;
   top: 50%;
@@ -221,7 +276,6 @@ p {
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
   color: #EAEAEA;
 }
-
 .modal button {
   padding: 0.5rem 1rem;
   background-color: #DB2EF2;
@@ -232,14 +286,27 @@ p {
   margin-top: 1rem;
 }
 
+/* 7) Responsive */
 @media (max-width: 768px) {
   .projects-container {
     flex-direction: column;
+    padding: 0.5rem;
   }
-
   .project-item {
     width: 100%;
     max-width: 100%;
+    padding: 1rem;
+  }
+  h2 {
+    font-size: 3rem;
+  }
+  h3 {
+    font-size: 2rem;
+  }
+  p {
+    font-size: 1.3rem;
+  }
+  .section-wrapper {
     padding: 1rem;
   }
 }
@@ -250,27 +317,13 @@ p {
   }
 }
 
-@media (max-width: 480px) {
-  .project-item {
-    flex: 1 1 100%;
-    max-width: 100%;
-    padding: 1rem;
-  }
-
-  h2 {
-    font-size: 2.5rem;
-  }
-
-  h3 {
-    font-size: 1.5rem;
-  }
-
-  p {
-    font-size: 1.5rem;
-  }
-
-  .section-wrapper {
-    padding: 1rem;
+/* FadeUp animation keyframes */
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 </style>
+
+

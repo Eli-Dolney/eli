@@ -1,240 +1,181 @@
 <template>
   <section id="about">
-    <div class="section-wrapper" ref="sectionWrapper">
-      <h2>About Me</h2>
-      <div class="about-container">
-        <div class="about-text">
-          <p>
-            Hi, I'm Eli, a 23-year-old student currently studying Network and Technology Security. My love for technology started at a young age, and it's been an exciting journey ever since. In my sophomore year of high school, I built my first PC, which sparked my love for building and creating with technology. Since then, I've spend a lot in the tech world, constantly exploring new advancements and expanding my skills.
-          </p>
-          <p>
-            I'm currently working towards obtaining my CCNA certification, a crucial step in my career path that will build on my knowledge and practice in networking. This certification is a great milestone and will help create a solid foundation working with computers, routers and many different network topologies. 
-          </p>
-          <p>
-            Alongside my studies, I work as a Personal Care Assistant (PCA). This role allows me to make a positive impact on people's lives, providing care and support to those in need. Balancing my work and studies has taught me valuable lessons in time management, empathy, and resilience.
-          </p>
-          <p>
-            Being a dad is another significant part of my life. Fatherhood has been an incredible journey, filled with challenges and rewards. It has taught me patience, responsibility, and the importance of being a positive role model. My daughter inspires me every day to be the best version of myself.
-          </p>
-          <p>
-            In addition to my studies and work, I've developed a strong interest in coding. Coding really reminds me of playing with legos, Learning to code has opened up a new world of possibilities for me. I love creating cool projects that combine my technical skills with my creativity. Whether it's building websites, developing applications, or exploring new technologies, coding allows me to bring my ideas to life.
-          </p>
-          <p>
-            Overall, I'm passionate about technology, committed to my personal and professional growth, and dedicated to making a difference in the lives of others. I'm excited about the future and the opportunities it holds, and I'm continuously striving to learn, grow, and achieve my goals.
-          </p>
-        </div>
-        <div class="about-image">
-          <img
-            :src="imageSrc"
-            alt="Eli and Everly"
-            class="profile-image"
-            data-aos="fade-up"
-            data-aos-offset="0"
-            data-aos-duration="1000"
-            data-aos-easing="ease-out-quad"
-          />
-        </div>
+    <!-- Broad Overview Section -->
+    <div class="about-section fade-up">
+      <div class="section-image">
+        <!-- Replace with actual image -->
+        <img :src="overviewImg" alt="Eli Overview" />
+      </div>
+      <div class="section-content">
+        <h2>Overview</h2>
+        <p>
+          Hi, I'm Eli – a 23-year-old student currently pursuing Network and Technology Security. 
+          Balancing work as a Personal Care Assistant and fatherhood, I've gained invaluable lessons 
+          in time management, empathy, and perseverance. My passion for technology drives me to 
+          continuously learn and grow so I can better serve those around me and achieve my goals.
+        </p>
+      </div>
+    </div>
+
+    <!-- Current Focus Section -->
+    <div class="about-section fade-up reverse-layout">
+      <div class="section-content">
+        <h2>What I’m Learning & Working On</h2>
+        <p>
+          I’m currently preparing for the CCNA certification, which deepens my understanding of 
+          networking and security fundamentals. Coding has become another strong interest of mine— 
+          much like stacking LEGO bricks, I love the creativity and challenge. Projects I've built 
+          range from simple websites to more complex applications, and I'm always exploring new 
+          technologies to expand my skillset.
+        </p>
+      </div>
+      <div class="section-image">
+        <!-- Replace with actual image -->
+        <img :src="focusImg" alt="Learning & Projects" />
+      </div>
+    </div>
+
+    <!-- Personal Interests or “Beyond Tech” Section -->
+    <div class="about-section fade-up">
+      <div class="section-image">
+        <!-- Replace with actual image -->
+        <img :src="personalImg" alt="Personal Interests" />
+      </div>
+      <div class="section-content">
+        <h2>Beyond Tech</h2>
+        <p>
+          Outside of networking and coding, I’m a proud dad who loves spending time with my daughter. 
+          Whether we’re exploring the outdoors or tackling new adventures together, fatherhood 
+          continues to inspire me to be a better person. I’m excited about the future, grateful for 
+          the opportunities that lie ahead, and determined to make a positive impact wherever I can.
+        </p>
       </div>
     </div>
   </section>
 </template>
 
 <script>
-import imageSrcImport from '../assets/images/about.jpg';
+import aboutImg from '../assets/images/about.jpg'
+import evjImg from '../assets/images/evj.jpg'
+import retroImg from '../assets/images/retro.jpg'
+
 
 export default {
-  name: "About",
+  name: 'About',
   data() {
     return {
-      imageSrc: imageSrcImport,
-    };
+      overviewImg: aboutImg,
+      focusImg: evjImg,
+      personalImg: retroImg,
+    }
   },
-  mounted() {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("in-view");
-          } else {
-            entry.target.classList.remove("in-view");
-          }
-        });
-      },
-      {
-        threshold: 0.1,
-      }
-    );
-
-    observer.observe(this.$refs.sectionWrapper);
-  },
-};
+}
 </script>
 
+
+
 <style scoped>
-:root {
-  --text-color: aliceblue;
-  --background-dark: #1A1E26;
-  --background-light: #D6D9C1;
-  --accent-color: #DB2EF2;
-  --base-spacing: 40px;
-  --font-size-base: 1rem;
-  --font-size-title: 2.5rem;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
+/* 1) #about: same as before, shifting right on larger screens */
 #about {
-  background-color: #0D0D0D; 
-  margin: 0; /* Remove margin to take full space */
-  padding: 0; /* Remove padding to take full space */
-  min-height: 100vh; /* Ensure it takes up the full viewport height */
-  display: flex; /* Use flexbox to center content */
-  align-items: center; /* Vertically center content */
-}
-
-.section-wrapper {
-  max-width: 1200px;
+  background-color: #0d0d0d;
+  padding: 4rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  margin-left: 0;
   width: 100%;
-  padding: var(--base-spacing);
-  margin: 0 auto;
-  box-sizing: border-box;
-  box-shadow: inset 0 0 10px #AED8F2;
-  opacity: 0;
-  transform: translateY(50px);
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
 }
 
-.section-wrapper.in-view {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.about-container {
-  display: grid;
-  grid-template-columns: 3fr 1fr;
-  gap: var(--base-spacing);
-  justify-content: center;
-  align-items: start;
-  background-color: var(--background-light);
-  box-shadow: inset 0 0 10px #9959D9;
-  margin: 20px auto;
-  padding: 20px;
-  width: 90%;
-  animation: fadeInUp 1.8s ease-out forwards;
-}
-
-h2 {
-  font-size: 4rem;
-  color: var(--text-color);
-  margin-bottom: var(--base-spacing);
-  text-align: center;
-}
-
-.about-text {
-  color: var(--text-color);
-  text-align: left;
-  background-color: #806FBF;
-  font-size: 1.5rem;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  opacity: 0;
-  animation: fadeIn 2s forwards;
-  animation-delay: 0.5s;
-}
-
-.about-image {
-  justify-self: center;
-  overflow: hidden;
-  border-radius: 10px;
-  perspective: 1000px;
-}
-
-.about-image img {
-  width: auto;
-  max-width: 100%;
-  max-height: 500px;
-  border-radius: 10px;
-  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-  transform: translateZ(-50px) scale(1.1);
-}
-
-.about-image img:hover {
-  transform: translateZ(0) scale(1.05) rotate(2deg);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-}
-
-p {
-  font-size: clamp(0.9rem, 1vw, 1.1rem); /* Responsive font size */
-  line-height: 1.6;
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
+@media (min-width: 768px) {
+  #about {
+    margin-left: 100px; 
+    width: calc(100% - 100px);
   }
+}
+
+/* 2) .about-section: fill the full width, no fixed max-width */
+.about-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin: 0;
+  border-radius: 8px;
+  background-color: #1a1e26;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+}
+
+/* Reverse layout for second section on larger screens */
+.reverse-layout {
+  flex-direction: column-reverse;
+}
+
+@media (min-width: 768px) {
+  .about-section {
+    flex-direction: row;
+  }
+  .reverse-layout {
+    flex-direction: row-reverse;
+  }
+}
+
+/* 3) Shared styling for the columns */
+.section-image,
+.section-content {
+  flex: 1;
+  padding: 2rem;
+}
+
+/* 4) Keep the images from getting too huge by using max-width */
+.section-image {
+  display: flex;               /* So we can center the image inside */
+  justify-content: center;
+  align-items: center;
+}
+
+.section-image img {
+  width: 100%;                 /* Fill the container’s width up to max-width */
+  max-width: 600px;            /* Limit how big it can get on large screens */
+  height: auto;                /* Maintain aspect ratio */
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease;
+}
+.section-image img:hover {
+  transform: scale(1.03);
+}
+
+/* 5) Content/Text styling */
+.section-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: aliceblue;
+}
+.section-content h2 {
+  margin-bottom: 1rem;
+  font-size: 2rem;
+  color: #db2ef2;
+}
+.section-content p {
+  line-height: 1.6;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+
+/* 6) Fade-Up Animation, unchanged */
+.fade-up {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeUp 0.8s ease forwards;
+}
+@keyframes fadeUp {
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@media (max-width: 1024px) {
-  .about-container {
-    grid-template-columns: 1fr;
-    width: 80%; /* Adjust width for medium devices */
-    margin: 0 auto; /* Center the container */
-  }
-
-  .about-text, .about-image {
-    width: 100%;
-  }
-
-  .about-image img {
-    max-height: 400px; /* Adjust image height for medium devices */
-  }
-}
-
-@media (max-width: 768px) {
-  .about-container {
-    grid-template-columns: 1fr; /* Stack on smaller screens */
-    width: 90%; /* Adjust width for small devices */
-    margin: 0 auto; /* Center the container */
-    padding: 10px; /* Adjust padding for small devices */
-  }
-
-  .about-text {
-    order: 2; /* Ensure text comes after the image */
-  }
-
-  .about-image {
-    order: 1; /* Image first */
-    max-width: 100%; /* Use full width on mobile */
-    margin: 0 auto; /* Center image */
-  }
-
-  h2 {
-    font-size: 2rem; /* Adjust title font size for mobile */
-  }
-
-  .about-text p {
-    font-size: 0.9rem; /* Adjust text font size for mobile */
-  }
-
-  .about-image img {
-    max-height: 300px; /* Adjust image height for small devices */
-  }
-}
 </style>
+

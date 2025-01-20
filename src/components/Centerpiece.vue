@@ -1,8 +1,11 @@
 <template>
-  <div class="screen-container">
-    <div class="screen screen-1">
+  <div class="centerpiece-container">
+    <div class="centerpiece-screen">
+      <!-- Background Image -->
       <div class="screen-image"></div>
+      <!-- Animated Overlay Stripes -->
       <div class="screen-overlay"></div>
+      <!-- Main Content (Name) -->
       <div class="screen-content">
         <div class="name-wrapper">
           <span class="name" data-value="Eli Dolney">Eli Dolney</span>
@@ -17,25 +20,19 @@ export default {
   name: "Centerpiece",
   mounted() {
     const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    const screens = document.querySelectorAll(".screen");
+    const screens = document.querySelectorAll(".centerpiece-screen");
 
     screens.forEach((screen) => {
       const name = screen.querySelector(".name");
-
-      screen.onmouseenter = () => {
+      screen.addEventListener("mouseenter", () => {
         let iteration = 0;
-        let interval;
-
-        clearInterval(interval);
-
-        interval = setInterval(() => {
+        let interval = setInterval(() => {
           name.innerText = name.innerText
             .split("")
-            .map((letter, index) => {
+            .map((char, index) => {
               if (index < iteration) {
                 return name.dataset.value[index];
               }
-
               return letters[Math.floor(Math.random() * 26)];
             })
             .join("");
@@ -43,340 +40,178 @@ export default {
           if (iteration >= name.dataset.value.length) {
             clearInterval(interval);
           }
-
-          iteration += 1 / 2;
+          // Increase iteration by half step to slow the effect a bit
+          iteration += 0.5;
         }, 70);
-      };
+      });
     });
   },
 };
 </script>
 
 <style scoped>
-.screen-container {
-  padding-top: calc(100vh / 3.5);
+/* 
+  1) Outer container: fill screen minus the navbar, 
+     center contents horizontally + vertically 
+*/
+.centerpiece-container {
   display: flex;
-  flex-wrap: wrap; /* This will make the screens wrap to the next row on smaller screens */
-  justify-content: center; /* Centers the screens horizontally */
-  gap: 20px; /* Add space between screens */
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
+  /* Subtract the navbar’s height if you have a fixed top nav ~80px tall */
+  min-height: calc(100vh - 80px);
+  margin: 0 auto;
+  padding: 0; /* Remove extra padding that pushes the card down */
+  box-sizing: border-box;
 }
 
-.screen {
-  width: 300px;
-  display: flex;
-  border: 3px solid rgb(var(--primary-rgb) / 80%);
-  aspect-ratio: 10 / 16;
-  border-radius: 1rem;
-  border-color: #BFCFD9;
-  background-color: rgb(var(--primary-rgb) / 15%);
-  overflow: hidden;
+/* 
+  2) The card-like “screen” shape. 
+     - Use clamp() to scale between 280px and 400px 
+     - Keep your aspect ratio for a “phone” look 
+*/
+.centerpiece-screen {
   position: relative;
-  z-index: 10;
+  width: clamp(280px, 30vw, 400px);
+  aspect-ratio: 10 / 16;
+  border: 3px solid #bfced9;
+  border-radius: 1rem;
+  background-color: rgba(255, 255, 255, 0.04);
+  overflow: hidden;
+  margin: 0.5rem; /* Slight margin if you have only one screen, can be 0 if you want it higher */
 }
 
-.screen:after,
-.screen:before {
+/* Optional decorative bars */
+.centerpiece-screen::before,
+.centerpiece-screen::after {
   content: "";
-  height: 5px;
   position: absolute;
-  z-index: 4;
   left: 50%;
   transform: translateX(-50%);
-  background-color: white;
+  background-color: #fff;
+  z-index: 4;
 }
-
-.screen:before {
+.centerpiece-screen::before {
+  top: 0;
   width: 15%;
-  top: 0rem;
+  height: 5px;
   border-bottom-left-radius: 1rem;
   border-bottom-right-radius: 1rem;
 }
-
-.screen:after {
+.centerpiece-screen::after {
+  bottom: 0;
   width: 25%;
-  bottom: 0rem;
+  height: 5px;
   border-top-left-radius: 1rem;
   border-top-right-radius: 1rem;
 }
 
-@keyframes pan-overlay {
-  from {
-    background-position: 0% 0%;
-  }
-
-  to {
-    background-position: 0% -100%;
-  }
-}
-
+/* 3) Animated striped overlay */
 .screen-overlay {
-  background: linear-gradient(
-    rgb(var(--primary-rgb) / 0.15),
-    rgb(var(--primary-rgb) / 0.15) 3px,
-    transparent 3px,
-    transparent 9px
-  );
-  background-size: 100% 9px;
-  height: 100%;
-  width: 100%;
-  animation: pan-overlay 22s infinite linear;
   position: absolute;
   z-index: 2;
-  left: 0px;
-  top: 0px;
+  inset: 0;
+  background: 
+    linear-gradient(
+      rgba(255, 255, 255, 0.1),
+      rgba(255, 255, 255, 0.1) 3px,
+      transparent 3px,
+      transparent 9px
+    );
+  background-size: 100% 9px;
+  animation: pan-overlay 22s infinite linear;
+}
+@keyframes pan-overlay {
+  from { background-position: 0 0; }
+  to   { background-position: 0 -100%; }
 }
 
+/* 4) Background image */
+.screen-image {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  background-image: url("../assets/images/evj.jpg");
+  background-size: 300%;
+  background-position: center;
+  animation: pan-image 12s linear infinite;
+}
 @keyframes pan-image {
   0% {
     background-position: 36% 0%;
     background-size: 180%;
   }
-
   20% {
     background-position: 36% 50%;
-    background-size: 180%;
   }
-
-  20.0001% { /* -- View 2 -- */
+  20.0001% {
     background-position: 0% 50%;
     background-size: 160%;
   }
-
   40% {
     background-position: 50% 50%;
     background-size: 160%;
   }
-
-  40.0001% { /* -- View 3 -- */
+  40.0001% {
     background-position: 100% 50%;
-    background-size: 160%;
   }
-
   60% {
     background-position: 50% 50%;
-    background-size: 160%;
   }
-
-  60.0001% { /* -- View 4 -- */
+  60.0001% {
     background-position: 36% 100%;
-    background-size: 160%;
   }
-
   80% {
     background-position: 36% 50%;
-    background-size: 160%;
   }
-
-  80.0001% { /* -- View 5 -- */
+  80.0001% {
     background-position: 50% 50%;
     background-size: 200%;
   }
-
   100% {
     background-position: 50% 50%;
     background-size: 130%;
   }
 }
 
-.screen-1 > .screen-image {
-  background-image: url("../assets/images/evj.jpg");
-  height: 100%;
-  width: 100%;
-  position: absolute;
-  z-index: 1;
-  left: 0px;
-  top: 0px;
-  background-size: 300%;
-  background-position: 0% 0%;
-  opacity: 1;
-  animation: pan-image 12s linear infinite;
-}
-
-.screen > .screen-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-end;
-  flex-grow: 1;
-  gap: 4rem;
+/* 5) Content + name */
+.screen-content {
   position: relative;
   z-index: 3;
-  margin: 1rem;
-  padding-bottom: 6rem;
-  border: 1px solid rgb(var(--primary-rgb) / 50%);
-  border-radius: 0.6rem;
-}
-
-.screen > .screen-content > .screen-icon {
-  color: black;
-  font-size: 4rem;
-  text-shadow: 0px 0px 0.5rem white;
-}
-
-.large-icon {
-  font-size: 6rem;
-  color: white;
-}
-
-.icon-container {
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
-  margin-top: auto;
-  margin-bottom: 1rem;
-}
-
-.screen > .screen-content > .screen-user {
+  width: 100%;
+  height: 100%;
+  /* If the name is too low, reduce or remove padding-bottom. 
+     e.g. padding-bottom: 3rem; */
+  padding-bottom: 6rem; 
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1rem;
-  position: relative;
+  justify-content: flex-end; 
 }
 
-.screen > .screen-content > .screen-user:before,
-.screen > .screen-content > .screen-user:after {
-  content: "";
-  position: absolute;
-  top: 0px;
-  background-color: rgb(var(--primary-rgb));
-  border-radius: 1rem;
-  box-shadow: 0px 0px 8px 3px rgb(var(--primary-rgb) / 60%);
-}
-
-.screen > .screen-content > .screen-user:before {
-  height: 2px;
-  width: 50px;
-  transform: translate(-20px, -1rem);
-  opacity: 0.75;
-}
-
-.screen > .screen-content > .screen-user:after {
-  height: 3px;
-  width: 30px;
-  transform: translate(26px, calc(-1rem - 0.5px));
-}
-
-.screen > .screen-content > .screen-user > :is(.name, .link) {
-  font-family: "Source Code Pro", monospace;
-  color: black;
-  text-align: center;
-  text-transform: uppercase;
-}
-
-.screen > .screen-content > .screen-user > .name {
-  position: relative;
-  font-size: 2.5rem;
-  font-weight: 400;
-}
-
-.screen > .screen-content > .screen-user > .name:before,
-.screen > .screen-content > .screen-user > .name:after {
-  content: "";
-  height: 4px;
-  width: 4px;
-  position: absolute;
-  border: 2px solid black;
-  border-radius: 2px;
-}
-
-.screen > .screen-content > .screen-user > .name:before {
-  top: 55%;
-  right: -1.5rem;
-}
-
-.screen > .screen-content > .screen-user > .name:after {
-  top: 45%;
-  left: -1.5rem;
-}
-
-.screen > .screen-content > .screen-user > .link {
-  opacity: 0.8;
-  font-size: 1rem;
-  text-shadow: 0px 0px 0.5rem white;
-  font-weight: 400;
-  letter-spacing: 0.15rem;
-  text-decoration: none;
-}
-
-.screen > .screen-content > .screen-user > .link:is(:hover, :focus) {
-  text-decoration: underline;
-}
-
-@media (max-width: 700px) {
-  .screen {
-    transform: scale(0.8); /* Adjust scale for mobile */
-    margin-bottom: 0rem;
-  }
-
-  .screen-container {
-    padding-top: 0;
-  }
-
-  .name-wrapper > .name {
-    font-size: 1.5rem; /* Adjust font size for mobile */
-  }
-
-  .large-icon {
-    font-size: 3rem; /* Adjust icon size for mobile */
-  }
-
-  .open-modal-button {
-    font-size: 1rem; /* Adjust button font size for mobile */
-    padding: 8px 16px;
-  }
-}
-
+/* Name near the top, if you prefer it centered within the card,
+   use top: 50%; transform: translate(-50%, -50%) instead. */
 .name-wrapper {
   position: absolute;
   top: 1rem;
   left: 50%;
   transform: translateX(-50%);
 }
-
-.screen-content > .name-wrapper > .name {
+.name {
   font-family: "Source Code Pro", monospace;
-  color: black;
-  text-align: center;
+  font-size: 2rem;
   text-transform: uppercase;
-  font-size: 2.2rem;
-  font-weight: 400;
-  white-space: nowrap;
+  color: #f0f0f0;
+  letter-spacing: 0.1rem;
+  text-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
 }
 
-.name-wrapper > .name:before,
-.name-wrapper > .name:after {
-  content: "";
-  height: 4px;
-  width: 4px;
-  position: absolute;
-  border: 2px solid black;
-  border-radius: 2px;
-}
-
-.name-wrapper > .name:before {
-  top: 55%;
-  right: -1.5rem;
-}
-
-.name-wrapper > .name:after {
-  top: 45%;
-  left: -1.5rem;
-}
-
-.icon-wrapper {
-  position: absolute;
-  bottom: 1rem;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
-}
-
-.link:hover .large-icon {
-  color: var(--primary);
-  transform: scale(1.1);
-  transition: all 0.2s ease;
+/* 6) Responsive refinements */
+@media (max-width: 700px) {
+  .name {
+    font-size: 1.6rem;
+  }
 }
 </style>
