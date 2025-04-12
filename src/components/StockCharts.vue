@@ -79,7 +79,9 @@ export default {
         { id: 'growth', name: 'Growth Stocks' },
         { id: 'crypto', name: 'Crypto' },
         { id: 'etf', name: 'ETFs' },
-        { id: 'sustainability', name: 'Sustainability' }
+        { id: 'sustainability', name: 'Sustainability' },
+        // New category added:
+        { id: 'chickenalfredo', name: 'Chicken alfredo' }
       ],
       symbols: [
         // Technology
@@ -132,7 +134,31 @@ export default {
         { ticker: 'NEE', name: 'NextEra Energy', category: 'sustainability', change: 0.52 },
         { ticker: 'ICLN', name: 'iShares Global Clean Energy ETF', category: 'sustainability', change: 0.64 },
         { ticker: 'STEM', name: 'Stem Inc', category: 'sustainability', change: -0.92 },
-        { ticker: 'CHPT', name: 'ChargePoint Holdings', category: 'sustainability', change: 1.15 }
+        { ticker: 'CHPT', name: 'ChargePoint Holdings', category: 'sustainability', change: 1.15 },
+
+        // New symbols for the Chicken alfredo category
+        { ticker: 'ASTS', name: 'AST SPACEMOBILE, INC.', category: 'chickenalfredo', change: 0.0 },
+        { ticker: 'RKLB', name: 'ROCKET LAB USA, INC.', category: 'chickenalfredo', change: 0.0 },
+        { ticker: 'TSLA', name: 'TESLA, INC.', category: 'chickenalfredo', change: 0.0 },
+        { ticker: 'LUNR', name: 'INTUITIVE MACHINES, INC.', category: 'chickenalfredo', change: 0.0 },
+        { ticker: 'PL', name: 'PLANET LABS PBC', category: 'chickenalfredo', change: 0.0 },
+        { ticker: 'PLTR', name: 'PALANTIR TECHNOLOGIES INC.', category: 'chickenalfredo', change: 0.0 },
+        { ticker: 'TOST', name: 'TOAST, INC.', category: 'chickenalfredo', change: 0.0 },
+        { ticker: 'IONQ', name: 'IONQ, INC.', category: 'chickenalfredo', change: 0.0 },
+        { ticker: 'AMD', name: 'ADVANCED MICRO DEVICES, INC.', category: 'chickenalfredo', change: 0.0 },
+        { ticker: 'MSTR', name: 'MICROSTRATEGY INCORPORATED', category: 'chickenalfredo', change: 0.0 },
+        { ticker: 'LNZA', name: 'LANZATECH GLOBAL, INC', category: 'chickenalfredo', change: 0.0 },
+        { ticker: 'BABA', name: 'Alibaba Group Holding Limited', category: 'chickenalfredo', change: 0.0 },
+        { ticker: 'AMTX', name: 'AEMETIS, INC.', category: 'chickenalfredo', change: 0.0 },
+        { ticker: 'SMCI', name: 'SUPER MICRO COMPUTER, INC.', category: 'chickenalfredo', change: 0.0 },
+        { ticker: 'LODE', name: 'COMSTOCK INC.', category: 'chickenalfredo', change: 0.0 },
+        { ticker: 'TSAT', name: 'Telesat Corporation', category: 'chickenalfredo', change: 0.0 },
+        { ticker: 'SPIR', name: 'SPIRE GLOBAL, INC.', category: 'chickenalfredo', change: 0.0 },
+        { ticker: 'SPCE', name: 'VIRGIN GALACTIC HOLDINGS, INC.', category: 'chickenalfredo', change: 0.0 },
+        { ticker: 'ATKR', name: 'ATKORE INC', category: 'chickenalfredo', change: 0.0 },
+        { ticker: 'VRT', name: 'Vertiv Holdings Co', category: 'chickenalfredo', change: 0.0 },
+        { ticker: 'GEV', name: 'GE VERNOVA INC.', category: 'chickenalfredo', change: 0.0 },
+        { ticker: 'RRX', name: 'Regal Rexnord Corporation', category: 'chickenalfredo', change: 0.0 }
       ],
       charts: [
         { containerId: 'chart1', timeframe: '15', timeframeName: '15 Minutes' },
@@ -164,12 +190,10 @@ export default {
   methods: {
     loadTradingViewScript() {
       return new Promise((resolve) => {
-        // Check if script is already loaded
         if (window.TradingView) {
           resolve();
           return;
         }
-        
         const script = document.createElement('script');
         script.src = 'https://s3.tradingview.com/tv.js';
         script.async = true;
@@ -190,7 +214,6 @@ export default {
     },
     createTradingViewWidget(containerId, symbol, interval, timeframeName) {
       if (!window.TradingView) return;
-      
       new window.TradingView.widget({
         width: '100%',
         height: '100%',
