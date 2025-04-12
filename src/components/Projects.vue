@@ -209,17 +209,19 @@ export default {
           ]
         },
         {
-          title: 'Note + Mindmap',
-          description: 'An advanced note-taking application that combines traditional notes with visual mind mapping capabilities for better organization and brainstorming.',
-          link: 'https://github.com/Eli-Dolney/notes',
+          title: 'Network Scanner',
+          description: 'Working on my on python script that allows me to scan my network for devices and their IP addresses.',
+          link: 'https://github.com/Eli-Dolney/network_scanner',
           imageSrc: note,
           category: 'Python Scripts',
-          technologies: ['Python', 'PyQt', 'SQLite', 'NetworkX'],
+          technologies: ['Python', 'Scapy', 'python-nmap', 'Nmap', 'Npcap'],
           features: [
-            'Mind map visualization',
-            'Rich text editing',
-            'Note categorization',
-            'Export to multiple formats'
+            'Discover live hosts on a local network',
+            'Retrieve device details (IP, MAC, hostname, manufacturer)',
+            'Scan for open TCP ports',
+            'Perform OS fingerprinting and service detection using Nmap',
+            'Log results to JSON and a log file',
+            'Alerts on unknown devices based on a known devices list'
           ]
         },
         {
