@@ -1,13 +1,13 @@
 <template>
   <div id="app">
-    <TopNavbar />
-    <Sidebar />
-    <loading-screen :is-loading="isLoading" @loadingComplete="isLoading = false" />
-
-    <!-- main container (for all pages) -->
-    <main v-if="!isLoading">
-      <router-view />
-    </main>
+    <loading-screen v-if="isLoading" @loadingComplete="isLoading = false" />
+    <div v-else class="app-container">
+      <TopNavbar />
+      <Sidebar />
+      <main class="main-content">
+        <router-view />
+      </main>
+    </div>
   </div>
 </template>
 
@@ -17,6 +17,7 @@ import Sidebar from './components/Sidebar.vue';
 import TopNavbar from './components/TopNavbar.vue';
 
 export default {
+  name: 'App',
   components: {
     TopNavbar,
     Sidebar,
@@ -31,54 +32,59 @@ export default {
 </script>
 
 <style>
-/* -----------------------------------
-   #app Container
------------------------------------- */
+/* Global styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* App container */
 #app {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  width: 100vw;
-  margin: 0;     /* remove default margin */
-  padding: 0;    /* remove side padding so home can be full-bleed */
-  box-sizing: border-box;
-  text-align: center;
-  overflow-x: hidden; /* prevent horizontal scroll if something's too wide */
+  width: 100%;
+  overflow-x: hidden;
 }
 
-main {
-  /* Keep for other pages, but we can override on Home if we want no padding */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+}
+
+/* Main content area */
+.main-content {
   flex: 1;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  max-width: none;
   width: 100%;
+  margin-left: 70px; /* Match sidebar width */
+  transition: margin-left 0.3s ease;
+}
+
+/* Adjust router-view content spacing */
+.main-content .router-view {
+  width: 100%;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 0;
-  overflow-y: auto;
+  padding: 2rem;
 }
 
-/* 
-  We can keep router-view styles minimal.
-  Individual pages can override as needed.
-*/
-router-view {
-  width: 100%;
-  max-width: 800px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  padding: 1rem;
-}
-
-/* Example: adjust at smaller screens */
+/* Responsive adjustments */
 @media (max-width: 768px) {
-  main {
+  .main-content {
+    margin-left: 0;
+    margin-bottom: 60px; /* Match sidebar height in mobile view */
     padding: 1rem;
-    max-width: 100%;
   }
 }
 </style>

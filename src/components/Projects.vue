@@ -1,68 +1,181 @@
 <template>
   <section id="projects">
-    <div class="section-wrapper">
-      <h2>My Projects</h2>
-      <p>Check out some of the things I have been working on since I started coding!</p>
+    <div class="section-wrapper" ref="sectionWrapper">
+      <div class="section-header">
+        <h2>My Projects</h2>
+        <div class="underline"></div>
+        <p>Check out some of the things I have been working on since I started coding!</p>
+      </div>
       
-      <!-- Python Scripts Section -->
-      <div>
-        <h3>Python Scripts</h3>
-        <div class="projects-container">
-          <div v-for="(project, index) in projects.filter(p => p.category === 'Python Scripts')" :key="index" class="project-item">
-            <div class="project-description">
-              <h3>{{ project.title }}</h3>
-              <p>{{ project.description }}</p>
-              <a :href="project.link" target="_blank" class="view-project-button">View Project</a>
-            </div>
-            <div class="project-image">
-              <img @click="openModal(project)" :src="project.imageSrc" alt="Project image" />
+      <!-- Project categories -->
+      <div class="categories-container">
+        <!-- Python Scripts Section -->
+        <div class="category-section" ref="categorySection">
+          <div class="category-header">
+            <h3>Python Scripts</h3>
+            <div class="category-underline"></div>
+          </div>
+          
+          <div class="projects-grid">
+            <div 
+              v-for="(project, index) in projects.filter(p => p.category === 'Python Scripts')" 
+              :key="`python-${index}`" 
+              class="project-card"
+              :style="{ animationDelay: `${index * 0.15}s` }"
+            >
+              <div class="project-image-container">
+                <img 
+                  :src="project.imageSrc" 
+                  :alt="`${project.title} preview`"
+                  @click="openModal(project)"
+                  class="project-image"
+                />
+                <div class="project-overlay">
+                  <button class="view-details-btn" @click="openModal(project)">View Details</button>
+                </div>
+              </div>
+              
+              <div class="project-content">
+                <h4>{{ project.title }}</h4>
+                <p>{{ project.description }}</p>
+                <div class="project-footer">
+                  <a :href="project.link" target="_blank" class="project-link">
+                    <span>View Project</span>
+                    <font-awesome-icon :icon="['fas', 'arrow-right']" />
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <!-- Projects Section -->
-      <div>
-        <h3>Projects</h3>
-        <div class="projects-container">
-          <div v-for="(project, index) in projects.filter(p => p.category === 'Projects')" :key="index" class="project-item">
-            <div class="project-description">
-              <h3>{{ project.title }}</h3>
-              <p>{{ project.description }}</p>
-              <a :href="project.link" target="_blank" class="view-project-button">View Project</a>
-            </div>
-            <div class="project-image">
-              <img @click="openModal(project)" :src="project.imageSrc" alt="Project image" />
+        <!-- Projects Section -->
+        <div class="category-section" ref="categorySection">
+          <div class="category-header">
+            <h3>Projects</h3>
+            <div class="category-underline"></div>
+          </div>
+          
+          <div class="projects-grid">
+            <div 
+              v-for="(project, index) in projects.filter(p => p.category === 'Projects')" 
+              :key="`project-${index}`" 
+              class="project-card"
+              :style="{ animationDelay: `${index * 0.15}s` }"
+            >
+              <div class="project-image-container">
+                <img 
+                  :src="project.imageSrc" 
+                  :alt="`${project.title} preview`"
+                  @click="openModal(project)"
+                  class="project-image"
+                />
+                <div class="project-overlay">
+                  <button class="view-details-btn" @click="openModal(project)">View Details</button>
+                </div>
+              </div>
+              
+              <div class="project-content">
+                <h4>{{ project.title }}</h4>
+                <p>{{ project.description }}</p>
+                <div class="project-footer">
+                  <a :href="project.link" target="_blank" class="project-link">
+                    <span>View Project</span>
+                    <font-awesome-icon :icon="['fas', 'arrow-right']" />
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <!-- Websites Section -->
-      <div>
-        <h3>Websites</h3>
-        <div class="projects-container">
-          <div v-for="(project, index) in projects.filter(p => p.category === 'Websites')" :key="index" class="project-item">
-            <div class="project-description">
-              <h3>{{ project.title }}</h3>
-              <p>{{ project.description }}</p>
-              <a :href="project.link" target="_blank" class="view-project-button">View Project</a>
-            </div>
-            <div class="project-image">
-              <img @click="openModal(project)" :src="project.imageSrc" alt="Project image" />
+        <!-- Websites Section -->
+        <div class="category-section" ref="categorySection">
+          <div class="category-header">
+            <h3>Websites</h3>
+            <div class="category-underline"></div>
+          </div>
+          
+          <div class="projects-grid">
+            <div 
+              v-for="(project, index) in projects.filter(p => p.category === 'Websites')" 
+              :key="`website-${index}`" 
+              class="project-card"
+              :style="{ animationDelay: `${index * 0.15}s` }"
+            >
+              <div class="project-image-container">
+                <img 
+                  :src="project.imageSrc" 
+                  :alt="`${project.title} preview`"
+                  @click="openModal(project)"
+                  class="project-image"
+                />
+                <div class="project-overlay">
+                  <button class="view-details-btn" @click="openModal(project)">View Details</button>
+                </div>
+              </div>
+              
+              <div class="project-content">
+                <h4>{{ project.title }}</h4>
+                <p>{{ project.description }}</p>
+                <div class="project-footer">
+                  <a :href="project.link" target="_blank" class="project-link">
+                    <span>View Project</span>
+                    <font-awesome-icon :icon="['fas', 'arrow-right']" />
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Modal component -->
-    <div v-if="openProjectModal" class="modal">
-      <div class="modal-content">
-        <h3>{{ selectedProject.title }}</h3>
-        <p>{{ selectedProject.description }}</p>
-        <a :href="selectedProject.link" target="_blank" class="view-project-button">View Project</a>
-        <button @click="closeModal">Close</button>
+    <!-- Project Detail Modal -->
+    <div v-if="openProjectModal" class="modal-overlay" @click="closeModal">
+      <div class="modal-content" @click.stop>
+        <button class="modal-close" @click="closeModal">
+          <font-awesome-icon :icon="['fas', 'times']" />
+        </button>
+        
+        <div class="modal-header">
+          <h3>{{ selectedProject.title }}</h3>
+          <div class="modal-underline"></div>
+        </div>
+        
+        <div class="modal-body">
+          <div class="modal-image">
+            <img :src="selectedProject.imageSrc" :alt="selectedProject.title">
+          </div>
+          
+          <div class="modal-description">
+            <p>{{ selectedProject.description }}</p>
+            
+            <!-- Optional: Add more details that only show in the modal -->
+            <div v-if="selectedProject.technologies" class="modal-tech">
+              <h4>Technologies Used:</h4>
+              <ul class="tech-list">
+                <li v-for="(tech, i) in selectedProject.technologies" :key="i">{{ tech }}</li>
+              </ul>
+            </div>
+            
+            <div v-if="selectedProject.features" class="modal-features">
+              <h4>Key Features:</h4>
+              <ul>
+                <li v-for="(feature, i) in selectedProject.features" :key="i">{{ feature }}</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        <div class="modal-footer">
+          <a :href="selectedProject.link" target="_blank" class="modal-button primary">
+            View Project
+            <font-awesome-icon :icon="['fas', 'external-link-alt']" />
+          </a>
+          
+          <button class="modal-button secondary" @click="closeModal">Close</button>
+        </div>
       </div>
     </div>
   </section>
@@ -82,248 +195,742 @@ export default {
       selectedProject: null,
       projects: [
         {
-          title: 'Svelte Link Tree Clone (In Progress)',
-          description: 'My first look into Svelte with fireship.io. Languages/Tools: Svelte, TypeScript, Firebase',
+          title: 'Svelte Link Tree Clone',
+          description: 'My first look into Svelte with fireship.io. A modern profile links page with customizable themes and analytics.',
           link: 'https://github.com/Eli-Dolney/Svelte',
           imageSrc: svelteImage,
-          category: 'Projects'
+          category: 'Projects',
+          technologies: ['Svelte', 'TypeScript', 'Firebase', 'CSS'],
+          features: [
+            'User authentication',
+            'Custom themes',
+            'Link analytics',
+            'Mobile-responsive design'
+          ]
         },
         {
-          title: 'Note + mindmap',
-          description: 'This is a detailed description of the job tracking application...',
+          title: 'Note + Mindmap',
+          description: 'An advanced note-taking application that combines traditional notes with visual mind mapping capabilities for better organization and brainstorming.',
           link: 'https://github.com/Eli-Dolney/notes',
           imageSrc: note,
-          category: 'Python Scripts'
+          category: 'Python Scripts',
+          technologies: ['Python', 'PyQt', 'SQLite', 'NetworkX'],
+          features: [
+            'Mind map visualization',
+            'Rich text editing',
+            'Note categorization',
+            'Export to multiple formats'
+          ]
         },
         {
           title: 'Stock Price Predictor',
-          description: 'A project to predict stock prices using Python and scikit-learn...',
+          description: 'A machine learning application that analyzes historical stock data and predicts future prices using various algorithms and technical indicators.',
           link: 'https://github.com/Eli-Dolney/stock/tree/main',
           imageSrc: stock,
-          category: 'Python Scripts'
+          category: 'Python Scripts',
+          technologies: ['Python', 'scikit-learn', 'pandas', 'matplotlib', 'yfinance'],
+          features: [
+            'Multiple prediction models',
+            'Technical indicator analysis',
+            'Interactive visualization',
+            'Historical performance backtesting'
+          ]
         },
         {
           title: 'Expense Tracker',
-          description: 'An expense tracking application built with Python and Tkinter...',
+          description: 'A comprehensive expense tracking tool that helps users manage their finances with budgeting features, expense categorization, and visual reports.',
           link: 'https://github.com/Eli-Dolney/expense-tracker',
           imageSrc: expense,
-          category: 'Python Scripts'
+          category: 'Python Scripts',
+          technologies: ['Python', 'Tkinter', 'SQLite', 'Matplotlib'],
+          features: [
+            'Expense categorization',
+            'Visual spending reports',
+            'Budget planning',
+            'Export to CSV/PDF'
+          ]
         },
       ]
     };
+  },
+  mounted() {
+    // Animation for the entire section
+    const mainObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in-view');
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+    
+    mainObserver.observe(this.$refs.sectionWrapper);
+
+    // Animations for individual category sections
+    const categoryObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('category-in-view');
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+    
+    // Observe each category section
+    const categorySections = document.querySelectorAll('.category-section');
+    categorySections.forEach(section => {
+      categoryObserver.observe(section);
+    });
+
+    // Animations for individual project cards
+    const projectObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('card-in-view');
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+    
+    // Observe each project card
+    const projectCards = document.querySelectorAll('.project-card');
+    projectCards.forEach(card => {
+      projectObserver.observe(card);
+    });
   },
   methods: {
     openModal(project) {
       this.selectedProject = project;
       this.openProjectModal = true;
+      document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
     },
     closeModal() {
       this.openProjectModal = false;
+      document.body.style.overflow = ''; // Re-enable scrolling
     }
   }
 };
 </script>
 
 <style scoped>
-/* 
-  1) #projects: make it fill the screen (minus sidebar).
-  Note: Uses the same logic you already have to shift right on larger screens. 
-*/
+/* Base Styles */
 #projects {
   background-color: #0D0D0D;
-  color: #EAEAEA;
+  background-image: linear-gradient(to bottom, #0D0D0D, #181818);
+  min-height: 100vh;
   width: 100%;
-  min-height: 100vh; 
-  padding: 2rem;
-  box-sizing: border-box;
   margin-left: 0;
+  padding: 4rem 2rem;
+  box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
 }
 
 @media (min-width: 768px) {
   #projects {
-    margin-left: 100px;
-    width: calc(100% - 100px);
+    
+    width: 100%;
   }
 }
 
-/* 2) Outer wrapper that holds all content (headings, categories, etc.) */
+/* Main Section Wrapper */
 .section-wrapper {
-  width: 100%;
-  padding: 2rem;
-  background-color: #0D0D0D;
-  box-shadow: inset 0 0 10px #AED8F2; 
+  max-width: 1400px;
+  margin: 0 auto;
   box-sizing: border-box;
-}
-
-/* Main title and intro paragraph */
-h2 {
-  color: #806FBF;
-  font-size: 3.5rem;
-  text-align: center;
-  margin-bottom: 1rem;
-}
-p {
-  font-size: 1.6rem;
-  text-align: center;
-  color: #AAA;
-  margin-bottom: 3rem;
-}
-
-/* 3) Each category section (Python Scripts, Projects, Websites, etc.) */
-.category-section {
-  margin-bottom: 3rem;          /* Space between sections */
-  border: 2px solid #806FBF;    /* Purple border for definition */
-  padding: 2rem;
-  border-radius: 8px;
-  background-color: #161B22;    /* Slightly different shade for contrast */
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-  /* Optional subtle hover effect */
-  transition: transform 0.3s ease;
-}
-.category-section:hover {
-  transform: scale(1.01);
-}
-
-/* Category headings (e.g., "Python Scripts", "Projects", "Websites") */
-.category-section h3 {
-  color: #806FBF;
-  font-size: 2.4rem;
-  text-align: center;
-  margin-top: 0; /* remove default heading margin in this context */
-  margin-bottom: 2rem;
-}
-
-/* 4) The container for your project items within each category */
-.projects-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2rem;
-  justify-content: center;
-  /* Remove or customize if you don’t want an extra inset shadow: */
-  box-shadow: inset 0 0 10px #AED8F2; 
-  padding: 1rem;  /* some padding so the items aren’t flush to the edges */
-  border-radius: 6px; /* minor rounding */
-  background-color: #0D0D0D; /* match or differ from .category-section */
-}
-
-/* 5) Individual project items */
-.project-item {
-  flex: 1 1 300px;
-  max-width: 45%;
-  background-color: #0D0D0D;
-  padding: 2rem;
-  border-radius: 5px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  box-sizing: border-box;
-  /* fadeUp animation start state */
   opacity: 0;
-  transform: translateY(20px);
-  animation: fadeUp 0.8s ease forwards;
-  transition: transform 0.3s ease;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
 }
 
-/* Lift on hover */
-.project-item:hover {
-  transform: translateY(-5px);
+.section-wrapper.in-view {
+  opacity: 1;
+  transform: translateY(0);
 }
 
-/* Project headings and links */
-.project-description h3, 
-.project-description a {
-  color: #806FBF;
-  text-decoration: none;
-  font-weight: bold;
+/* Section Header Styling */
+.section-header {
+  text-align: center;
+  margin-bottom: 4rem;
 }
 
-/* View Project button styles */
-.view-project-button {
-  display: inline-block;
-  margin-top: 1rem;
-  padding: 0.75rem 1.5rem;
-  background-color: #4C5359;
+h2 {
+  font-size: 3.5rem;
   color: #fff;
-  text-decoration: none;
-  font-size: 1.2rem;
-  font-weight: bold;
-  border-radius: 5px;
-  transition: transform 0.3s, background 0.3s;
-}
-.view-project-button:hover {
-  transform: scale(1.05);
-  background-color: #71D9B3;
+  margin-bottom: 1rem;
+  font-weight: 700;
+  letter-spacing: 1px;
 }
 
-/* Project image */
-.project-image img {
+.underline {
+  height: 4px;
+  width: 120px;
+  background: linear-gradient(90deg, #71D9B3, #806FBF);
+  margin: 0 auto 1.5rem;
+  border-radius: 2px;
+}
+
+.section-header p {
+  font-size: 1.4rem;
+  color: #AED8F2;
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* Categories Container */
+.categories-container {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+}
+
+/* Category Section */
+.category-section {
+  border-radius: 16px;
+  padding: 2.5rem;
+  background: rgba(26, 30, 38, 0.5);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(174, 216, 242, 0.1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.category-section.category-in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Category Header */
+.category-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.category-header h3 {
+  font-size: 2.2rem;
+  color: #806FBF;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.category-underline {
+  height: 3px;
+  width: 80px;
+  background: linear-gradient(90deg, #806FBF, #71D9B3);
+  margin: 0 auto 1rem;
+  border-radius: 1.5px;
+}
+
+/* Projects Grid */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 2.5rem;
+}
+
+/* Project Card */
+.project-card {
+  background: rgba(13, 13, 13, 0.7);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+              box-shadow 0.4s ease;
+  border: 1px solid rgba(174, 216, 242, 0.1);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  
+  /* Animation start state */
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeUp 0.6s ease forwards;
+  animation-play-state: paused;
+}
+
+.project-card.card-in-view {
+  animation-play-state: running;
+}
+
+.project-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(113, 217, 179, 0.2);
+}
+
+/* Project Image Container */
+.project-image-container {
+  position: relative;
+  overflow: hidden;
+  height: 220px;
   width: 100%;
-  height: auto;
-  object-fit: cover;
-  border-radius: 5px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* 6) Modal styling (unchanged) */
-.modal {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: #252934;
-  padding: 2rem;
-  border-radius: 8px;
-  z-index: 1000;
-  max-width: 600px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-  color: #EAEAEA;
+.project-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
 }
-.modal button {
-  padding: 0.5rem 1rem;
-  background-color: #DB2EF2;
+
+.project-card:hover .project-image {
+  transform: scale(1.05);
+}
+
+/* Image Overlay */
+.project-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(13, 13, 13, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.project-card:hover .project-overlay {
+  opacity: 1;
+}
+
+/* View Details Button */
+.view-details-btn {
+  padding: 0.8rem 1.5rem;
+  background: linear-gradient(135deg, #806FBF, #71D9B3);
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 30px;
+  font-size: 1rem;
+  font-weight: 600;
   cursor: pointer;
-  margin-top: 1rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* 7) Responsive */
-@media (max-width: 768px) {
-  .projects-container {
-    flex-direction: column;
-    padding: 0.5rem;
-  }
-  .project-item {
-    width: 100%;
-    max-width: 100%;
-    padding: 1rem;
-  }
-  h2 {
-    font-size: 3rem;
-  }
-  h3 {
-    font-size: 2rem;
-  }
-  p {
-    font-size: 1.3rem;
-  }
-  .section-wrapper {
-    padding: 1rem;
+.view-details-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 5px 15px rgba(113, 217, 179, 0.4);
+}
+
+/* Project Content */
+.project-content {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.project-content h4 {
+  font-size: 1.4rem;
+  color: #fff;
+  margin-bottom: 0.8rem;
+  font-weight: 600;
+}
+
+.project-content p {
+  color: #AED8F2;
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  text-align: left;
+  flex-grow: 1;
+}
+
+/* Project Footer */
+.project-footer {
+  margin-top: auto;
+  display: flex;
+  justify-content: flex-start;
+}
+
+/* Project Link Button */
+.project-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.2rem;
+  background: linear-gradient(135deg, #4D208C, #71D9B3);
+  color: #fff;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.project-link::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #71D9B3, #4D208C);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 0;
+}
+
+.project-link:hover::before {
+  opacity: 1;
+}
+
+.project-link span,
+.project-link svg {
+  position: relative;
+  z-index: 1; /* Place above the pseudo-element */
+}
+
+.project-link:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(113, 217, 179, 0.4);
+}
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(5px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+.modal-content {
+  background: #1A1E26;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 900px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  animation: modalFadeIn 0.4s ease;
+  border: 1px solid rgba(174, 216, 242, 0.1);
+}
+
+/* Modal Close Button */
+.modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #fff;
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+.modal-close:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: rotate(90deg);
+}
+
+/* Modal Header */
+.modal-header {
+  padding: 2rem 2rem 1rem;
+  text-align: center;
+}
+
+.modal-header h3 {
+  font-size: 2rem;
+  color: #fff;
+  margin-bottom: 0.5rem;
+}
+
+.modal-underline {
+  height: 3px;
+  width: 100px;
+  background: linear-gradient(90deg, #71D9B3, #806FBF);
+  margin: 0.5rem auto 1rem;
+  border-radius: 1.5px;
+}
+
+/* Modal Body */
+.modal-body {
+  padding: 0 2rem 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 768px) {
+  .modal-body {
+    flex-direction: row;
+    gap: 2rem;
   }
 }
 
-@media (max-width: 992px) and (min-width: 769px) {
-  .project-item {
-    width: calc(50% - 1rem);
+/* Modal Image */
+.modal-image {
+  flex: 1;
+  min-width: 0;
+  margin-bottom: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .modal-image {
+    flex: 0 0 45%;
+    margin-bottom: 0;
   }
 }
 
-/* FadeUp animation keyframes */
+.modal-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Modal Description */
+.modal-description {
+  flex: 1;
+  min-width: 0;
+}
+
+.modal-description p {
+  color: #AED8F2;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+
+/* Tech List */
+.modal-tech h4,
+.modal-features h4 {
+  color: #fff;
+  font-size: 1.2rem;
+  margin-bottom: 0.8rem;
+}
+
+.tech-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  list-style: none;
+  padding: 0;
+  margin-bottom: 1.5rem;
+}
+
+.tech-list li {
+  background: rgba(113, 217, 179, 0.2);
+  color: #71D9B3;
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+}
+
+/* Features List */
+.modal-features ul {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 1.5rem;
+}
+
+.modal-features li {
+  padding: 0.5rem 0;
+  color: #AED8F2;
+  border-bottom: 1px solid rgba(174, 216, 242, 0.1);
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.modal-features li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: #71D9B3;
+}
+
+/* Modal Footer */
+.modal-footer {
+  padding: 1.5rem 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+/* Modal Buttons */
+.modal-button {
+  padding: 0.8rem 1.5rem;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.modal-button.primary {
+  background: linear-gradient(135deg, #806FBF, #71D9B3);
+  color: #fff;
+  border: none;
+  text-decoration: none;
+}
+
+.modal-button.primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(113, 217, 179, 0.4);
+}
+
+.modal-button.secondary {
+  background: transparent;
+  border: 1px solid rgba(174, 216, 242, 0.3);
+  color: #AED8F2;
+}
+
+.modal-button.secondary:hover {
+  background: rgba(174, 216, 242, 0.1);
+}
+
+/* Animations */
 @keyframes fadeUp {
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+  .projects-grid {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+  
+  h2 {
+    font-size: 3rem;
+  }
+  
+  .category-header h3 {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  #projects {
+    padding: 3rem 1.5rem;
+  }
+  
+  .section-header {
+    margin-bottom: 3rem;
+  }
+  
+  h2 {
+    font-size: 2.5rem;
+  }
+  
+  .section-header p {
+    font-size: 1.2rem;
+  }
+  
+  .categories-container {
+    gap: 3rem;
+  }
+  
+  .category-section {
+    padding: 2rem 1.5rem;
+  }
+  
+  .category-header h3 {
+    font-size: 1.8rem;
+  }
+  
+  .projects-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .modal-content {
+    padding: 1rem;
+  }
+  
+  .modal-header h3 {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  #projects {
+    padding: 2.5rem 1rem;
+  }
+  
+  h2 {
+    font-size: 2rem;
+  }
+  
+  .section-header p {
+    font-size: 1rem;
+  }
+  
+  .category-section {
+    padding: 1.5rem 1rem;
+  }
+  
+  .category-header h3 {
+    font-size: 1.6rem;
+  }
+  
+  .project-content h4 {
+    font-size: 1.2rem;
+  }
+  
+  .modal-header h3 {
+    font-size: 1.6rem;
+  }
+  
+  .modal-description p {
+    font-size: 1rem;
+  }
+  
+  .modal-footer {
+    flex-direction: column;
+  }
+  
+  .modal-button {
+    width: 100%;
+    justify-content: center;
+  }
+}
 </style>
-
-

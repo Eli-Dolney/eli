@@ -1,5 +1,5 @@
 <template>
-  <div class="loading-screen" v-show="isLoading">
+  <div class="loading-screen">
     <div class="scrambling-loader">
       <span class="welcome-text" data-value="Welcome">Welcome</span>
     </div>
@@ -9,12 +9,7 @@
 <script>
 export default {
   name: 'Loading',
-  props: {
-    isLoading: {
-      type: Boolean,
-      required: true,
-    },
-  },
+  emits: ['loadingComplete'], // Define the emitted event
   mounted() {
     const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     const welcomeText = this.$el.querySelector('.welcome-text');
@@ -35,7 +30,7 @@ export default {
       if (iteration >= welcomeText.dataset.value.length) {
         clearInterval(interval);
         setTimeout(() => {
-          this.$emit('loading-complete');  // Emit an event instead of mutating the prop
+          this.$emit('loadingComplete'); // Match the event name in App.vue
         }, 400);
       }
 
