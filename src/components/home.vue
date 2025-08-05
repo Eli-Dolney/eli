@@ -1,21 +1,19 @@
 <template>
-  <!-- Our home container that goes full-bleed -->
   <div class="home-content">
-    <!-- If "Header" is your hero section, just keep it here -->
     <Header />
+    <YouTubeSection />
   </div>
 </template>
 
 <script>
 import Header from "./Header.vue";
+import YouTubeSection from "./YouTubeSection.vue";
 
 export default {
   name: "Home",
   components: {
     Header,
-  },
-  mounted() {
-    console.log("Home component mounted!");
+    YouTubeSection,
   },
 };
 </script>

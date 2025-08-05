@@ -1,63 +1,68 @@
 <template>
-  <header>
-    <div class="header-overlay">
-      <div class="header-content">
-        <!-- Your logo only in the top left -->
-        <div class="logo-container">
-          <span class="logo">ED</span>
-        </div>
-        
-        <!-- Top right corner social links only -->
-        <div class="social-links">
-          <a 
-            class="social-link" 
-            href="https://bit.ly/Linkedin-Eli" 
-            target="_blank" 
-            aria-label="LinkedIn"
-          >
-            <font-awesome-icon :icon="['fab', 'linkedin']" />
-          </a>
-          <a 
-            class="social-link" 
-            href="https://bit.ly/Github-Eli" 
-            target="_blank" 
-            aria-label="GitHub"
-          >
-            <font-awesome-icon :icon="['fab', 'github']" />
-          </a>
-          <button @click="open = true" class="about-button" aria-label="About">
-            <font-awesome-icon :icon="['fas', 'info-circle']" />
-          </button>
-        </div>
+  <header class="hero-section">
+    <!-- Background with overlay -->
+    <div class="hero-background">
+      <div class="background-overlay"></div>
+    </div>
 
-        <!-- Centerpiece in the main area -->
-        <Centerpiece />
-        
-        <!-- Title and CTA below centerpiece -->
-        <div class="header-cta">
-          <h2 class="profession">Want to Collab?</h2>
-          <a href="/projects" class="cta-button">View My Work</a>
+    <!-- Main content container -->
+    <div class="hero-container">
+
+      <!-- Main hero content -->
+      <div class="hero-content">
+        <div class="hero-text">
+          <h2 class="hero-subtitle">Network & Technology Security Student</h2>
+          <p class="hero-description">
+            Passionate about creating secure, innovative solutions. 
+            Balancing fatherhood, work, and continuous learning in tech.
+          </p>
+          <div class="hero-cta">
+            <a href="/projects" class="cta-primary">View My Work</a>
+            <a href="/about" class="cta-secondary">Learn More</a>
+          </div>
         </div>
+        
+        <div class="hero-visual">
+          <div class="profile-card">
+            <div class="card-image">
+              <img src="../assets/images/IMG_0455.jpg" alt="Eli Dolney" />
+              <div class="image-overlay"></div>
+            </div>
+            <div class="card-content">
+              <div class="card-badge">
+                <i class="fas fa-code"></i>
+                <span>Developer</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scroll indicator -->
+      <div class="scroll-indicator">
+        <div class="scroll-arrow"></div>
+        <span>Scroll to explore</span>
       </div>
     </div>
 
-    <!-- Modal -->
+    <!-- About Modal -->
     <Teleport to="body">
       <Transition name="modal">
-        <div v-if="open" class="modal-backdrop" @click.self="open = false">
+        <div v-if="showAbout" class="modal-backdrop" @click.self="showAbout = false">
           <div class="modal">
             <div class="modal-header">
               <h3>About This Site</h3>
-              <button @click="open = false" class="close-modal-button" aria-label="Close">
-                <font-awesome-icon :icon="['fas', 'times']" />
+              <button @click="showAbout = false" class="close-btn" aria-label="Close">
+                <i class="fas fa-times"></i>
               </button>
             </div>
             <div class="modal-content">
               <p>
-                Welcome to my portfolio site! I'm a passionate developer focused on creating intuitive and engaging web experiences.
+                Welcome to my portfolio! I'm a 23-year-old student pursuing Network and Technology Security, 
+                passionate about creating secure and innovative web solutions.
               </p>
               <p>
-                This website is built with Vue.js and showcases my projects and skills. Some sections may still be under development as I continuously improve and add more content.
+                This site showcases my projects, skills, and journey in tech. Built with Vue.js and modern web technologies.
               </p>
             </div>
           </div>
@@ -68,44 +73,41 @@
 </template>
 
 <script>
-import Centerpiece from "./Centerpiece.vue";
-
 export default {
   name: "Header",
-  components: {
-    Centerpiece,
-  },
   data() {
     return {
-      open: false,
+      showAbout: false,
     };
   },
 };
 </script>
 
 <style scoped>
-/* ---------------------------------
-   HEADER CONTAINER
------------------------------------ */
-header {
+/* =================================
+   HERO SECTION STYLES
+================================= */
+
+.hero-section {
   position: relative;
   width: 100%;
   min-height: 100vh;
   display: flex;
-  flex-direction: column;
   align-items: center;
+  justify-content: center;
   overflow: hidden;
+  background: #0a0a0a;
 }
 
-/* Background overlay w/ image + gradient */
-.header-overlay {
+/* Background styling */
+.hero-background {
   position: absolute;
   inset: 0;
   background: 
     linear-gradient(
-      rgba(20, 30, 40, 0.8),
-      rgba(40, 30, 50, 0.8),
-      rgba(10, 10, 20, 0.9)
+      135deg,
+      rgba(13, 13, 13, 0.95),
+      rgba(26, 30, 38, 0.9)
     ),
     url("../assets/images/IMG_0455.jpg");
   background-size: cover;
@@ -114,136 +116,219 @@ header {
   z-index: 1;
 }
 
-/* Wrapper for all foreground content */
-.header-content {
-  position: relative;
+.background-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    45deg,
+    rgba(219, 46, 242, 0.1),
+    rgba(85, 150, 255, 0.1)
+  );
   z-index: 2;
+}
+
+/* Main container */
+.hero-container {
+  position: relative;
+  z-index: 3;
   max-width: 1200px;
   width: 100%;
-  height: 100vh;
-  margin: 0 auto;
-  padding: 1.5rem;
-  box-sizing: border-box;
+  padding: 2rem;
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
 }
 
-/* ---------------------------------
-   LOGO AND SOCIAL LINKS
------------------------------------ */
-.logo-container {
-  position: absolute;
-  top: 1.5rem;
-  left: 1.5rem;
+
+
+/* Main hero content */
+.hero-content {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+  margin: 2rem 0;
 }
 
-.logo {
-  font-family: 'Montserrat', sans-serif;
+.hero-text {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.hero-subtitle {
+  font-size: 2.5rem;
   font-weight: 700;
-  font-size: 1.75rem;
-  color: #fff;
-  background: linear-gradient(135deg, #3498db, #9b59b6);
-  padding: 0.5rem 0.75rem;
-  border-radius: 4px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-  letter-spacing: 0.05rem;
+  color: white;
+  margin: 0;
+  line-height: 1.2;
 }
 
-.social-links {
-  position: absolute;
-  top: 1.5rem;
-  right: 1.5rem;
+.hero-description {
+  font-size: 1.2rem;
+  color: #b0b0b0;
+  line-height: 1.6;
+  margin: 0;
+  max-width: 500px;
+}
+
+.hero-cta {
   display: flex;
   gap: 1rem;
+  margin-top: 1rem;
 }
 
-.social-link, .about-button {
-  display: flex;
+.cta-primary, .cta-secondary {
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  display: inline-flex;
   align-items: center;
-  justify-content: center;
-  color: rgba(255, 255, 255, 0.8);
-  font-size: 1.25rem;
-  transition: all 0.2s ease;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.1);
-  border: none;
-  cursor: pointer;
+  gap: 0.5rem;
 }
 
-.social-link:hover, .about-button:hover {
-  color: #fff;
-  background-color: rgba(255, 255, 255, 0.2);
+.cta-primary {
+  background: linear-gradient(135deg, #db2ef2, #5596ff);
+  color: white;
+  box-shadow: 0 8px 25px rgba(219, 46, 242, 0.3);
+}
+
+.cta-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 35px rgba(219, 46, 242, 0.4);
+}
+
+.cta-secondary {
+  background: transparent;
+  color: white;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+}
+
+.cta-secondary:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.3);
   transform: translateY(-2px);
 }
 
-.social-link:focus, .about-button:focus {
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+/* Hero visual */
+.hero-visual {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-/* Header CTA (Call to Action) */
-.header-cta {
-  margin-top: auto;
-  margin-bottom: 3rem;
-  text-align: center;
+.profile-card {
+  position: relative;
+  width: 350px;
+  height: 450px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease;
 }
 
-.profession {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 1.75rem;
-  font-weight: 400;
-  color: white;
-  margin-bottom: 1.5rem;
-  letter-spacing: 0.05rem;
+.profile-card:hover {
+  transform: translateY(-10px);
 }
 
-.cta-button {
-  display: inline-block;
-  background: linear-gradient(135deg, #3498db, #9b59b6);
-  color: white;
-  font-size: 1.1rem;
-  font-weight: 500;
-  padding: 0.75rem 2rem;
-  border-radius: 4px;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-}
-
-.cta-button:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-}
-
-.cta-button:active {
-  transform: translateY(-1px);
-}
-
-/* ---------------------------------
-   MODAL
------------------------------------ */
-.modal-backdrop {
-  position: fixed;
-  top: 0;
-  left: 0;
+.card-image {
+  position: relative;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(4px);
+}
+
+.card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.image-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    45deg,
+    rgba(219, 46, 242, 0.2),
+    rgba(85, 150, 255, 0.2)
+  );
+}
+
+.card-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 2rem;
+  background: linear-gradient(
+    transparent,
+    rgba(0, 0, 0, 0.8)
+  );
+}
+
+.card-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: rgba(255, 255, 255, 0.9);
+  color: #333;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  backdrop-filter: blur(10px);
+}
+
+.card-badge i {
+  color: #db2ef2;
+}
+
+/* Scroll indicator */
+.scroll-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.9rem;
+  margin-top: 2rem;
+}
+
+.scroll-arrow {
+  width: 2px;
+  height: 30px;
+  background: linear-gradient(to bottom, #db2ef2, transparent);
+  animation: scroll-bounce 2s infinite;
+}
+
+@keyframes scroll-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(10px); }
+}
+
+/* Modal styles */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(8px);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 999;
+  z-index: 1000;
+  padding: 1rem;
 }
 
 .modal {
-  width: 90%;
+  background: #1a1e26;
+  border-radius: 16px;
   max-width: 500px;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.1);
   overflow: hidden;
 }
 
@@ -251,50 +336,48 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.25rem 1.5rem;
-  background-color: #f8f9fa;
-  border-bottom: 1px solid #e9ecef;
+  padding: 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .modal-header h3 {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: #333;
+  color: white;
   margin: 0;
+  font-size: 1.3rem;
+  font-weight: 600;
 }
 
-.close-modal-button {
+.close-btn {
   background: transparent;
   border: none;
-  font-size: 1.25rem;
-  color: #6c757d;
+  color: #b0b0b0;
+  font-size: 1.2rem;
   cursor: pointer;
-  transition: color 0.2s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
+  padding: 0.5rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
 }
 
-.close-modal-button:hover {
-  color: #343a40;
-  background-color: rgba(0, 0, 0, 0.05);
+.close-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
 }
 
 .modal-content {
   padding: 1.5rem;
-  color: #495057;
-  font-size: 1rem;
+  color: #b0b0b0;
   line-height: 1.6;
 }
 
-.modal-content p:not(:last-child) {
+.modal-content p {
   margin-bottom: 1rem;
 }
 
-/* Modal transition animations */
+.modal-content p:last-child {
+  margin-bottom: 0;
+}
+
+/* Modal transitions */
 .modal-enter-active,
 .modal-leave-active {
   transition: opacity 0.3s ease;
@@ -305,40 +388,66 @@ header {
   opacity: 0;
 }
 
-/* ---------------------------------
-   RESPONSIVE BREAKPOINTS
------------------------------------ */
+/* Responsive design */
+@media (max-width: 1024px) {
+  .hero-content {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    text-align: center;
+  }
+  
+  .hero-subtitle {
+    font-size: 2rem;
+  }
+  
+  .profile-card {
+    width: 300px;
+    height: 380px;
+  }
+}
+
 @media (max-width: 768px) {
-  .logo {
-    font-size: 1.5rem;
-    padding: 0.4rem 0.6rem;
+  .hero-container {
+    padding: 1rem;
   }
   
-  .profession {
-    font-size: 1.5rem;
+  .hero-subtitle {
+    font-size: 1.8rem;
   }
   
-  .cta-button {
-    font-size: 1rem;
-    padding: 0.6rem 1.5rem;
+  .hero-description {
+    font-size: 1.1rem;
+  }
+  
+  .hero-cta {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .cta-primary, .cta-secondary {
+    width: 100%;
+    max-width: 250px;
+    justify-content: center;
+  }
+  
+  .profile-card {
+    width: 280px;
+    height: 350px;
   }
 }
 
 @media (max-width: 480px) {
-  .logo-container {
-    top: 1rem;
-    left: 1rem;
+  .hero-subtitle {
+    font-size: 1.5rem;
   }
   
-  .social-links {
-    top: 1rem;
-    right: 1rem;
+  .hero-description {
+    font-size: 1rem;
   }
   
-  .social-link, .about-button {
-    width: 32px;
-    height: 32px;
-    font-size: 1.1rem;
+  .profile-card {
+    width: 250px;
+    height: 320px;
   }
 }
 </style>

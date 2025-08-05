@@ -1,4 +1,4 @@
-<template>
+h<template>
   <div id="app">
     <loading-screen v-if="isLoading" @loadingComplete="isLoading = false" />
     <div v-else class="app-container">

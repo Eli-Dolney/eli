@@ -69,58 +69,192 @@
         </div>
       </div>
 
-      <!-- Skills Card -->
+      <!-- Tech Toolkit Card -->
       <div class="about-card skills-card fade-up">
         <div class="card-content full-width">
           <div class="card-icon">
-            <i class="fas fa-laptop-code"></i>
+            <i class="fas fa-toolbox"></i>
           </div>
-          <h2>Technical Skills</h2>
-          
+          <h2>Tech Toolkit</h2>
+
           <div class="skills-container">
+            <!-- Networking Experience -->
             <div class="skill-category">
-              <h3>Networking</h3>
+              <div class="category-header">
+                <i class="fas fa-network-wired"></i>
+                <h3>Networking</h3>
+              </div>
               <div class="skill-items">
                 <div class="skill-item">
-                  <span>TCP/IP</span>
-                  <div class="progress-bar">
-                    <div class="progress" style="width: 85%"></div>
+                  <div class="skill-header">
+                    <i class="fas fa-shield-alt"></i>
+                    <span class="skill-name">TCP/IP & Subnetting</span>
+                    <div class="skill-level">
+                      <div class="progress-bar">
+                        <div class="progress" style="width: 85%"></div>
+                      </div>
+                      <span class="level-text">Advanced</span>
+                    </div>
+                  </div>
+                  <p class="skill-description">Configured VLANs & subnets in Cisco Packet Tracer labs</p>
+                  <div class="project-links">
+                    <a href="#" class="project-link" @click.prevent="showProject('packet-tracer')">
+                      <i class="fas fa-external-link-alt"></i>
+                      View Lab Projects
+                    </a>
                   </div>
                 </div>
+
                 <div class="skill-item">
-                  <span>Network Security</span>
-                  <div class="progress-bar">
-                    <div class="progress" style="width: 80%"></div>
+                  <div class="skill-header">
+                    <i class="fas fa-user-shield"></i>
+                    <span class="skill-name">Network Security</span>
+                    <div class="skill-level">
+                      <div class="progress-bar">
+                        <div class="progress" style="width: 75%"></div>
+                      </div>
+                      <span class="level-text">Intermediate</span>
+                    </div>
+                  </div>
+                  <p class="skill-description">Hands-on with Wireshark, Nmap, and basic firewall setup (Security+ prep)</p>
+                  <div class="project-links">
+                    <a href="#" class="project-link" @click.prevent="showProject('security-tools')">
+                      <i class="fas fa-external-link-alt"></i>
+                      Security Analysis
+                    </a>
                   </div>
                 </div>
+
                 <div class="skill-item">
-                  <span>Router Configuration</span>
-                  <div class="progress-bar">
-                    <div class="progress" style="width: 75%"></div>
+                  <div class="skill-header">
+                    <i class="fas fa-router"></i>
+                    <span class="skill-name">Router Configuration</span>
+                    <div class="skill-level">
+                      <div class="progress-bar">
+                        <div class="progress" style="width: 80%"></div>
+                      </div>
+                      <span class="level-text">Advanced</span>
+                    </div>
+                  </div>
+                  <p class="skill-description">CLI-based DHCP, NAT, and ACL config on simulated Cisco routers</p>
+                  <div class="project-links">
+                    <a href="#" class="project-link" @click.prevent="showProject('router-config')">
+                      <i class="fas fa-external-link-alt"></i>
+                      Config Examples
+                    </a>
                   </div>
                 </div>
               </div>
             </div>
-            
+
+            <!-- Programming Experience -->
             <div class="skill-category">
-              <h3>Programming</h3>
+              <div class="category-header">
+                <i class="fas fa-code"></i>
+                <h3>Programming</h3>
+              </div>
               <div class="skill-items">
                 <div class="skill-item">
-                  <span>HTML/CSS</span>
-                  <div class="progress-bar">
-                    <div class="progress" style="width: 90%"></div>
+                  <div class="skill-header">
+                    <i class="fab fa-vuejs"></i>
+                    <span class="skill-name">Vue.js</span>
+                    <div class="skill-level">
+                      <div class="progress-bar">
+                        <div class="progress" style="width: 90%"></div>
+                      </div>
+                      <span class="level-text">Expert</span>
+                    </div>
+                  </div>
+                  <p class="skill-description">Core framework for EisleyFit, LearningTheWires, and component-driven web apps</p>
+                  <div class="project-links">
+                    <a href="#" class="project-link" @click.prevent="showProject('eisley-fit')">
+                      <i class="fas fa-external-link-alt"></i>
+                      EisleyFit
+                    </a>
+                    <a href="#" class="project-link" @click.prevent="showProject('learning-wires')">
+                      <i class="fas fa-external-link-alt"></i>
+                      LearningTheWires
+                    </a>
                   </div>
                 </div>
+
                 <div class="skill-item">
-                  <span>JavaScript</span>
-                  <div class="progress-bar">
-                    <div class="progress" style="width: 70%"></div>
+                  <div class="skill-header">
+                    <i class="fab fa-js-square"></i>
+                    <span class="skill-name">TypeScript</span>
+                    <div class="skill-level">
+                      <div class="progress-bar">
+                        <div class="progress" style="width: 85%"></div>
+                      </div>
+                      <span class="level-text">Advanced</span>
+                    </div>
+                  </div>
+                  <p class="skill-description">60% of my codebase; powering complex UIs and Meta Horizon scripting</p>
+                  <div class="project-links">
+                    <a href="#" class="project-link" @click.prevent="showProject('meta-horizon')">
+                      <i class="fas fa-external-link-alt"></i>
+                      Meta Horizon Scripts
+                    </a>
                   </div>
                 </div>
+
                 <div class="skill-item">
-                  <span>Vue.js</span>
-                  <div class="progress-bar">
-                    <div class="progress" style="width: 65%"></div>
+                  <div class="skill-header">
+                    <i class="fab fa-html5"></i>
+                    <span class="skill-name">HTML/CSS</span>
+                    <div class="skill-level">
+                      <div class="progress-bar">
+                        <div class="progress" style="width: 95%"></div>
+                      </div>
+                      <span class="level-text">Expert</span>
+                    </div>
+                  </div>
+                  <p class="skill-description">Responsive layouts, UI styling, and animations across all front-end projects</p>
+                  <div class="project-links">
+                    <a href="#" class="project-link" @click.prevent="showProject('portfolio')">
+                      <i class="fas fa-external-link-alt"></i>
+                      This Portfolio
+                    </a>
+                  </div>
+                </div>
+
+                <div class="skill-item">
+                  <div class="skill-header">
+                    <i class="fab fa-python"></i>
+                    <span class="skill-name">Python</span>
+                    <div class="skill-level">
+                      <div class="progress-bar">
+                        <div class="progress" style="width: 70%"></div>
+                      </div>
+                      <span class="level-text">Intermediate</span>
+                    </div>
+                  </div>
+                  <p class="skill-description">CLI tools, automation scripts, and GUI apps (e.g. YouTube downloader)</p>
+                  <div class="project-links">
+                    <a href="#" class="project-link" @click.prevent="showProject('youtube-downloader')">
+                      <i class="fas fa-external-link-alt"></i>
+                      YouTube Downloader
+                    </a>
+                  </div>
+                </div>
+
+                <div class="skill-item">
+                  <div class="skill-header">
+                    <i class="fas fa-gamepad"></i>
+                    <span class="skill-name">C++</span>
+                    <div class="skill-level">
+                      <div class="progress-bar">
+                        <div class="progress" style="width: 65%"></div>
+                      </div>
+                      <span class="level-text">Intermediate</span>
+                    </div>
+                  </div>
+                  <p class="skill-description">Revamping an open-source Minecraft clone with modern graphics + logic</p>
+                  <div class="project-links">
+                    <a href="#" class="project-link" @click.prevent="showProject('minecraft-clone')">
+                      <i class="fas fa-external-link-alt"></i>
+                      Minecraft Clone
+                    </a>
                   </div>
                 </div>
               </div>
@@ -144,6 +278,14 @@ export default {
       overviewImg: aboutImg,
       focusImg: evjImg,
       personalImg: retroImg,
+    }
+  },
+  methods: {
+    showProject(projectId) {
+      // You can implement project modal or navigation here
+      console.log(`Showing project: ${projectId}`);
+      // Example: this.$router.push(`/projects/${projectId}`);
+      // Or show a modal with project details
     }
   },
   mounted() {
@@ -322,8 +464,8 @@ export default {
 .skills-container {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
-  margin-top: 1.5rem;
+  gap: 3rem;
+  margin-top: 2rem;
   width: 100%;
 }
 
@@ -335,43 +477,211 @@ export default {
   
   .skill-category {
     flex: 1;
-    min-width: 300px;
+    min-width: 350px;
   }
 }
 
-.skill-category h3 {
-  color: #5596ff;
-  margin-bottom: 1rem;
-  font-size: 1.3rem;
+/* Category header styling */
+.category-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid rgba(85, 150, 255, 0.2);
 }
 
+.category-header i {
+  font-size: 1.8rem;
+  color: #5596ff;
+  background: linear-gradient(135deg, rgba(85, 150, 255, 0.1), rgba(219, 46, 242, 0.1));
+  padding: 0.8rem;
+  border-radius: 12px;
+  transition: transform 0.3s ease;
+}
+
+.category-header:hover i {
+  transform: scale(1.1);
+}
+
+.category-header h3 {
+  color: #5596ff;
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+/* Skill items container */
 .skill-items {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.5rem;
 }
 
+/* Individual skill item */
 .skill-item {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+  background: rgba(26, 30, 38, 0.8);
+  border: 1px solid rgba(85, 150, 255, 0.1);
+  border-radius: 12px;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
 }
 
-.skill-item span {
-  color: #e6e6e6;
+.skill-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(85, 150, 255, 0.1), transparent);
+  transition: left 0.5s ease;
+}
+
+.skill-item:hover::before {
+  left: 100%;
+}
+
+.skill-item:hover {
+  transform: translateY(-2px);
+  border-color: rgba(85, 150, 255, 0.3);
+  box-shadow: 0 8px 25px rgba(85, 150, 255, 0.15);
+}
+
+/* Skill header */
+.skill-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.skill-header i {
+  font-size: 1.4rem;
+  color: #db2ef2;
+  width: 30px;
+  text-align: center;
+}
+
+.skill-name {
+  font-weight: 600;
+  color: #ffffff;
+  font-size: 1.1rem;
+  flex: 1;
+  min-width: 120px;
+}
+
+/* Skill level indicator */
+.skill-level {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  min-width: 150px;
 }
 
 .progress-bar {
-  height: 8px;
-  background-color: #2d3748;
-  border-radius: 4px;
+  height: 6px;
+  background-color: rgba(45, 55, 72, 0.5);
+  border-radius: 3px;
   overflow: hidden;
+  flex: 1;
+  min-width: 80px;
 }
 
 .progress {
   height: 100%;
   background: linear-gradient(90deg, #db2ef2, #5596ff);
-  border-radius: 4px;
+  border-radius: 3px;
+  transition: width 1s ease;
+  position: relative;
+}
+
+.progress::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.level-text {
+  font-size: 0.8rem;
+  color: #5596ff;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* Skill description */
+.skill-description {
+  color: #b0b0b0;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+}
+
+/* Project links */
+.project-links {
+  display: flex;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+}
+
+.project-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: linear-gradient(135deg, rgba(85, 150, 255, 0.1), rgba(219, 46, 242, 0.1));
+  border: 1px solid rgba(85, 150, 255, 0.2);
+  border-radius: 8px;
+  color: #5596ff;
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.project-link::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(85, 150, 255, 0.2), transparent);
+  transition: left 0.3s ease;
+}
+
+.project-link:hover::before {
+  left: 100%;
+}
+
+.project-link:hover {
+  background: linear-gradient(135deg, rgba(85, 150, 255, 0.2), rgba(219, 46, 242, 0.2));
+  border-color: rgba(85, 150, 255, 0.4);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(85, 150, 255, 0.2);
+}
+
+.project-link i {
+  font-size: 0.8rem;
+  transition: transform 0.3s ease;
+}
+
+.project-link:hover i {
+  transform: translateX(2px);
 }
 
 /* Animation */

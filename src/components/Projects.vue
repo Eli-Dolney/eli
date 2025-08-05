@@ -4,177 +4,228 @@
       <div class="section-header">
         <h2>My Projects</h2>
         <div class="underline"></div>
-        <p>Check out some of the things I have been working on since I started coding!</p>
+        <p>Explore my journey through code - from Python scripts to full-stack applications</p>
       </div>
       
-      <!-- Project categories -->
-      <div class="categories-container">
-        <!-- Python Scripts Section -->
-        <div class="category-section" ref="categorySection">
-          <div class="category-header">
-            <h3>Python Scripts</h3>
-            <div class="category-underline"></div>
-          </div>
-          
-          <div class="projects-grid">
-            <div 
-              v-for="(project, index) in projects.filter(p => p.category === 'Python Scripts')" 
-              :key="`python-${index}`" 
-              class="project-card"
-              :style="{ animationDelay: `${index * 0.15}s` }"
-            >
-              <div class="project-image-container">
-                <img 
-                  :src="project.imageSrc" 
-                  :alt="`${project.title} preview`"
-                  @click="openModal(project)"
-                  class="project-image"
-                />
-                <div class="project-overlay">
-                  <button class="view-details-btn" @click="openModal(project)">View Details</button>
-                </div>
+      <!-- Project Filter Tabs -->
+      <div class="filter-tabs">
+        <button 
+          v-for="category in categories" 
+          :key="category.id"
+          :class="['filter-tab', activeCategory === category.id ? 'active' : '']"
+          @click="setActiveCategory(category.id)"
+        >
+          <i :class="category.icon"></i>
+          {{ category.name }}
+          <span class="project-count">{{ getProjectCount(category.id) }}</span>
+        </button>
+      </div>
+      
+      <!-- Projects Grid -->
+      <div class="projects-container">
+        <div class="projects-grid">
+          <div 
+            v-for="(project, index) in filteredProjects" 
+            :key="project.id" 
+            class="project-card"
+            :style="{ animationDelay: `${index * 0.1}s` }"
+          >
+            <div class="project-header">
+              <div class="project-icon">
+                <i :class="getProjectIcon(project.language)"></i>
+              </div>
+              <div class="project-stats">
+                <span class="stat">
+                  <i class="fas fa-star"></i>
+                  {{ project.stars }}
+                </span>
+                <span class="stat">
+                  <i class="fas fa-code-branch"></i>
+                  {{ project.forks }}
+                </span>
+              </div>
+            </div>
+            
+            <div class="project-content">
+              <h3 class="project-title">{{ project.name }}</h3>
+              <p class="project-description">{{ project.description }}</p>
+              
+              <div class="project-meta">
+                <span class="language">
+                  <span class="language-dot" :style="{ backgroundColor: getLanguageColor(project.language) }"></span>
+                  {{ project.language }}
+                </span>
+                <span class="updated">Updated {{ formatDate(project.updatedAt) }}</span>
               </div>
               
-              <div class="project-content">
-                <h4>{{ project.title }}</h4>
-                <p>{{ project.description }}</p>
-                <div class="project-footer">
-                  <a :href="project.link" target="_blank" class="project-link">
-                    <span>View Project</span>
-                    <font-awesome-icon :icon="['fas', 'arrow-right']" />
-                  </a>
-                </div>
+              <div class="project-topics" v-if="project.topics && project.topics.length">
+                <span 
+                  v-for="topic in project.topics.slice(0, 3)" 
+                  :key="topic" 
+                  class="topic-tag"
+                >
+                  {{ topic }}
+                </span>
+                <span v-if="project.topics.length > 3" class="topic-more">
+                  +{{ project.topics.length - 3 }}
+                </span>
               </div>
+            </div>
+            
+            <div class="project-actions">
+              <a 
+                :href="project.htmlUrl" 
+                target="_blank" 
+                class="action-btn primary"
+              >
+                <i class="fab fa-github"></i>
+                View Code
+              </a>
+              <button 
+                @click="openProjectModal(project)" 
+                class="action-btn secondary"
+              >
+                <i class="fas fa-info-circle"></i>
+                Details
+              </button>
             </div>
           </div>
         </div>
-
-        <!-- Projects Section -->
-        <div class="category-section" ref="categorySection">
-          <div class="category-header">
-            <h3>Projects</h3>
-            <div class="category-underline"></div>
-          </div>
-          
-          <div class="projects-grid">
-            <div 
-              v-for="(project, index) in projects.filter(p => p.category === 'Projects')" 
-              :key="`project-${index}`" 
-              class="project-card"
-              :style="{ animationDelay: `${index * 0.15}s` }"
-            >
-              <div class="project-image-container">
-                <img 
-                  :src="project.imageSrc" 
-                  :alt="`${project.title} preview`"
-                  @click="openModal(project)"
-                  class="project-image"
-                />
-                <div class="project-overlay">
-                  <button class="view-details-btn" @click="openModal(project)">View Details</button>
-                </div>
-              </div>
-              
-              <div class="project-content">
-                <h4>{{ project.title }}</h4>
-                <p>{{ project.description }}</p>
-                <div class="project-footer">
-                  <a :href="project.link" target="_blank" class="project-link">
-                    <span>View Project</span>
-                    <font-awesome-icon :icon="['fas', 'arrow-right']" />
-                  </a>
-                </div>
-              </div>
+      </div>
+      
+      <!-- GitHub Stats Section -->
+      <div class="github-stats">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon">
+              <i class="fas fa-repository"></i>
+            </div>
+            <div class="stat-content">
+              <h3>{{ githubStats.repos }}</h3>
+              <p>Repositories</p>
             </div>
           </div>
-        </div>
-
-        <!-- Websites Section -->
-        <div class="category-section" ref="categorySection">
-          <div class="category-header">
-            <h3>Websites</h3>
-            <div class="category-underline"></div>
+          
+          <div class="stat-card">
+            <div class="stat-icon">
+              <i class="fas fa-star"></i>
+            </div>
+            <div class="stat-content">
+              <h3>{{ githubStats.stars }}</h3>
+              <p>Stars Earned</p>
+            </div>
           </div>
           
-          <div class="projects-grid">
-            <div 
-              v-for="(project, index) in projects.filter(p => p.category === 'Websites')" 
-              :key="`website-${index}`" 
-              class="project-card"
-              :style="{ animationDelay: `${index * 0.15}s` }"
-            >
-              <div class="project-image-container">
-                <img 
-                  :src="project.imageSrc" 
-                  :alt="`${project.title} preview`"
-                  @click="openModal(project)"
-                  class="project-image"
-                />
-                <div class="project-overlay">
-                  <button class="view-details-btn" @click="openModal(project)">View Details</button>
-                </div>
-              </div>
-              
-              <div class="project-content">
-                <h4>{{ project.title }}</h4>
-                <p>{{ project.description }}</p>
-                <div class="project-footer">
-                  <a :href="project.link" target="_blank" class="project-link">
-                    <span>View Project</span>
-                    <font-awesome-icon :icon="['fas', 'arrow-right']" />
-                  </a>
-                </div>
-              </div>
+          <div class="stat-card">
+            <div class="stat-icon">
+              <i class="fas fa-code-branch"></i>
+            </div>
+            <div class="stat-content">
+              <h3>{{ githubStats.forks }}</h3>
+              <p>Forks</p>
+            </div>
+          </div>
+          
+          <div class="stat-card">
+            <div class="stat-icon">
+              <i class="fas fa-users"></i>
+            </div>
+            <div class="stat-content">
+              <h3>{{ githubStats.followers }}</h3>
+              <p>Followers</p>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Project Detail Modal -->
-    <div v-if="openProjectModal" class="modal-overlay" @click="closeModal">
+    <!-- Enhanced Project Modal -->
+    <div v-if="selectedProject" class="modal-overlay" @click="closeProjectModal">
       <div class="modal-content" @click.stop>
-        <button class="modal-close" @click="closeModal">
-          <font-awesome-icon :icon="['fas', 'times']" />
+        <button class="modal-close" @click="closeProjectModal">
+          <i class="fas fa-times"></i>
         </button>
         
         <div class="modal-header">
-          <h3>{{ selectedProject.title }}</h3>
-          <div class="modal-underline"></div>
+          <div class="modal-project-info">
+            <div class="project-icon-large">
+              <i :class="getProjectIcon(selectedProject.language)"></i>
+            </div>
+            <div class="project-details">
+              <h2>{{ selectedProject.name }}</h2>
+              <p class="project-description">{{ selectedProject.description }}</p>
+              <div class="project-meta-large">
+                <span class="language">
+                  <span class="language-dot" :style="{ backgroundColor: getLanguageColor(selectedProject.language) }"></span>
+                  {{ selectedProject.language }}
+                </span>
+                <span class="created">Created {{ formatDate(selectedProject.createdAt) }}</span>
+                <span class="updated">Updated {{ formatDate(selectedProject.updatedAt) }}</span>
+              </div>
+            </div>
+          </div>
         </div>
         
         <div class="modal-body">
-          <div class="modal-image">
-            <img :src="selectedProject.imageSrc" :alt="selectedProject.title">
+          <div class="modal-stats">
+            <div class="stat-item">
+              <i class="fas fa-star"></i>
+              <span>{{ selectedProject.stars }} stars</span>
+            </div>
+            <div class="stat-item">
+              <i class="fas fa-code-branch"></i>
+              <span>{{ selectedProject.forks }} forks</span>
+            </div>
+            <div class="stat-item">
+              <i class="fas fa-eye"></i>
+              <span>{{ selectedProject.watchers }} watchers</span>
+            </div>
+            <div class="stat-item">
+              <i class="fas fa-circle"></i>
+              <span>{{ selectedProject.size }} KB</span>
+            </div>
           </div>
           
-          <div class="modal-description">
-            <p>{{ selectedProject.description }}</p>
-            
-            <!-- Optional: Add more details that only show in the modal -->
-            <div v-if="selectedProject.technologies" class="modal-tech">
-              <h4>Technologies Used:</h4>
-              <ul class="tech-list">
-                <li v-for="(tech, i) in selectedProject.technologies" :key="i">{{ tech }}</li>
-              </ul>
+          <div class="modal-topics" v-if="selectedProject.topics && selectedProject.topics.length">
+            <h3>Topics</h3>
+            <div class="topics-grid">
+              <span 
+                v-for="topic in selectedProject.topics" 
+                :key="topic" 
+                class="topic-tag-large"
+              >
+                {{ topic }}
+              </span>
             </div>
-            
-            <div v-if="selectedProject.features" class="modal-features">
-              <h4>Key Features:</h4>
-              <ul>
-                <li v-for="(feature, i) in selectedProject.features" :key="i">{{ feature }}</li>
-              </ul>
-            </div>
+          </div>
+          
+          <div class="modal-readme" v-if="selectedProject.readme">
+            <h3>README</h3>
+            <div class="readme-content" v-html="selectedProject.readme"></div>
           </div>
         </div>
         
         <div class="modal-footer">
-          <a :href="selectedProject.link" target="_blank" class="modal-button primary">
-            View Project
-            <font-awesome-icon :icon="['fas', 'external-link-alt']" />
+          <a 
+            :href="selectedProject.htmlUrl" 
+            target="_blank" 
+            class="modal-btn primary"
+          >
+            <i class="fab fa-github"></i>
+            View on GitHub
           </a>
-          
-          <button class="modal-button secondary" @click="closeModal">Close</button>
+          <a 
+            v-if="selectedProject.homepage" 
+            :href="selectedProject.homepage" 
+            target="_blank" 
+            class="modal-btn secondary"
+          >
+            <i class="fas fa-external-link-alt"></i>
+            Live Demo
+          </a>
+          <button class="modal-btn tertiary" @click="closeProjectModal">
+            Close
+          </button>
         </div>
       </div>
     </div>
@@ -182,78 +233,165 @@
 </template>
 
 <script>
-import svelteImage from '../assets/images/svelte.jpg';
-import note from '../assets/images/notes.jpg';
-import stock from '../assets/images/stock.jpg';
-import expense from '../assets/images/expense.jpg';
-
 export default {
   name: "Projects",
   data() {
     return {
-      openProjectModal: false,
       selectedProject: null,
+      activeCategory: 'all',
+      categories: [
+        { id: 'all', name: 'All Projects', icon: 'fas fa-th-large' },
+        { id: 'python', name: 'Python', icon: 'fab fa-python' },
+        { id: 'javascript', name: 'JavaScript', icon: 'fab fa-js-square' },
+        { id: 'vue', name: 'Vue.js', icon: 'fab fa-vuejs' },
+        { id: 'svelte', name: 'Svelte', icon: 'fab fa-svelte' },
+        { id: 'web', name: 'Web Dev', icon: 'fas fa-globe' }
+      ],
       projects: [
         {
-          title: 'Svelte Link Tree Clone',
-          description: 'My first look into Svelte with fireship.io. A modern profile links page with customizable themes and analytics.',
-          link: 'https://github.com/Eli-Dolney/Svelte',
-          imageSrc: svelteImage,
-          category: 'Projects',
-          technologies: ['Svelte', 'TypeScript', 'Firebase', 'CSS'],
-          features: [
-            'User authentication',
-            'Custom themes',
-            'Link analytics',
-            'Mobile-responsive design'
-          ]
+          id: 1,
+          name: 'stock',
+          description: 'Python script to get stock data and charts with real-time market analysis and visualization tools.',
+          language: 'Python',
+          htmlUrl: 'https://github.com/Eli-Dolney/stock',
+          homepage: null,
+          stars: 1,
+          forks: 0,
+          watchers: 1,
+          size: 45,
+          topics: ['python', 'stock-analysis', 'data-visualization', 'finance'],
+          createdAt: '2024-01-15T10:30:00Z',
+          updatedAt: '2024-12-20T14:22:00Z',
+          readme: 'A comprehensive stock analysis tool built with Python. Features include real-time data fetching, technical indicators, and interactive charts.'
         },
         {
-          title: 'Network Scanner',
-          description: 'Working on my on python script that allows me to scan my network for devices and their IP addresses.',
-          link: 'https://github.com/Eli-Dolney/network_scanner',
-          imageSrc: note,
-          category: 'Python Scripts',
-          technologies: ['Python', 'Scapy', 'python-nmap', 'Nmap', 'Npcap'],
-          features: [
-            'Discover live hosts on a local network',
-            'Retrieve device details (IP, MAC, hostname, manufacturer)',
-            'Scan for open TCP ports',
-            'Perform OS fingerprinting and service detection using Nmap',
-            'Log results to JSON and a log file',
-            'Alerts on unknown devices based on a known devices list'
-          ]
+          id: 2,
+          name: 'eli',
+          description: 'Personal portfolio website built with Vue.js showcasing my projects and skills.',
+          language: 'Vue',
+          htmlUrl: 'https://github.com/Eli-Dolney/eli',
+          homepage: 'https://elidolney.dev/',
+          stars: 0,
+          forks: 0,
+          watchers: 1,
+          size: 1250,
+          topics: ['vue', 'portfolio', 'personal-website', 'frontend'],
+          createdAt: '2024-02-10T09:15:00Z',
+          updatedAt: '2024-12-25T16:45:00Z',
+          readme: 'My personal portfolio website built with Vue.js. Features a modern design, responsive layout, and showcases my projects and skills.'
         },
         {
-          title: 'Stock Price Predictor',
-          description: 'A machine learning application that analyzes historical stock data and predicts future prices using various algorithms and technical indicators.',
-          link: 'https://github.com/Eli-Dolney/stock/tree/main',
-          imageSrc: stock,
-          category: 'Python Scripts',
-          technologies: ['Python', 'scikit-learn', 'pandas', 'matplotlib', 'yfinance'],
-          features: [
-            'Multiple prediction models',
-            'Technical indicator analysis',
-            'Interactive visualization',
-            'Historical performance backtesting'
-          ]
+          id: 3,
+          name: 'keyboardkombat',
+          description: 'Interactive typing game built with JavaScript to improve typing speed and accuracy.',
+          language: 'JavaScript',
+          htmlUrl: 'https://github.com/Eli-Dolney/keyboardkombat',
+          homepage: null,
+          stars: 0,
+          forks: 0,
+          watchers: 1,
+          size: 89,
+          topics: ['javascript', 'typing-game', 'web-game', 'interactive'],
+          createdAt: '2024-03-05T11:20:00Z',
+          updatedAt: '2024-11-18T13:30:00Z',
+          readme: 'A fun typing game that helps users improve their typing speed and accuracy. Features multiple difficulty levels and real-time feedback.'
         },
         {
-          title: 'Expense Tracker',
-          description: 'A comprehensive expense tracking tool that helps users manage their finances with budgeting features, expense categorization, and visual reports.',
-          link: 'https://github.com/Eli-Dolney/expense-tracker',
-          imageSrc: expense,
-          category: 'Python Scripts',
-          technologies: ['Python', 'Tkinter', 'SQLite', 'Matplotlib'],
-          features: [
-            'Expense categorization',
-            'Visual spending reports',
-            'Budget planning',
-            'Export to CSV/PDF'
-          ]
+          id: 4,
+          name: 'Svelte',
+          description: 'Svelte Link Tree clone with modern UI and customizable themes.',
+          language: 'Svelte',
+          htmlUrl: 'https://github.com/Eli-Dolney/Svelte',
+          homepage: null,
+          stars: 0,
+          forks: 0,
+          watchers: 1,
+          size: 234,
+          topics: ['svelte', 'linktree', 'social-links', 'modern-ui'],
+          createdAt: '2024-04-12T15:45:00Z',
+          updatedAt: '2024-10-30T10:15:00Z',
+          readme: 'A modern Link Tree clone built with Svelte. Features customizable themes, analytics, and a clean, responsive design.'
         },
-      ]
+        {
+          id: 5,
+          name: 'Coin',
+          description: 'Cryptocurrency tracking application built with Vue.js and real-time price data.',
+          language: 'Vue',
+          htmlUrl: 'https://github.com/Eli-Dolney/Coin',
+          homepage: null,
+          stars: 0,
+          forks: 0,
+          watchers: 1,
+          size: 567,
+          topics: ['vue', 'cryptocurrency', 'crypto-tracking', 'real-time-data'],
+          createdAt: '2024-05-20T08:30:00Z',
+          updatedAt: '2024-12-15T12:20:00Z',
+          readme: 'A cryptocurrency tracking application that displays real-time prices, market data, and portfolio management features.'
+        },
+        {
+          id: 6,
+          name: 'network_scanner',
+          description: 'Python network scanner for discovering devices and analyzing network topology.',
+          language: 'Python',
+          htmlUrl: 'https://github.com/Eli-Dolney/network_scanner',
+          homepage: null,
+          stars: 0,
+          forks: 0,
+          watchers: 1,
+          size: 78,
+          topics: ['python', 'network-scanner', 'network-analysis', 'security'],
+          createdAt: '2024-06-08T14:20:00Z',
+          updatedAt: '2024-12-22T09:45:00Z',
+          readme: 'A comprehensive network scanner built with Python. Features device discovery, port scanning, and network topology analysis.'
+        },
+        {
+          id: 7,
+          name: 'expense-tracker',
+          description: 'Personal expense tracking application with budgeting and financial analysis features.',
+          language: 'Python',
+          htmlUrl: 'https://github.com/Eli-Dolney/expense-tracker',
+          homepage: null,
+          stars: 0,
+          forks: 0,
+          watchers: 1,
+          size: 156,
+          topics: ['python', 'expense-tracker', 'budgeting', 'finance'],
+          createdAt: '2024-07-15T16:10:00Z',
+          updatedAt: '2024-12-10T11:30:00Z',
+          readme: 'A personal expense tracking application that helps users manage their finances with budgeting features and financial analysis.'
+        }
+      ],
+      githubStats: {
+        repos: 18,
+        stars: 23,
+        forks: 5,
+        followers: 5
+      }
     };
+  },
+  computed: {
+    filteredProjects() {
+      if (this.activeCategory === 'all') {
+        return this.projects;
+      }
+      return this.projects.filter(project => {
+        const language = project.language.toLowerCase();
+        switch (this.activeCategory) {
+          case 'python':
+            return language === 'python';
+          case 'javascript':
+            return language === 'javascript';
+          case 'vue':
+            return language === 'vue';
+          case 'svelte':
+            return language === 'svelte';
+          case 'web':
+            return ['vue', 'javascript', 'svelte'].includes(language);
+          default:
+            return true;
+        }
+      });
+    }
   },
   mounted() {
     // Animation for the entire section
@@ -269,52 +407,69 @@ export default {
     );
     
     mainObserver.observe(this.$refs.sectionWrapper);
-
-    // Animations for individual category sections
-    const categoryObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('category-in-view');
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-    
-    // Observe each category section
-    const categorySections = document.querySelectorAll('.category-section');
-    categorySections.forEach(section => {
-      categoryObserver.observe(section);
-    });
-
-    // Animations for individual project cards
-    const projectObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('card-in-view');
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-    
-    // Observe each project card
-    const projectCards = document.querySelectorAll('.project-card');
-    projectCards.forEach(card => {
-      projectObserver.observe(card);
-    });
   },
   methods: {
-    openModal(project) {
-      this.selectedProject = project;
-      this.openProjectModal = true;
-      document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
+    setActiveCategory(categoryId) {
+      this.activeCategory = categoryId;
     },
-    closeModal() {
-      this.openProjectModal = false;
-      document.body.style.overflow = ''; // Re-enable scrolling
+    getProjectCount(categoryId) {
+      if (categoryId === 'all') {
+        return this.projects.length;
+      }
+      return this.filteredProjects.length;
+    },
+    getProjectIcon(language) {
+      const icons = {
+        'Python': 'fab fa-python',
+        'JavaScript': 'fab fa-js-square',
+        'Vue': 'fab fa-vuejs',
+        'Svelte': 'fab fa-svelte',
+        'HTML': 'fab fa-html5',
+        'CSS': 'fab fa-css3-alt',
+        'TypeScript': 'fab fa-js-square'
+      };
+      return icons[language] || 'fas fa-code';
+    },
+    getLanguageColor(language) {
+      const colors = {
+        'Python': '#3776ab',
+        'JavaScript': '#f7df1e',
+        'Vue': '#4fc08d',
+        'Svelte': '#ff3e00',
+        'HTML': '#e34f26',
+        'CSS': '#1572b6',
+        'TypeScript': '#3178c6'
+      };
+      return colors[language] || '#6c757d';
+    },
+    formatDate(dateString) {
+      const date = new Date(dateString);
+      const now = new Date();
+      const diffTime = Math.abs(now - date);
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      
+      if (diffDays === 1) {
+        return 'yesterday';
+      } else if (diffDays < 7) {
+        return `${diffDays} days ago`;
+      } else if (diffDays < 30) {
+        const weeks = Math.floor(diffDays / 7);
+        return `${weeks} week${weeks > 1 ? 's' : ''} ago`;
+      } else if (diffDays < 365) {
+        const months = Math.floor(diffDays / 30);
+        return `${months} month${months > 1 ? 's' : ''} ago`;
+      } else {
+        const years = Math.floor(diffDays / 365);
+        return `${years} year${years > 1 ? 's' : ''} ago`;
+      }
+    },
+    openProjectModal(project) {
+      this.selectedProject = project;
+      document.body.style.overflow = 'hidden';
+    },
+    closeProjectModal() {
+      this.selectedProject = null;
+      document.body.style.overflow = '';
     }
   }
 };
@@ -386,259 +541,334 @@ h2 {
   line-height: 1.6;
 }
 
-/* Categories Container */
-.categories-container {
+/* Filter Tabs */
+.filter-tabs {
   display: flex;
-  flex-direction: column;
-  gap: 4rem;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 3rem;
+  flex-wrap: wrap;
 }
 
-/* Category Section */
-.category-section {
-  border-radius: 16px;
-  padding: 2.5rem;
-  background: rgba(26, 30, 38, 0.5);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(174, 216, 242, 0.1);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+.filter-tab {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.8rem 1.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #AED8F2;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+  font-weight: 500;
 }
 
-.category-section.category-in-view {
-  opacity: 1;
-  transform: translateY(0);
+.filter-tab:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
 }
 
-/* Category Header */
-.category-header {
-  text-align: center;
-  margin-bottom: 2.5rem;
+.filter-tab.active {
+  background: linear-gradient(135deg, #806FBF, #71D9B3);
+  color: white;
+  border-color: transparent;
+  box-shadow: 0 5px 15px rgba(113, 217, 179, 0.3);
 }
 
-.category-header h3 {
-  font-size: 2.2rem;
-  color: #806FBF;
-  margin-bottom: 0.5rem;
+.project-count {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 0.2rem 0.6rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
   font-weight: 600;
 }
 
-.category-underline {
-  height: 3px;
-  width: 80px;
-  background: linear-gradient(90deg, #806FBF, #71D9B3);
-  margin: 0 auto 1rem;
-  border-radius: 1.5px;
+/* Projects Container */
+.projects-container {
+  margin-bottom: 4rem;
 }
 
 /* Projects Grid */
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-  gap: 2.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+  gap: 2rem;
 }
 
 /* Project Card */
 .project-card {
-  background: rgba(13, 13, 13, 0.7);
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
-              box-shadow 0.4s ease;
-  border: 1px solid rgba(174, 216, 242, 0.1);
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  
-  /* Animation start state */
-  opacity: 0;
-  transform: translateY(30px);
-  animation: fadeUp 0.6s ease forwards;
-  animation-play-state: paused;
-}
-
-.project-card.card-in-view {
-  animation-play-state: running;
-}
-
-.project-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 15px 30px rgba(113, 217, 179, 0.2);
-}
-
-/* Project Image Container */
-.project-image-container {
-  position: relative;
-  overflow: hidden;
-  height: 220px;
-  width: 100%;
-}
-
-.project-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.5s ease;
-}
-
-.project-card:hover .project-image {
-  transform: scale(1.05);
-}
-
-/* Image Overlay */
-.project-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(13, 13, 13, 0.6);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.project-card:hover .project-overlay {
-  opacity: 1;
-}
-
-/* View Details Button */
-.view-details-btn {
-  padding: 0.8rem 1.5rem;
-  background: linear-gradient(135deg, #806FBF, #71D9B3);
-  color: white;
-  border: none;
-  border-radius: 30px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.view-details-btn:hover {
-  transform: scale(1.05);
-  box-shadow: 0 5px 15px rgba(113, 217, 179, 0.4);
-}
-
-/* Project Content */
-.project-content {
+  background: rgba(26, 30, 38, 0.8);
+  border-radius: 16px;
   padding: 1.5rem;
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-}
-
-.project-content h4 {
-  font-size: 1.4rem;
-  color: #fff;
-  margin-bottom: 0.8rem;
-  font-weight: 600;
-}
-
-.project-content p {
-  color: #AED8F2;
-  font-size: 1rem;
-  line-height: 1.6;
-  margin-bottom: 1.5rem;
-  text-align: left;
-  flex-grow: 1;
-}
-
-/* Project Footer */
-.project-footer {
-  margin-top: auto;
-  display: flex;
-  justify-content: flex-start;
-}
-
-/* Project Link Button */
-.project-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.6rem 1.2rem;
-  background: linear-gradient(135deg, #4D208C, #71D9B3);
-  color: #fff;
-  text-decoration: none;
-  font-size: 0.9rem;
-  font-weight: 500;
-  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
 }
 
-.project-link::before {
+.project-card::before {
   content: '';
   position: absolute;
   top: 0;
-  left: 0;
+  left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, #71D9B3, #4D208C);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  z-index: 0;
+  background: linear-gradient(90deg, transparent, rgba(113, 217, 179, 0.1), transparent);
+  transition: left 0.5s ease;
 }
 
-.project-link:hover::before {
-  opacity: 1;
+.project-card:hover::before {
+  left: 100%;
 }
 
-.project-link span,
-.project-link svg {
-  position: relative;
-  z-index: 1; /* Place above the pseudo-element */
+.project-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(113, 217, 179, 0.3);
+  box-shadow: 0 15px 35px rgba(113, 217, 179, 0.1);
 }
 
-.project-link:hover {
+/* Project Header */
+.project-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.project-icon {
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, #806FBF, #71D9B3);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.5rem;
+}
+
+.project-stats {
+  display: flex;
+  gap: 1rem;
+}
+
+.stat {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  color: #AED8F2;
+  font-size: 0.8rem;
+}
+
+.stat i {
+  color: #71D9B3;
+}
+
+/* Project Content */
+.project-content {
+  margin-bottom: 1.5rem;
+}
+
+.project-title {
+  font-size: 1.3rem;
+  color: white;
+  margin-bottom: 0.8rem;
+  font-weight: 600;
+}
+
+.project-description {
+  color: #AED8F2;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+
+.project-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.language {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #AED8F2;
+  font-size: 0.8rem;
+}
+
+.language-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.updated {
+  color: #6c757d;
+  font-size: 0.8rem;
+}
+
+/* Project Topics */
+.project-topics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.topic-tag {
+  background: rgba(113, 217, 179, 0.1);
+  color: #71D9B3;
+  padding: 0.3rem 0.8rem;
+  border-radius: 15px;
+  font-size: 0.7rem;
+  border: 1px solid rgba(113, 217, 179, 0.2);
+}
+
+.topic-more {
+  background: rgba(255, 255, 255, 0.1);
+  color: #AED8F2;
+  padding: 0.3rem 0.8rem;
+  border-radius: 15px;
+  font-size: 0.7rem;
+}
+
+/* Project Actions */
+.project-actions {
+  display: flex;
+  gap: 0.8rem;
+}
+
+.action-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  border: none;
+}
+
+.action-btn.primary {
+  background: linear-gradient(135deg, #806FBF, #71D9B3);
+  color: white;
+}
+
+.action-btn.primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(113, 217, 179, 0.3);
+}
+
+.action-btn.secondary {
+  background: transparent;
+  color: #AED8F2;
+  border: 1px solid rgba(174, 216, 242, 0.3);
+}
+
+.action-btn.secondary:hover {
+  background: rgba(174, 216, 242, 0.1);
+  border-color: rgba(174, 216, 242, 0.5);
+}
+
+/* GitHub Stats */
+.github-stats {
+  margin-top: 4rem;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+}
+
+.stat-card {
+  background: rgba(26, 30, 38, 0.8);
+  border-radius: 16px;
+  padding: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  transition: all 0.3s ease;
+}
+
+.stat-card:hover {
   transform: translateY(-3px);
-  box-shadow: 0 5px 15px rgba(113, 217, 179, 0.4);
+  border-color: rgba(113, 217, 179, 0.3);
+  box-shadow: 0 10px 25px rgba(113, 217, 179, 0.1);
 }
 
-/* Modal Styles */
+.stat-icon {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #806FBF, #71D9B3);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.8rem;
+}
+
+.stat-content h3 {
+  font-size: 2rem;
+  color: white;
+  margin: 0 0 0.3rem 0;
+  font-weight: 700;
+}
+
+.stat-content p {
+  color: #AED8F2;
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+/* Enhanced Modal Styles */
 .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.8);
-  backdrop-filter: blur(5px);
+  background: rgba(0, 0, 0, 0.9);
+  backdrop-filter: blur(10px);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1000;
-  padding: 2rem;
+  padding: 1rem;
   box-sizing: border-box;
 }
 
 .modal-content {
   background: #1A1E26;
-  border-radius: 12px;
+  border-radius: 20px;
   width: 100%;
-  max-width: 900px;
+  max-width: 800px;
   max-height: 90vh;
   overflow-y: auto;
   position: relative;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
   animation: modalFadeIn 0.4s ease;
-  border: 1px solid rgba(174, 216, 242, 0.1);
+  border: 1px solid rgba(113, 217, 179, 0.2);
 }
 
 /* Modal Close Button */
 .modal-close {
   position: absolute;
-  top: 1rem;
-  right: 1rem;
+  top: 1.5rem;
+  right: 1.5rem;
   background: rgba(255, 255, 255, 0.1);
   border: none;
-  width: 36px;
-  height: 36px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -657,118 +887,150 @@ h2 {
 
 /* Modal Header */
 .modal-header {
-  padding: 2rem 2rem 1rem;
-  text-align: center;
+  padding: 2rem 2rem 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.modal-header h3 {
+.modal-project-info {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+}
+
+.project-icon-large {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, #806FBF, #71D9B3);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 2.5rem;
+  flex-shrink: 0;
+}
+
+.project-details h2 {
   font-size: 2rem;
-  color: #fff;
-  margin-bottom: 0.5rem;
+  color: white;
+  margin: 0 0 0.8rem 0;
+  font-weight: 700;
 }
 
-.modal-underline {
-  height: 3px;
-  width: 100px;
-  background: linear-gradient(90deg, #71D9B3, #806FBF);
-  margin: 0.5rem auto 1rem;
-  border-radius: 1.5px;
+.project-details .project-description {
+  color: #AED8F2;
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.project-meta-large {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+}
+
+.project-meta-large .language {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #AED8F2;
+  font-size: 0.9rem;
+}
+
+.project-meta-large .language-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.created, .updated {
+  color: #6c757d;
+  font-size: 0.9rem;
 }
 
 /* Modal Body */
 .modal-body {
-  padding: 0 2rem 2rem;
+  padding: 2rem;
+}
+
+.modal-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+}
+
+.stat-item {
   display: flex;
-  flex-direction: column;
-}
-
-@media (min-width: 768px) {
-  .modal-body {
-    flex-direction: row;
-    gap: 2rem;
-  }
-}
-
-/* Modal Image */
-.modal-image {
-  flex: 1;
-  min-width: 0;
-  margin-bottom: 1.5rem;
-}
-
-@media (min-width: 768px) {
-  .modal-image {
-    flex: 0 0 45%;
-    margin-bottom: 0;
-  }
-}
-
-.modal-image img {
-  width: 100%;
-  height: auto;
-  border-radius: 8px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-}
-
-/* Modal Description */
-.modal-description {
-  flex: 1;
-  min-width: 0;
-}
-
-.modal-description p {
+  align-items: center;
+  gap: 0.8rem;
   color: #AED8F2;
-  font-size: 1.1rem;
-  line-height: 1.6;
-  margin-bottom: 1.5rem;
-  text-align: left;
-}
-
-/* Tech List */
-.modal-tech h4,
-.modal-features h4 {
-  color: #fff;
-  font-size: 1.2rem;
-  margin-bottom: 0.8rem;
-}
-
-.tech-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  list-style: none;
-  padding: 0;
-  margin-bottom: 1.5rem;
-}
-
-.tech-list li {
-  background: rgba(113, 217, 179, 0.2);
-  color: #71D9B3;
-  padding: 0.4rem 0.8rem;
-  border-radius: 20px;
   font-size: 0.9rem;
 }
 
-/* Features List */
-.modal-features ul {
-  list-style: none;
-  padding: 0;
-  margin-bottom: 1.5rem;
-}
-
-.modal-features li {
-  padding: 0.5rem 0;
-  color: #AED8F2;
-  border-bottom: 1px solid rgba(174, 216, 242, 0.1);
-  position: relative;
-  padding-left: 1.5rem;
-}
-
-.modal-features li::before {
-  content: '→';
-  position: absolute;
-  left: 0;
+.stat-item i {
   color: #71D9B3;
+  font-size: 1.1rem;
+}
+
+/* Modal Topics */
+.modal-topics {
+  margin-bottom: 2rem;
+}
+
+.modal-topics h3 {
+  color: white;
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.topics-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+
+.topic-tag-large {
+  background: rgba(113, 217, 179, 0.15);
+  color: #71D9B3;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  border: 1px solid rgba(113, 217, 179, 0.3);
+  transition: all 0.3s ease;
+}
+
+.topic-tag-large:hover {
+  background: rgba(113, 217, 179, 0.25);
+  transform: translateY(-2px);
+}
+
+/* Modal README */
+.modal-readme {
+  margin-bottom: 2rem;
+}
+
+.modal-readme h3 {
+  color: white;
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.readme-content {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 1.5rem;
+  border-radius: 12px;
+  color: #AED8F2;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 /* Modal Footer */
@@ -778,41 +1040,53 @@ h2 {
   display: flex;
   justify-content: flex-end;
   gap: 1rem;
+  background: rgba(255, 255, 255, 0.02);
 }
 
 /* Modal Buttons */
-.modal-button {
-  padding: 0.8rem 1.5rem;
-  border-radius: 6px;
-  font-size: 1rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s ease;
+.modal-btn {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-}
-
-.modal-button.primary {
-  background: linear-gradient(135deg, #806FBF, #71D9B3);
-  color: #fff;
-  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
   text-decoration: none;
+  border: none;
 }
 
-.modal-button.primary:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 5px 15px rgba(113, 217, 179, 0.4);
+.modal-btn.primary {
+  background: linear-gradient(135deg, #806FBF, #71D9B3);
+  color: white;
 }
 
-.modal-button.secondary {
+.modal-btn.primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(113, 217, 179, 0.3);
+}
+
+.modal-btn.secondary {
   background: transparent;
-  border: 1px solid rgba(174, 216, 242, 0.3);
   color: #AED8F2;
+  border: 1px solid rgba(174, 216, 242, 0.3);
 }
 
-.modal-button.secondary:hover {
+.modal-btn.secondary:hover {
   background: rgba(174, 216, 242, 0.1);
+  border-color: rgba(174, 216, 242, 0.5);
+}
+
+.modal-btn.tertiary {
+  background: rgba(255, 255, 255, 0.1);
+  color: #AED8F2;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.modal-btn.tertiary:hover {
+  background: rgba(255, 255, 255, 0.15);
 }
 
 /* Animations */
