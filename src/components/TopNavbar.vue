@@ -1,21 +1,50 @@
 <template>
-  <header>
+  <header :class="{ 'scrolled': isScrolled }">
     <nav>
       <div class="nav-container">
         <div class="brand">
           <router-link to="/">
-            <span class="brand-text">ELI DOLNEY</span>
+            <div class="brand-content">
+              <i class="fas fa-code brand-icon"></i>
+              <span class="brand-text">ELI DOLNEY</span>
+            </div>
           </router-link>
         </div>
+        
         <div class="nav-links" :class="{ open: isOpen }">
           <div class="nav-links-container">
-            <router-link to="/" @click="closeMenu">Home</router-link>
-            <router-link to="/about" @click="closeMenu">About</router-link>
-            <router-link to="/projects" @click="closeMenu">Projects</router-link>
-            <router-link to="/contact" @click="closeMenu">Contact</router-link>
-            <router-link to="/charts" @click="closeMenu">Charts</router-link>
+            <router-link to="/" @click="closeMenu" class="nav-item">
+              <i class="fas fa-home"></i>
+              <span>Home</span>
+            </router-link>
+            <router-link to="/about" @click="closeMenu" class="nav-item">
+              <i class="fas fa-user"></i>
+              <span>About</span>
+            </router-link>
+            <router-link to="/projects" @click="closeMenu" class="nav-item">
+              <i class="fas fa-folder"></i>
+              <span>Projects</span>
+            </router-link>
+            <router-link to="/contact" @click="closeMenu" class="nav-item">
+              <i class="fas fa-envelope"></i>
+              <span>Contact</span>
+            </router-link>
+            <router-link to="/charts" @click="closeMenu" class="nav-item">
+              <i class="fas fa-chart-line"></i>
+              <span>Charts</span>
+            </router-link>
           </div>
         </div>
+        
+        <div class="nav-actions">
+          <a href="https://github.com/Eli-Dolney" target="_blank" class="social-link" aria-label="GitHub">
+            <i class="fab fa-github"></i>
+          </a>
+          <a href="https://linkedin.com/in/eli-dolney-415166161" target="_blank" class="social-link" aria-label="LinkedIn">
+            <i class="fab fa-linkedin"></i>
+          </a>
+        </div>
+        
         <div class="hamburger" :class="{ open: isOpen }" @click="toggleMenu" aria-label="Toggle menu">
           <span></span>
           <span></span>
@@ -32,6 +61,7 @@ export default {
   data() {
     return {
       isOpen: false,
+      isScrolled: false,
     };
   },
   methods: {
@@ -46,6 +76,9 @@ export default {
     },
   },
   mounted() {
+    // Scroll detection
+    window.addEventListener('scroll', this.handleScroll);
+    
     // Close menu when clicking outside
     document.addEventListener('click', (event) => {
       const navLinks = document.querySelector('.nav-links');
@@ -68,8 +101,23 @@ export default {
       }
     });
   },
+  methods: {
+    toggleMenu() {
+      this.isOpen = !this.isOpen;
+      // Prevent scrolling when menu is open
+      document.body.style.overflow = this.isOpen ? 'hidden' : '';
+    },
+    closeMenu() {
+      this.isOpen = false;
+      document.body.style.overflow = '';
+    },
+    handleScroll() {
+      this.isScrolled = window.scrollY > 50;
+    },
+  },
   beforeUnmount() {
     // Clean up event listeners
+    window.removeEventListener('scroll', this.handleScroll);
     document.removeEventListener('click', this.closeMenu);
     window.removeEventListener('resize', this.closeMenu);
   }
@@ -78,16 +126,24 @@ export default {
 
 <style scoped>
 header {
-  background: linear-gradient(to right, #0D0D0D 0%, #1a1a1a 100%);
+  background: rgba(13, 13, 13, 0.8);
   color: #fff;
-  padding: 1.2rem 0;
+  padding: 1rem 0;
   position: fixed;
   width: 100%;
   top: 0;
   left: 0;
   z-index: 1000;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+header.scrolled {
+  background: rgba(13, 13, 13, 0.95);
+  padding: 0.8rem 0;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  border-bottom: 1px solid rgba(113, 217, 179, 0.2);
 }
 
 .nav-container {
@@ -97,6 +153,7 @@ header {
   justify-content: space-between;
   align-items: center;
   padding: 0 2rem;
+  flex-wrap: nowrap;
 }
 
 .brand {
@@ -111,10 +168,23 @@ header {
   position: relative;
 }
 
+.brand-content {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  transition: all 0.3s ease;
+}
+
+.brand-icon {
+  font-size: 1.3rem;
+  color: #71D9B3;
+  transition: all 0.3s ease;
+}
+
 .brand-text {
-  font-size: 1.8rem;
+  font-size: 1.4rem;
   font-weight: 700;
-  letter-spacing: 1.5px;
+  letter-spacing: 1.2px;
   background: linear-gradient(135deg, #71D9B3 0%, #4D208C 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -123,31 +193,52 @@ header {
   transition: all 0.3s ease;
 }
 
-.brand-text:hover {
+.brand-content:hover {
   transform: translateY(-2px);
+}
+
+.brand-content:hover .brand-icon {
+  transform: rotate(15deg);
+  color: #4D208C;
+}
+
+.brand-content:hover .brand-text {
   text-shadow: 0 10px 15px rgba(77, 32, 140, 0.4);
 }
 
 .nav-links {
   display: flex; 
-  justify-content: flex-end;
+  justify-content: center;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.3rem;
+  flex-direction: row;
+  flex-wrap: nowrap;
 }
 
-.nav-links a {
+.nav-item {
   color: #fff;
   text-decoration: none;
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: 500;
-  padding: 0.6rem 1.2rem;
-  border-radius: 4px;
+  padding: 0.5rem 0.8rem;
+  border-radius: 6px;
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid transparent;
+  white-space: nowrap;
 }
 
-.nav-links a::before {
+.nav-item i {
+  font-size: 0.8rem;
+  transition: all 0.3s ease;
+}
+
+.nav-item::before {
   content: '';
   position: absolute;
   bottom: 0;
@@ -160,25 +251,91 @@ header {
   transition: transform 0.3s ease;
 }
 
-.nav-links a:hover {
+.nav-item:hover {
   color: #71D9B3;
-  background-color: rgba(255, 255, 255, 0.05);
+  background: rgba(113, 217, 179, 0.1);
+  border-color: rgba(113, 217, 179, 0.3);
+  transform: translateY(-2px);
 }
 
-.nav-links a:hover::before {
+.nav-item:hover i {
+  transform: scale(1.1);
+}
+
+.nav-item:hover::before {
   transform: scaleX(1);
   transform-origin: left;
 }
 
-.nav-links a.router-link-exact-active,
-.nav-links a.router-link-active {
+.nav-item.router-link-exact-active,
+.nav-item.router-link-active {
   color: #71D9B3;
-  background-color: rgba(113, 217, 179, 0.1);
+  background: rgba(113, 217, 179, 0.15);
+  border-color: rgba(113, 217, 179, 0.5);
+  box-shadow: 0 4px 12px rgba(113, 217, 179, 0.2);
 }
 
-.nav-links a.router-link-exact-active::before,
-.nav-links a.router-link-active::before {
+.nav-item.router-link-exact-active::before,
+.nav-item.router-link-active::before {
   transform: scaleX(1);
+}
+
+.nav-item.router-link-exact-active i,
+.nav-item.router-link-active i {
+  transform: scale(1.1);
+}
+
+/* Social Links */
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-left: 1.5rem;
+}
+
+.social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  color: #AED8F2;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.social-link::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(113, 217, 179, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.social-link:hover::before {
+  left: 100%;
+}
+
+.social-link:hover {
+  background: rgba(113, 217, 179, 0.1);
+  color: #71D9B3;
+  border-color: rgba(113, 217, 179, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(113, 217, 179, 0.2);
+}
+
+.social-link i {
+  font-size: 1rem;
+  position: relative;
+  z-index: 1;
 }
 
 .hamburger {
@@ -226,6 +383,10 @@ header {
     font-size: 1.5rem;
   }
 
+  .nav-actions {
+    display: none;
+  }
+
   .hamburger {
     display: flex;
   }
@@ -235,13 +396,12 @@ header {
     top: 0;
     left: 0;
     right: 0;
-    bottom: 0;
     width: 100vw;
-    height: 100vh;
+    height: auto;
     background: rgba(10, 10, 10, 0.98);
     backdrop-filter: blur(10px);
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
     transform: translateY(-100%);
@@ -249,17 +409,19 @@ header {
     visibility: hidden;
     transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
     z-index: 1000;
+    padding: 1rem 0;
   }
   
   .nav-links-container {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 100%;
-    padding: 10vh 0;
-    overflow-y: auto;
+    height: auto;
+    padding: 0 1rem;
+    overflow-x: auto;
+    gap: 0.5rem;
   }
 
   .nav-links.open {
@@ -268,28 +430,30 @@ header {
     visibility: visible;
   }
 
-  .nav-links a {
-    font-size: 1.6rem;
+  .nav-item {
+    font-size: 0.9rem;
     font-weight: 600;
-    padding: 1.2rem 0;
-    width: 80%;
-    max-width: 320px;
+    padding: 0.5rem 0.8rem;
+    width: auto;
+    max-width: none;
     text-align: center;
     color: #ffffff;
     border: 1px solid rgba(113, 217, 179, 0.4);
     background: rgba(20, 20, 20, 0.8);
-    margin: 0.8rem 0;
+    margin: 0;
     opacity: 0;
     transform: translateY(20px);
-    border-radius: 12px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
     position: relative;
     overflow: hidden;
+    justify-content: center;
+    white-space: nowrap;
   }
   
-  .nav-links a::after {
+  .nav-item::after {
     content: '';
     position: absolute;
     left: 0;
@@ -302,8 +466,8 @@ header {
     transition: transform 0.4s ease;
   }
   
-  .nav-links a:hover::after,
-  .nav-links a.router-link-active::after {
+  .nav-item:hover::after,
+  .nav-item.router-link-active::after {
     transform: scaleX(1);
   }
   
@@ -317,11 +481,11 @@ header {
   .nav-links.open a:nth-child(4) { animation-delay: 0.4s; }
   .nav-links.open a:nth-child(5) { animation-delay: 0.5s; }
 
-  .nav-links a:hover, 
-  .nav-links a.router-link-active {
+  .nav-item:hover, 
+  .nav-item.router-link-active {
     background: rgba(113, 217, 179, 0.15);
-    transform: translateY(-3px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
     border-color: rgba(113, 217, 179, 0.7);
     color: #7EEDC3;
   }
@@ -339,6 +503,58 @@ header {
   }
 }
 
+/* Desktop styles - ensure horizontal layout */
+@media (min-width: 769px) {
+  .nav-links {
+    position: static !important;
+    width: auto !important;
+    height: auto !important;
+    background: transparent !important;
+    backdrop-filter: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    flex-direction: row !important;
+    padding: 0 !important;
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    gap: 0.3rem;
+    flex-wrap: nowrap;
+  }
+  
+  .nav-links-container {
+    flex-direction: row !important;
+    width: auto !important;
+    height: auto !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    gap: 0.3rem !important;
+    display: flex;
+  }
+  
+  .nav-item {
+    font-size: 0.9rem !important;
+    padding: 0.5rem 0.8rem !important;
+    width: auto !important;
+    max-width: none !important;
+    margin: 0 !important;
+    opacity: 1 !important;
+    transform: none !important;
+    border-radius: 6px !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    letter-spacing: normal !important;
+    background: rgba(255, 255, 255, 0.02) !important;
+    border: 1px solid transparent !important;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    white-space: nowrap;
+  }
+}
+
 /* Small mobile devices */
 @media (max-width: 480px) {
   .nav-container {
@@ -349,11 +565,16 @@ header {
     font-size: 1.3rem;
   }
   
-  .nav-links a {
-    width: 85%;
-    font-size: 1.4rem;
-    padding: 1rem 0;
-    margin: 0.6rem 0;
+  .nav-item {
+    width: auto;
+    font-size: 0.8rem;
+    padding: 0.4rem 0.6rem;
+    margin: 0;
+  }
+  
+  .nav-links-container {
+    gap: 0.3rem;
+    padding: 0 0.5rem;
   }
 }
 </style>

@@ -2,9 +2,40 @@
   <section id="contact">
     <div class="contact-section-wrapper" ref="sectionWrapper">
       <div class="section-header">
-        <h2>Get in Touch</h2>
+        <h2>Let's Connect</h2>
         <div class="underline"></div>
-        <p>Feel free to reach out via any of the platforms below!</p>
+        <p>Ready to collaborate on your next project? I'm always excited to discuss new opportunities and innovative ideas.</p>
+      </div>
+
+      <!-- Contact Stats -->
+      <div class="contact-stats">
+        <div class="stat-item">
+          <div class="stat-icon">
+            <i class="fas fa-clock"></i>
+          </div>
+          <div class="stat-content">
+            <h3>Response Time</h3>
+            <p>Within 24 hours</p>
+          </div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-icon">
+            <i class="fas fa-globe"></i>
+          </div>
+          <div class="stat-content">
+            <h3>Location</h3>
+            <p>Minnesota, USA</p>
+          </div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-icon">
+            <i class="fas fa-calendar-check"></i>
+          </div>
+          <div class="stat-content">
+            <h3>Availability</h3>
+            <p>Open to opportunities</p>
+          </div>
+        </div>
       </div>
 
       <div class="contact-grid">
@@ -13,47 +44,104 @@
           :key="index" 
           class="contact-card"
           :style="{ animationDelay: `${index * 0.15}s` }"
+          @click="handleContactClick(contact)"
         >
           <div class="card-content">
             <div class="icon-container">
-              <font-awesome-icon :icon="contact.icon" size="3x" />
+              <i :class="contact.icon"></i>
             </div>
             <h3>{{ contact.name }}</h3>
+            <p class="contact-description">{{ contact.description }}</p>
             <a 
               :href="contact.link" 
               target="_blank" 
               class="contact-link"
               :aria-label="`Connect with me on ${contact.name}`"
             >
-              Connect
-              <font-awesome-icon :icon="['fas', 'arrow-right']" />
+              <span>{{ contact.action }}</span>
+              <i class="fas fa-arrow-right"></i>
             </a>
           </div>
+          <div class="card-overlay"></div>
         </div>
       </div>
 
       <div class="contact-form">
-        <h3>Send a Message</h3>
+        <div class="form-header">
+          <h3>Send a Message</h3>
+          <p>Have a project in mind? Let's discuss how we can bring your ideas to life.</p>
+        </div>
         <form @submit.prevent="submitForm">
-          <div class="form-group">
-            <label for="name">Name</label>
-            <input type="text" id="name" v-model="form.name" required>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="name">Name *</label>
+              <input 
+                type="text" 
+                id="name" 
+                v-model="form.name" 
+                required
+                placeholder="Your full name"
+              >
+            </div>
+            <div class="form-group">
+              <label for="email">Email *</label>
+              <input 
+                type="email" 
+                id="email" 
+                v-model="form.email" 
+                required
+                placeholder="your.email@example.com"
+              >
+            </div>
           </div>
           <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" id="email" v-model="form.email" required>
+            <label for="subject">Subject</label>
+            <input 
+              type="text" 
+              id="subject" 
+              v-model="form.subject" 
+              placeholder="What's this about?"
+            >
           </div>
           <div class="form-group">
-            <label for="message">Message</label>
-            <textarea id="message" v-model="form.message" rows="5" required></textarea>
+            <label for="message">Message *</label>
+            <textarea 
+              id="message" 
+              v-model="form.message" 
+              rows="6" 
+              required
+              placeholder="Tell me about your project or how I can help..."
+            ></textarea>
           </div>
           <button type="submit" class="submit-btn" :disabled="isSubmitting">
-            <span v-if="!isSubmitting">Send Message</span>
-            <span v-else class="spinner"></span>
+            <span v-if="!isSubmitting">
+              <i class="fas fa-paper-plane"></i>
+              Send Message
+            </span>
+            <span v-else class="loading-content">
+              <div class="spinner"></div>
+              Sending...
+            </span>
           </button>
         </form>
         <div v-if="formStatus" :class="['form-status', formStatus.type]">
-          {{ formStatus.message }}
+          <i :class="formStatus.icon"></i>
+          <span>{{ formStatus.message }}</span>
+        </div>
+      </div>
+
+      <!-- Footer Note -->
+      <div class="footer-note">
+        <p>Thanks for visiting my portfolio! Feel free to reach out for collaborations, questions, or just to say hello.</p>
+        <div class="footer-links">
+          <a href="https://github.com/Eli-Dolney" target="_blank">
+            <i class="fab fa-github"></i>
+            View my work on GitHub
+          </a>
+          <a href="https://linkedin.com/in/eli-dolney-415166161" target="_blank">
+            <i class="fab fa-linkedin"></i>
+            Connect on LinkedIn
+          </a>
         </div>
       </div>
     </div>
@@ -66,14 +154,39 @@ export default {
   data() {
     return {
       contacts: [
-        { name: 'Email', link: 'mailto:elid3dev@gmail.com', icon: ['fas', 'envelope'] },
-        { name: 'GitHub', link: 'https://bit.ly/Github-Eli', icon: ['fab', 'github'] },
-        { name: 'LinkedIn', link: 'https://bit.ly/Linkedin-Eli', icon: ['fab', 'linkedin'] },
-        { name: 'Instagram', link: 'https://bit.ly/Insta-Eli', icon: ['fab', 'instagram'] },
+        { 
+          name: 'Email', 
+          link: 'mailto:elid3dev@gmail.com', 
+          icon: 'fas fa-envelope',
+          description: 'Direct communication for projects and collaborations',
+          action: 'Send Email'
+        },
+        { 
+          name: 'GitHub', 
+          link: 'https://github.com/Eli-Dolney', 
+          icon: 'fab fa-github',
+          description: 'Explore my code and open-source contributions',
+          action: 'View Profile'
+        },
+        { 
+          name: 'LinkedIn', 
+          link: 'https://linkedin.com/in/eli-dolney-415166161', 
+          icon: 'fab fa-linkedin',
+          description: 'Professional network and career opportunities',
+          action: 'Connect'
+        },
+        { 
+          name: 'Instagram', 
+          link: 'https://instagram.com/e.dolney', 
+          icon: 'fab fa-instagram',
+          description: 'Behind-the-scenes and personal updates',
+          action: 'Follow'
+        },
       ],
       form: {
         name: '',
         email: '',
+        subject: '',
         message: ''
       },
       isSubmitting: false,
@@ -101,6 +214,15 @@ export default {
     cards.forEach(card => observer.observe(card));
   },
   methods: {
+    handleContactClick(contact) {
+      // Add click animation
+      const card = event.currentTarget;
+      card.style.transform = 'scale(0.95)';
+      setTimeout(() => {
+        card.style.transform = '';
+      }, 150);
+    },
+    
     submitForm() {
       this.isSubmitting = true;
       this.formStatus = null;
@@ -113,13 +235,15 @@ export default {
         // Show success message
         this.formStatus = {
           type: 'success',
-          message: 'Your message has been sent! I\'ll get back to you soon.'
+          message: 'Your message has been sent! I\'ll get back to you within 24 hours.',
+          icon: 'fas fa-check-circle'
         };
         
         // Reset form
         this.form = {
           name: '',
           email: '',
+          subject: '',
           message: ''
         };
         
@@ -196,9 +320,60 @@ h2 {
 .section-header p {
   font-size: 1.4rem;
   color: #AED8F2;
-  max-width: 600px;
+  max-width: 700px;
   margin: 0 auto 1rem;
   line-height: 1.6;
+}
+
+/* Contact Stats */
+.contact-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-bottom: 4rem;
+}
+
+.stat-item {
+  background: rgba(26, 30, 38, 0.7);
+  border-radius: 12px;
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.stat-item:hover {
+  transform: translateY(-5px);
+  border-color: rgba(113, 217, 179, 0.3);
+  box-shadow: 0 10px 25px rgba(113, 217, 179, 0.1);
+}
+
+.stat-icon {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #806FBF, #71D9B3);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.5rem;
+}
+
+.stat-content h3 {
+  color: white;
+  font-size: 1.2rem;
+  margin: 0 0 0.5rem 0;
+  font-weight: 600;
+}
+
+.stat-content p {
+  color: #AED8F2;
+  margin: 0;
+  font-size: 1rem;
 }
 
 /* Contact grid for social/contact links */
@@ -212,15 +387,15 @@ h2 {
 /* Individual contact cards */
 .contact-card {
   background: rgba(26, 30, 38, 0.7);
-  border-radius: 12px;
+  border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
-  height: 220px;
+  height: 280px;
   position: relative;
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
-              box-shadow 0.4s ease;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  cursor: pointer;
   
   /* Staggered animation start state */
   opacity: 0;
@@ -236,6 +411,23 @@ h2 {
 .contact-card:hover {
   transform: translateY(-10px);
   box-shadow: 0 15px 35px rgba(113, 217, 179, 0.2);
+  border-color: rgba(113, 217, 179, 0.3);
+}
+
+.card-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(113, 217, 179, 0.1), rgba(128, 111, 191, 0.1));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.contact-card:hover .card-overlay {
+  opacity: 1;
 }
 
 .card-content {
@@ -263,6 +455,10 @@ h2 {
   transition: all 0.3s ease;
 }
 
+.icon-container i {
+  font-size: 1.8rem;
+}
+
 .contact-card:hover .icon-container {
   background: rgba(113, 217, 179, 0.2);
   transform: scale(1.1);
@@ -273,8 +469,17 @@ h2 {
 .contact-card h3 {
   color: #fff;
   font-size: 1.4rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0.8rem;
   font-weight: 600;
+}
+
+.contact-description {
+  color: #AED8F2;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  flex-grow: 1;
 }
 
 /* Contact link button */
@@ -318,22 +523,41 @@ h2 {
 
 /* Contact form styling */
 .contact-form {
-  max-width: 700px;
+  max-width: 800px;
   margin: 0 auto;
   background: rgba(26, 30, 38, 0.7);
-  border-radius: 12px;
-  padding: 2.5rem;
+  border-radius: 16px;
+  padding: 3rem;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.contact-form h3 {
-  color: #fff;
-  font-size: 1.8rem;
-  margin-bottom: 1.5rem;
+.form-header {
   text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.form-header h3 {
+  color: #fff;
+  font-size: 2rem;
+  margin-bottom: 1rem;
   font-weight: 600;
+}
+
+.form-header p {
+  color: #AED8F2;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
 }
 
 .form-group {
@@ -345,41 +569,53 @@ h2 {
   color: #AED8F2;
   margin-bottom: 0.5rem;
   font-size: 1rem;
+  font-weight: 500;
 }
 
 .form-group input,
 .form-group textarea {
   width: 100%;
-  padding: 0.8rem 1rem;
-  background: rgba(255, 255, 255, 0.07);
+  padding: 1rem 1.2rem;
+  background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(174, 216, 242, 0.2);
-  border-radius: 8px;
+  border-radius: 10px;
   color: #fff;
   font-size: 1rem;
   transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: rgba(174, 216, 242, 0.5);
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
   outline: none;
   border-color: #71D9B3;
-  box-shadow: 0 0 0 2px rgba(113, 217, 179, 0.2);
+  box-shadow: 0 0 0 3px rgba(113, 217, 179, 0.1);
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .submit-btn {
   display: block;
   width: 100%;
-  padding: 1rem;
+  padding: 1.2rem;
   background: linear-gradient(135deg, #4D208C, #71D9B3);
   color: #fff;
   border: none;
-  border-radius: 8px;
+  border-radius: 12px;
   font-size: 1.1rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
 }
 
 .submit-btn:hover {
@@ -391,6 +627,12 @@ h2 {
   opacity: 0.7;
   cursor: not-allowed;
   transform: none;
+}
+
+.loading-content {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
 }
 
 /* Loading spinner */
@@ -411,21 +653,74 @@ h2 {
 /* Form status messages */
 .form-status {
   margin-top: 1.5rem;
-  padding: 1rem;
-  border-radius: 8px;
+  padding: 1.2rem;
+  border-radius: 10px;
   text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  font-weight: 500;
 }
 
 .form-status.success {
-  background: rgba(113, 217, 179, 0.2);
+  background: rgba(113, 217, 179, 0.15);
   color: #71D9B3;
   border: 1px solid rgba(113, 217, 179, 0.3);
 }
 
 .form-status.error {
-  background: rgba(255, 99, 71, 0.2);
+  background: rgba(255, 99, 71, 0.15);
   color: tomato;
   border: 1px solid rgba(255, 99, 71, 0.3);
+}
+
+/* Footer Note */
+.footer-note {
+  text-align: center;
+  margin-top: 4rem;
+  padding: 2rem;
+  background: rgba(26, 30, 38, 0.5);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-note p {
+  color: #AED8F2;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.footer-links a {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #71D9B3;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  background: rgba(113, 217, 179, 0.1);
+  border: 1px solid rgba(113, 217, 179, 0.2);
+  transition: all 0.3s ease;
+}
+
+.footer-links a:hover {
+  background: rgba(113, 217, 179, 0.2);
+  border-color: rgba(113, 217, 179, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(113, 217, 179, 0.2);
 }
 
 /* Animation keyframes */
@@ -450,17 +745,37 @@ h2 {
     font-size: 1.2rem;
   }
   
+  .contact-stats {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .stat-item {
+    padding: 1.5rem;
+  }
+  
   .contact-grid {
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 1.5rem;
   }
   
   .contact-card {
-    height: 200px;
+    height: 260px;
   }
   
   .contact-form {
     padding: 2rem 1.5rem;
+  }
+  
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .footer-links {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
   }
 }
 

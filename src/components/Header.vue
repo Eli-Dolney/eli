@@ -13,8 +13,9 @@
         <div class="hero-text">
           <h2 class="hero-subtitle">Network & Technology Security Student</h2>
           <p class="hero-description">
-            Passionate about creating secure, innovative solutions. 
-            Balancing fatherhood, work, and continuous learning in tech.
+            Dedicated to building secure, scalable applications and exploring cutting-edge technologies. 
+            Currently pursuing Network & Technology Security while developing full-stack solutions 
+            and contributing to open-source projects.
           </p>
           <div class="hero-cta">
             <a href="/projects" class="cta-primary">View My Work</a>
@@ -22,20 +23,14 @@
           </div>
         </div>
         
-        <div class="hero-visual">
-          <div class="profile-card">
-            <div class="card-image">
-              <img src="../assets/images/IMG_0455.jpg" alt="Eli Dolney" />
-              <div class="image-overlay"></div>
-            </div>
-            <div class="card-content">
-              <div class="card-badge">
-                <i class="fas fa-code"></i>
-                <span>Developer</span>
+                  <div class="hero-visual">
+            <div class="profile-card">
+              <div class="card-image">
+                <img src="../assets/images/IMG_0455.jpg" alt="Eli Dolney" />
+                <div class="image-overlay"></div>
               </div>
             </div>
           </div>
-        </div>
       </div>
 
       <!-- Scroll indicator -->
@@ -258,34 +253,7 @@ export default {
   );
 }
 
-.card-content {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 2rem;
-  background: linear-gradient(
-    transparent,
-    rgba(0, 0, 0, 0.8)
-  );
-}
 
-.card-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 1rem;
-  background: rgba(255, 255, 255, 0.9);
-  color: #333;
-  border-radius: 20px;
-  font-weight: 600;
-  font-size: 0.9rem;
-  backdrop-filter: blur(10px);
-}
-
-.card-badge i {
-  color: #db2ef2;
-}
 
 /* Scroll indicator */
 .scroll-indicator {
