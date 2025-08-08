@@ -25,6 +25,10 @@
               <i class="fas fa-folder"></i>
               <span>Projects</span>
             </router-link>
+            <router-link to="/blog" @click="closeMenu" class="nav-item">
+              <i class="fas fa-pen"></i>
+              <span>Blog</span>
+            </router-link>
             <router-link to="/contact" @click="closeMenu" class="nav-item">
               <i class="fas fa-envelope"></i>
               <span>Contact</span>

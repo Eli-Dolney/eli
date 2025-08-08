@@ -7,36 +7,7 @@
         <p>Ready to collaborate on your next project? I'm always excited to discuss new opportunities and innovative ideas.</p>
       </div>
 
-      <!-- Contact Stats -->
-      <div class="contact-stats">
-        <div class="stat-item">
-          <div class="stat-icon">
-            <i class="fas fa-clock"></i>
-          </div>
-          <div class="stat-content">
-            <h3>Response Time</h3>
-            <p>Within 24 hours</p>
-          </div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-icon">
-            <i class="fas fa-globe"></i>
-          </div>
-          <div class="stat-content">
-            <h3>Location</h3>
-            <p>Minnesota, USA</p>
-          </div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-icon">
-            <i class="fas fa-calendar-check"></i>
-          </div>
-          <div class="stat-content">
-            <h3>Availability</h3>
-            <p>Open to opportunities</p>
-          </div>
-        </div>
-      </div>
+      
 
       <div class="contact-grid">
         <div 

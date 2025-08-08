@@ -4,13 +4,17 @@ import About from './components/About.vue';
 import Projects from './components/Projects.vue';
 import Contact from './components/Contact.vue';
 import StockCharts from './components/StockCharts.vue'; // Import the StockCharts component
+import Blog from './components/Blog.vue';
+import BlogPost from './components/BlogPost.vue';
 
 const routes = [
   { path: '/', component: Home },
   { path: '/about', component: About },
   { path: '/projects', component: Projects },
   { path: '/contact', component: Contact },
-  { path: '/charts', component: StockCharts } // Add the StockCharts route
+  { path: '/charts', component: StockCharts }, // Add the StockCharts route
+  { path: '/blog', component: Blog },
+  { path: '/blog/:slug', component: BlogPost }
 ];
 
 const router = createRouter({

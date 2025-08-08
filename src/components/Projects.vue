@@ -137,6 +137,38 @@
           </div>
         </div>
       </div>
+
+      <!-- Working On Section -->
+      <div class="working-on">
+        <h3 class="working-title">
+          <i class="fas fa-hammer"></i>
+          Currently Working On
+        </h3>
+        <div class="working-grid">
+          <div 
+            v-for="item in workingOn" 
+            :key="item.id" 
+            class="work-card"
+          >
+            <div class="work-header">
+              <div class="work-icon"><i class="fas fa-download"></i></div>
+              <div>
+                <h4>{{ item.name }}</h4>
+                <p class="work-desc">{{ item.description }}</p>
+              </div>
+            </div>
+            <div class="work-meta">
+              <span class="badge inprogress">{{ item.status }}</span>
+              <div class="stack">
+                <span v-for="tech in item.stack" :key="tech" class="tech">{{ tech }}</span>
+              </div>
+            </div>
+            <div class="progress">
+              <div class="bar" :style="{ width: item.percent + '%' }"></div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- Enhanced Project Modal -->
@@ -250,88 +282,72 @@ export default {
       projects: [
         {
           id: 1,
-          name: 'stock',
-          description: 'Python script to get stock data and charts with real-time market analysis and visualization tools.',
-          language: 'Python',
-          htmlUrl: 'https://github.com/Eli-Dolney/stock',
-          homepage: null,
-          stars: 1,
-          forks: 0,
-          watchers: 1,
-          size: 45,
-          topics: ['python', 'stock-analysis', 'data-visualization', 'finance'],
-          createdAt: '2024-01-15T10:30:00Z',
-          updatedAt: '2024-12-20T14:22:00Z',
-          readme: 'A comprehensive stock analysis tool built with Python. Features include real-time data fetching, technical indicators, and interactive charts.'
-        },
-        {
-          id: 2,
-          name: 'eli',
-          description: 'Personal portfolio website built with Vue.js showcasing my projects and skills.',
-          language: 'Vue',
-          htmlUrl: 'https://github.com/Eli-Dolney/eli',
-          homepage: 'https://elidolney.dev/',
-          stars: 0,
-          forks: 0,
-          watchers: 1,
-          size: 1250,
-          topics: ['vue', 'portfolio', 'personal-website', 'frontend'],
-          createdAt: '2024-02-10T09:15:00Z',
-          updatedAt: '2024-12-25T16:45:00Z',
-          readme: 'My personal portfolio website built with Vue.js. Features a modern design, responsive layout, and showcases my projects and skills.'
-        },
-        {
-          id: 3,
           name: 'keyboardkombat',
-          description: 'Interactive typing game built with JavaScript to improve typing speed and accuracy.',
+          description: 'Typing game I built for me and my daughter to practice speed and accuracy.',
           language: 'JavaScript',
           htmlUrl: 'https://github.com/Eli-Dolney/keyboardkombat',
           homepage: null,
           stars: 0,
           forks: 0,
           watchers: 1,
-          size: 89,
-          topics: ['javascript', 'typing-game', 'web-game', 'interactive'],
+          size: 120,
+          topics: ['javascript', 'game', 'typing', 'learning'],
           createdAt: '2024-03-05T11:20:00Z',
           updatedAt: '2024-11-18T13:30:00Z',
-          readme: 'A fun typing game that helps users improve their typing speed and accuracy. Features multiple difficulty levels and real-time feedback.'
+          readme: 'Fun practice game with levels and real-time feedback.'
+        },
+        {
+          id: 2,
+          name: 'eli',
+          description: 'Personal website/portfolio (this site) built with Vue and Vite.',
+          language: 'Vue',
+          htmlUrl: 'https://github.com/Eli-Dolney/eli',
+          homepage: 'https://elidolney.dev/',
+          stars: 0,
+          forks: 0,
+          watchers: 1,
+          size: 1300,
+          topics: ['vue', 'portfolio', 'vite', 'frontend'],
+          createdAt: '2024-02-10T09:15:00Z',
+          updatedAt: '2025-01-01T10:00:00Z',
+          readme: 'Responsive, modern portfolio showcasing projects and videos.'
+        },
+        {
+          id: 3,
+          name: 'Meta-Horizons-Custom-Scripts',
+          description: 'Custom Meta Horizon Worlds scripts for gameplay systems and utilities.',
+          language: 'TypeScript',
+          htmlUrl: 'https://github.com/Eli-Dolney/Meta-Horizons-Custom-Scripts',
+          homepage: null,
+          stars: 0,
+          forks: 0,
+          watchers: 0,
+          size: 900,
+          topics: ['horizon-worlds', 'metaverse', 'scripts', 'typescript'],
+          createdAt: '2024-08-01T00:00:00Z',
+          updatedAt: '2024-12-28T00:00:00Z',
+          readme: 'A collection of reusable Horizon Worlds scripts and utilities.'
         },
         {
           id: 4,
-          name: 'Svelte',
-          description: 'Svelte Link Tree clone with modern UI and customizable themes.',
-          language: 'Svelte',
-          htmlUrl: 'https://github.com/Eli-Dolney/Svelte',
+          name: 'NorthStarAssistance',
+          description: 'PCA agency website V1.',
+          language: 'Vue',
+          htmlUrl: 'https://github.com/Eli-Dolney/NorthStarAssistance',
           homepage: null,
           stars: 0,
           forks: 0,
-          watchers: 1,
-          size: 234,
-          topics: ['svelte', 'linktree', 'social-links', 'modern-ui'],
-          createdAt: '2024-04-12T15:45:00Z',
-          updatedAt: '2024-10-30T10:15:00Z',
-          readme: 'A modern Link Tree clone built with Svelte. Features customizable themes, analytics, and a clean, responsive design.'
+          watchers: 0,
+          size: 300,
+          topics: ['vue', 'website', 'pca'],
+          createdAt: '2024-09-01T00:00:00Z',
+          updatedAt: '2024-12-12T00:00:00Z',
+          readme: 'Initial version for an agency website with clean, accessible UI.'
         },
         {
           id: 5,
-          name: 'Coin',
-          description: 'Cryptocurrency tracking application built with Vue.js and real-time price data.',
-          language: 'Vue',
-          htmlUrl: 'https://github.com/Eli-Dolney/Coin',
-          homepage: null,
-          stars: 0,
-          forks: 0,
-          watchers: 1,
-          size: 567,
-          topics: ['vue', 'cryptocurrency', 'crypto-tracking', 'real-time-data'],
-          createdAt: '2024-05-20T08:30:00Z',
-          updatedAt: '2024-12-15T12:20:00Z',
-          readme: 'A cryptocurrency tracking application that displays real-time prices, market data, and portfolio management features.'
-        },
-        {
-          id: 6,
           name: 'network_scanner',
-          description: 'Python network scanner for discovering devices and analyzing network topology.',
+          description: 'Network scanner in Python.',
           language: 'Python',
           htmlUrl: 'https://github.com/Eli-Dolney/network_scanner',
           homepage: null,
@@ -339,26 +355,68 @@ export default {
           forks: 0,
           watchers: 1,
           size: 78,
-          topics: ['python', 'network-scanner', 'network-analysis', 'security'],
+          topics: ['python', 'network', 'scanner', 'security'],
           createdAt: '2024-06-08T14:20:00Z',
           updatedAt: '2024-12-22T09:45:00Z',
-          readme: 'A comprehensive network scanner built with Python. Features device discovery, port scanning, and network topology analysis.'
+          readme: 'Device discovery, port scanning, and simple topology info.'
         },
         {
-          id: 7,
-          name: 'expense-tracker',
-          description: 'Personal expense tracking application with budgeting and financial analysis features.',
-          language: 'Python',
-          htmlUrl: 'https://github.com/Eli-Dolney/expense-tracker',
+          id: 6,
+          name: 'Coin',
+          description: 'Sili Seal cryptocurrency website (UI + basics).',
+          language: 'Vue',
+          htmlUrl: 'https://github.com/Eli-Dolney/Coin',
           homepage: null,
           stars: 0,
           forks: 0,
           watchers: 1,
-          size: 156,
-          topics: ['python', 'expense-tracker', 'budgeting', 'finance'],
-          createdAt: '2024-07-15T16:10:00Z',
-          updatedAt: '2024-12-10T11:30:00Z',
-          readme: 'A personal expense tracking application that helps users manage their finances with budgeting features and financial analysis.'
+          size: 567,
+          topics: ['vue', 'crypto', 'website'],
+          createdAt: '2024-05-20T08:30:00Z',
+          updatedAt: '2024-12-15T12:20:00Z',
+          readme: 'Marketing site and simple dashboard for a token concept.'
+        },
+        {
+          id: 7,
+          name: 'myFirstDatabase',
+          description: 'My first Python database project.',
+          language: 'Python',
+          htmlUrl: 'https://github.com/Eli-Dolney/myFirstDatabase',
+          homepage: null,
+          stars: 0,
+          forks: 0,
+          watchers: 0,
+          size: 100,
+          topics: ['python', 'database', 'learning'],
+          createdAt: '2024-04-01T00:00:00Z',
+          updatedAt: '2024-10-01T00:00:00Z',
+          readme: 'Early DB experiments and CRUD practice.'
+        },
+        {
+          id: 8,
+          name: 'Svelte',
+          description: 'Svelte Link Tree clone (unfinished).',
+          language: 'Svelte',
+          htmlUrl: 'https://github.com/Eli-Dolney/Svelte',
+          homepage: null,
+          stars: 0,
+          forks: 0,
+          watchers: 1,
+          size: 234,
+          topics: ['svelte', 'linktree', 'unfinished'],
+          createdAt: '2024-04-12T15:45:00Z',
+          updatedAt: '2024-10-30T10:15:00Z',
+          readme: 'A modern Link Tree clone with theming — still in progress.'
+        }
+      ],
+      workingOn: [
+        {
+          id: 'downloader',
+          name: 'Downloader',
+          description: 'Cross-platform media/file downloader with queueing and UI.',
+          status: 'In progress',
+          percent: 45,
+          stack: ['Python', 'Vue']
         }
       ],
       githubStats: {
@@ -828,6 +886,95 @@ h2 {
   color: #AED8F2;
   margin: 0;
   font-size: 0.9rem;
+}
+
+/* Working On */
+.working-on {
+  margin-top: 4rem;
+}
+
+.working-title {
+  color: #fff;
+  font-size: 1.6rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 1.25rem;
+}
+
+.working-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.25rem;
+}
+
+.work-card {
+  background: rgba(26, 30, 38, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  padding: 1.25rem;
+}
+
+.work-header {
+  display: flex;
+  gap: 0.9rem;
+  align-items: center;
+}
+
+.work-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #806FBF, #71D9B3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 1.2rem;
+}
+
+.work-desc {
+  color: #AED8F2;
+  margin: 0.25rem 0 0;
+}
+
+.work-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.75rem;
+}
+
+.badge.inprogress {
+  background: rgba(113, 217, 179, 0.15);
+  color: #71D9B3;
+  border: 1px solid rgba(113, 217, 179, 0.35);
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+}
+
+.stack { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+.tech {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #AED8F2;
+  padding: 0.2rem 0.5rem;
+  border-radius: 8px;
+  font-size: 0.75rem;
+}
+
+.progress {
+  margin-top: 0.9rem;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progress .bar {
+  height: 100%;
+  background: linear-gradient(90deg, #806FBF, #71D9B3);
 }
 
 /* Enhanced Modal Styles */

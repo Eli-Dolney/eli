@@ -11,11 +11,9 @@
       <!-- Main hero content -->
       <div class="hero-content">
         <div class="hero-text">
-          <h2 class="hero-subtitle">Network & Technology Security Student</h2>
+          <h2 class="hero-subtitle">Eli Dolney</h2>
           <p class="hero-description">
-            Dedicated to building secure, scalable applications and exploring cutting-edge technologies. 
-            Currently pursuing Network & Technology Security while developing full-stack solutions 
-            and contributing to open-source projects.
+            I’m currently studying Network & Technology Security and love building cool things
           </p>
           <div class="hero-cta">
             <a href="/projects" class="cta-primary">View My Work</a>

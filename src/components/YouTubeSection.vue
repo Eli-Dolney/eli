@@ -17,26 +17,31 @@
             </div>
             <div class="channel-info">
               <h3>@LearningTheWires</h3>
-              <p>Game Development & Tech Tutorials</p>
+              <p>Creating, learning, and sharing in tech</p>
             </div>
           </div>
-          
+
           <div class="card-content">
             <p class="channel-description">
-              Join me on my journey as I learn game development, explore new technologies, 
-              and share insights from my studies in Network & Technology Security.
+              Hi there! Welcome to Learning the Wires – a space where I share my journey, projects, and passions. 
+              Think of this channel as a video-format resume, showcasing my work in Unreal Engine, coding, 3D printing, 
+              and the topics that inspire me. From hands-on projects to thought-provoking discussions, I’m here to explore, 
+              learn, and share what I love with all of you.
+              <br /><br />
+              Whether you’re into creative problem-solving, tech tinkering, or just looking for a spark of inspiration, 
+              I’d love for you to join me on this adventure. Let’s learn, build, and connect—one wire at a time!
             </p>
-            
+
             <div class="featured-content">
-              <h4>Featured Content:</h4>
+              <h4>What you'll find:</h4>
               <ul class="content-list">
-                <li><i class="fas fa-gamepad"></i> Game Development Tutorials</li>
-                <li><i class="fas fa-code"></i> Programming Challenges</li>
-                <li><i class="fas fa-network-wired"></i> Networking Concepts</li>
-                <li><i class="fas fa-shield-alt"></i> Security Fundamentals</li>
+                <li><i class="fas fa-bolt"></i> Strudel live-coding shorts</li>
+                <li><i class="fas fa-cubes"></i> Unreal Engine tutorials</li>
+                <li><i class="fas fa-code"></i> Programming and tooling</li>
+                <li><i class="fas fa-print"></i> 3D printing builds</li>
               </ul>
             </div>
-            
+
             <div class="cta-buttons">
               <a 
                 href="https://www.youtube.com/@LearningTheWires" 
@@ -58,65 +63,74 @@
           </div>
         </div>
 
-        <!-- Game Development Journey Card -->
-        <div class="journey-card">
+        <!-- Featured Videos Card -->
+        <div class="journey-card featured-card">
           <div class="card-header">
             <div class="journey-icon">
-              <i class="fas fa-rocket"></i>
+              <i class="fas fa-play"></i>
             </div>
             <div class="journey-info">
-              <h3>Game Dev Journey</h3>
-              <p>From Concept to Creation</p>
+              <h3>Featured Videos</h3>
+              <p>Curated highlights from the channel</p>
             </div>
           </div>
-          
+
           <div class="card-content">
-            <div class="journey-timeline">
-              <div class="timeline-item">
-                <div class="timeline-marker"></div>
-                <div class="timeline-content">
-                  <h4>Learning Fundamentals</h4>
-                  <p>Mastering C++, game engines, and development workflows</p>
+            <div class="video-group">
+              <h4 class="group-title">Strudel Live Coding Shorts</h4>
+              <div class="video-carousel">
+                <button class="carousel-btn left" @click="scrollTrack('shortsTrack', -1)" aria-label="Scroll left">
+                  <i class="fas fa-chevron-left"></i>
+                </button>
+                <div class="carousel-track" ref="shortsTrack">
+                  <a 
+                    v-for="video in shorts" 
+                    :key="video.id" 
+                    class="mini-video-card" 
+                    :href="video.url" 
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <img class="mini-thumb" :src="getThumb(video.id)" :alt="video.title" />
+                    <span class="badge short">Short</span>
+                    <div class="mini-overlay"></div>
+                    <div class="mini-info">
+                      <h5>{{ video.title }}</h5>
+                    </div>
+                  </a>
                 </div>
-              </div>
-              
-              <div class="timeline-item">
-                <div class="timeline-marker"></div>
-                <div class="timeline-content">
-                  <h4>Building Projects</h4>
-                  <p>Creating games from scratch and documenting the process</p>
-                </div>
-              </div>
-              
-              <div class="timeline-item">
-                <div class="timeline-marker"></div>
-                <div class="timeline-content">
-                  <h4>Sharing Knowledge</h4>
-                  <p>Teaching others through tutorials and live coding sessions</p>
-                </div>
-              </div>
-              
-              <div class="timeline-item">
-                <div class="timeline-marker active"></div>
-                <div class="timeline-content">
-                  <h4>Community Building</h4>
-                  <p>Growing a community of fellow developers and learners</p>
-                </div>
+                <button class="carousel-btn right" @click="scrollTrack('shortsTrack', 1)" aria-label="Scroll right">
+                  <i class="fas fa-chevron-right"></i>
+                </button>
               </div>
             </div>
-            
-            <div class="journey-stats">
-              <div class="stat-item">
-                <span class="stat-number">100+</span>
-                <span class="stat-label">Hours of Content</span>
-              </div>
-              <div class="stat-item">
-                <span class="stat-number">50+</span>
-                <span class="stat-label">Tutorials</span>
-              </div>
-              <div class="stat-item">
-                <span class="stat-number">1000+</span>
-                <span class="stat-label">Community Members</span>
+
+            <div class="video-group">
+              <h4 class="group-title">Popular Unreal Engine Tutorials</h4>
+              <div class="video-carousel">
+                <button class="carousel-btn left" @click="scrollTrack('tutorialsTrack', -1)" aria-label="Scroll left">
+                  <i class="fas fa-chevron-left"></i>
+                </button>
+                <div class="carousel-track" ref="tutorialsTrack">
+                  <a 
+                    v-for="video in tutorials" 
+                    :key="video.id" 
+                    class="mini-video-card" 
+                    :href="video.url" 
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <img class="mini-thumb" :src="getThumb(video.id)" :alt="video.title" />
+                    <span class="badge tutorial">Tutorial</span>
+                    <div class="mini-overlay"></div>
+                    <div class="mini-info">
+                      <h5>{{ video.title }}</h5>
+                    </div>
+                  </a>
+                </div>
+                <button class="carousel-btn right" @click="scrollTrack('tutorialsTrack', 1)" aria-label="Scroll right">
+                  <i class="fas fa-chevron-right"></i>
+                </button>
               </div>
             </div>
           </div>
@@ -138,44 +152,25 @@
         </div>
         
         <div class="video-grid">
-          <div class="video-card">
+          <a 
+            v-for="video in allVideos" 
+            :key="video.id" 
+            class="video-card" 
+            :href="video.url" 
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <div class="video-thumbnail">
+              <img :src="getThumb(video.id)" :alt="video.title" class="thumb-img" />
               <div class="play-overlay">
                 <i class="fas fa-play"></i>
               </div>
             </div>
             <div class="video-info">
-              <h4>Game Development Tutorial #1</h4>
-              <p>Getting started with C++ and game engines</p>
-              <span class="video-duration">15:30</span>
+              <h4>{{ video.title }}</h4>
+              <p>{{ video.subtitle }}</p>
             </div>
-          </div>
-          
-          <div class="video-card">
-            <div class="video-thumbnail">
-              <div class="play-overlay">
-                <i class="fas fa-play"></i>
-              </div>
-            </div>
-            <div class="video-info">
-              <h4>Networking for Games</h4>
-              <p>Understanding multiplayer game architecture</p>
-              <span class="video-duration">22:15</span>
-            </div>
-          </div>
-          
-          <div class="video-card">
-            <div class="video-thumbnail">
-              <div class="play-overlay">
-                <i class="fas fa-play"></i>
-              </div>
-            </div>
-            <div class="video-info">
-              <h4>Security in Game Development</h4>
-              <p>Protecting your games from common vulnerabilities</p>
-              <span class="video-duration">18:45</span>
-            </div>
-          </div>
+          </a>
         </div>
       </div>
     </div>
@@ -184,7 +179,41 @@
 
 <script>
 export default {
-  name: 'YouTubeSection'
+  name: 'YouTubeSection',
+  data() {
+    return {
+      shorts: [
+        { id: 'GiAGvvrKEBQ', url: 'https://youtube.com/shorts/GiAGvvrKEBQ', title: 'Strudel Live Coding #1' },
+        { id: 'brey2y16XO8', url: 'https://youtube.com/shorts/brey2y16XO8', title: 'Strudel Live Coding #2' },
+        { id: 'JVr-RsZOXV8', url: 'https://youtube.com/shorts/JVr-RsZOXV8', title: 'Strudel Live Coding #3' }
+      ],
+      tutorials: [
+        { id: 'uPBHHolkP0c', url: 'https://youtu.be/uPBHHolkP0c', title: 'Unreal Engine Tutorial #1', subtitle: 'Popular tutorial' },
+        { id: 'GVKKDot8SpM', url: 'https://youtu.be/GVKKDot8SpM', title: 'Unreal Engine Tutorial #2', subtitle: 'Popular tutorial' },
+        { id: 'FqkS6Ke0ouE', url: 'https://youtu.be/FqkS6Ke0ouE', title: 'Unreal Engine Tutorial #3', subtitle: 'Popular tutorial' },
+        { id: 'jj0B74qkooM', url: 'https://youtu.be/jj0B74qkooM', title: 'Unreal Engine Tutorial #4', subtitle: 'Popular tutorial' },
+        { id: 'f_nuCzeWFYY', url: 'https://youtu.be/f_nuCzeWFYY', title: 'Unreal Engine Tutorial #5', subtitle: 'Popular tutorial' }
+      ]
+    };
+  },
+  computed: {
+    allVideos() {
+      // Show tutorials first, then shorts
+      return [...this.tutorials, ...this.shorts];
+    }
+  },
+  methods: {
+    getThumb(id) {
+      return `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
+    },
+    scrollTrack(refName, direction) {
+      const track = this.$refs[refName];
+      if (!track) return;
+      const card = track.querySelector('.mini-video-card');
+      const delta = card ? (card.getBoundingClientRect().width + 16) : 240;
+      track.scrollBy({ left: direction * delta, behavior: 'smooth' });
+    }
+  }
 }
 </script>
 
@@ -306,6 +335,125 @@ export default {
 .card-content {
   color: #e0e0e0;
 }
+
+/* Featured videos groups */
+.featured-card { 
+  overflow: hidden; /* keep inner carousel within rounded card */
+}
+.featured-card .video-group {
+  margin-bottom: 1.5rem;
+}
+
+.group-title {
+  color: white;
+  margin: 0 0 0.8rem 0;
+  font-size: 1.05rem;
+}
+
+/* Carousel */
+.video-carousel {
+  position: relative;
+}
+
+.carousel-track {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: clamp(240px, 30vw, 360px);
+  gap: 1rem;
+  overflow-x: auto;
+  padding: 0.25rem 2.25rem 0.75rem; /* room for arrows so last item is fully visible */
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: 2.25rem; /* ensure first/last snap fully in view */
+}
+
+.carousel-track::-webkit-scrollbar {
+  height: 6px;
+}
+.carousel-track::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+}
+
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 36px;
+  width: 36px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(0, 0, 0, 0.25);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 2;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(6px);
+}
+
+.carousel-btn:hover { 
+  transform: translateY(-50%) scale(1.05);
+  border-color: rgba(219, 46, 242, 0.35);
+}
+
+.carousel-btn.left { left: 0.5rem; }
+.carousel-btn.right { right: 0.5rem; }
+
+.mini-video-card {
+  position: relative;
+  display: block;
+  border-radius: 14px;
+  overflow: hidden;
+  scroll-snap-align: start;
+  text-decoration: none;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.03);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+}
+
+.mini-thumb {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  display: block;
+}
+
+.mini-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.55), rgba(0,0,0,0.0) 60%);
+}
+
+.mini-info {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 0.6rem 0.75rem;
+}
+
+.mini-info h5 {
+  margin: 0;
+  color: #fff;
+  font-size: 0.95rem;
+  line-height: 1.2;
+}
+
+.badge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  font-size: 0.7rem;
+  padding: 0.2rem 0.45rem;
+  border-radius: 999px;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+.badge.short { background: linear-gradient(135deg, #8a2be2, #4d208c); }
+.badge.tutorial { background: linear-gradient(135deg, #db2ef2, #5596ff); }
 
 .channel-description {
   line-height: 1.6;
@@ -506,6 +654,15 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.thumb-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.9;
 }
 
 .play-overlay {
